@@ -1,0 +1,13 @@
+public class Walk : ActionPrototype
+{
+    private float horizontal;
+    private float vertical;
+    public override void CheckNormalOperation(WarriorInput warriorInput)
+    {
+        throw new System.NotImplementedException();
+    }
+    public override void CheckSpectralOperation(WarriorInput warriorInput)
+    {
+        throw new System.NotImplementedException();
+    }
+}
