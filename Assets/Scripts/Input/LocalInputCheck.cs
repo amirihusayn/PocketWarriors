@@ -3,7 +3,7 @@ public class LocalInputCheck : MonoBehaviour
 {
     // Fields
     private ActionContainer actionContainer;
-    private WarriorInput warriorInput;
+    private InputPrototype warriorInput;
 
     private void Start() 
     {

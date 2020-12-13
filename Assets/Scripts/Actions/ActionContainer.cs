@@ -5,19 +5,19 @@ using System.Linq;
 using System.Reflection;
 using UnityEngine;
 
-public class ActionContainer
+[CreateAssetMenu(fileName = "ActionContainer", menuName = "PocketWarriors/ActionContainer", order = 4)]
+public class ActionContainer : ScriptableObject 
 {
     // Fields
-    private List<ActionPrototype> availableActions;
-    public event Action<WarriorInput> WarriorActionsChecker;
+    [SerializeField] private List<ActionPrototype> availableActions;
+    public event Action<InputPrototype> WarriorActionsChecker;
 
-    // Constructor
-    public ActionContainer()
+
+    // Methods
+    private void Awake()
     {
         InitializeActions();
     }
-
-    // Methods
     private void InitializeActions()
     {
         availableActions = new List<ActionPrototype>();
@@ -32,7 +32,7 @@ public class ActionContainer
             action.Subscribe(this);
         }
     }
-    public void CheckWarriorActions(WarriorInput warriorInput)
+    public void CheckWarriorActions(InputPrototype warriorInput)
     {
         if(WarriorActionsChecker != null)
             WarriorActionsChecker(warriorInput);

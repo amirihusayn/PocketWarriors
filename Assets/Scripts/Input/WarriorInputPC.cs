@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WarriorInputPC : WarriorInput
+public class WarriorInputPC : InputPrototype
 {
     // Constructor
     public WarriorInputPC()

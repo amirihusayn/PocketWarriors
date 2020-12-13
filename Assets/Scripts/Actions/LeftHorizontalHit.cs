@@ -1,10 +1,10 @@
 public class LeftHorizontalHit : ActionPrototype
 {
-    public override void CheckNormalOperation(WarriorInput warriorInput)
+    public override void CheckNormalOperation(InputPrototype warriorInput)
     {
         throw new System.NotImplementedException();
     }
-    public override void CheckSpectralOperation(WarriorInput warriorInput)
+    public override void CheckSpectralOperation(InputPrototype warriorInput)
     {
         throw new System.NotImplementedException();
     }

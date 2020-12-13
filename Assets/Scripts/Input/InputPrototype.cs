@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class WarriorInput 
+public abstract class InputPrototype 
 {
     // Fields
     protected Dictionary<keyTypes , KeyCode> keyDic;

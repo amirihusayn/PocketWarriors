@@ -11,11 +11,11 @@ public abstract class ActionPrototype
     {
         targetActionChecker.WarriorActionsChecker += CheckSpectralOperation;
     }
-    public abstract void CheckNormalOperation(WarriorInput warriorInput);
+    public abstract void CheckNormalOperation(InputPrototype warriorInput);
         /// get warrior animator
         /// get warrior
         /// animation set trigger /// and multiply by animationSpeed(Setfloat = animationSpeed)
-    public abstract void CheckSpectralOperation(WarriorInput warriorInput);
+    public abstract void CheckSpectralOperation(InputPrototype warriorInput);
     /// get warrior animator
     /// animation set trigger /// and multiply by animationSpeed(Setfloat = animationSpeed)
     /// create for exmaple spectral projectile

@@ -2,13 +2,13 @@ using UnityEngine;
 
 public class Jump : ActionPrototype
 {
-    public override void CheckNormalOperation(WarriorInput warriorInput)
+    public override void CheckNormalOperation(InputPrototype warriorInput)
     {
         throw new System.NotImplementedException();
     }
-    public override void CheckSpectralOperation(WarriorInput warriorInput)
+    public override void CheckSpectralOperation(InputPrototype warriorInput)
     {
-        if(Input.GetKeyDown(warriorInput.GetKey(WarriorInput.keyTypes.Jump)))
+        if(Input.GetKeyDown(warriorInput.GetKey(InputPrototype.keyTypes.Jump)))
             Debug.Log("Jumped !");
     }
 }
