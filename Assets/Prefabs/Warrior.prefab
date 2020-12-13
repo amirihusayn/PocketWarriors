@@ -232,8 +232,6 @@ GameObject:
   - component: {fileID: 8571504719122168755}
   - component: {fileID: 7339994916089340030}
   - component: {fileID: 5626762730919491848}
-  - component: {fileID: 1406580601569085994}
-  - component: {fileID: 680549465}
   - component: {fileID: 1030809852014749607}
   m_Layer: 0
   m_Name: Warrior
@@ -365,31 +363,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &1406580601569085994
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8571504719122168748}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 745babe35f1648d47aae742fc238b8e3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &680549465
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8571504719122168748}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f02533f627a9564db392780c4a2e9b1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  warriorAnimator: {fileID: 5626762730919491848}
 --- !u!54 &1030809852014749607
 Rigidbody:
   m_ObjectHideFlags: 0
