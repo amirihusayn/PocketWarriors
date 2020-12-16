@@ -1,22 +1,22 @@
-using System;
 using UnityEngine;
 
 public abstract class ActionPrototype 
 {
     // Fields
     protected static string animationTriggerName;
+    protected bool isNormalOperation;
+    protected bool isSpectralOperation;
     
     // Methods
     public void Subscribe(ActionContainer targetActionChecker)
     {
-        targetActionChecker.WarriorActionsChecker += CheckSpectralOperation;
+        targetActionChecker.WarriorActionsChecker += Check;
     }
-    public abstract void CheckNormalOperation(InputPrototype warriorInput);
-        /// get warrior animator
-        /// get warrior
-        /// animation set trigger /// and multiply by animationSpeed(Setfloat = animationSpeed)
-    public abstract void CheckSpectralOperation(InputPrototype warriorInput);
-    /// get warrior animator
-    /// animation set trigger /// and multiply by animationSpeed(Setfloat = animationSpeed)
-    /// create for exmaple spectral projectile
+    public abstract void Check(LocalInputCheck localInputChecker);
+    protected abstract bool CheckNormalOperation(LocalInputCheck localInputChecker);
+    protected abstract bool CheckSpectralOperation(LocalInputCheck localInputChecker);
+    public abstract void Perform(LocalInputCheck localInputChecker);
+    protected abstract void PerformNormalOperation(LocalInputCheck localInputChecker);
+    protected abstract void PerformSpectralOperation(LocalInputCheck localInputChecker);
+
 }
