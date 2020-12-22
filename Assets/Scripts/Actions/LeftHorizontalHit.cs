@@ -1,38 +1,49 @@
+using UnityEngine;
+
 public class LeftHorizontalHit : ActionPrototype
 {
-    public override void Check(LocalInputCheck localInputChecker)
+    public override void Check(WarriorAction warriorActionChecker)
     {
-        isNormalOperation = CheckNormalOperation(localInputChecker);
-        isSpectralOperation = CheckSpectralOperation(localInputChecker);
+        isNormalOperation = CheckNormalOperation(warriorActionChecker);
+        isSpectralOperation = CheckSpectralOperation(warriorActionChecker);
     }
 
-    public override void Perform(LocalInputCheck localInputChecker)
+    public override void Perform(WarriorAction warriorActionChecker)
     {
-        throw new System.NotImplementedException();
+        if(isSpectralOperation)
+            PerformSpectralOperation(warriorActionChecker);
+        else if(isNormalOperation)
+            PerformNormalOperation(warriorActionChecker);
+        isNormalOperation = false;
+        isSpectralOperation = false;
     }
 
-    protected override bool CheckNormalOperation(LocalInputCheck localInputChecker)
+    protected override bool CheckNormalOperation(WarriorAction warriorActionChecker)
     {
-        throw new System.NotImplementedException();
-        // InputPrototype inputPrototype = localInputChecker.WarriorInput;
-        // if(Input.GetKeyDown(inputPrototype.GetKey(KeyTypes.Jump)))
-        //     return true;
-        // else
-        //     return false;
+        InputPrototype inputPrototype = warriorActionChecker.WarriorInput;
+        if(Input.GetKeyDown(inputPrototype.GetKey(InputPrototype.keyTypes.LeftHandAction)) && isHorizontal)
+            return true;
+        else
+            return false;
     }
 
-    protected override bool CheckSpectralOperation(LocalInputCheck localInputChecker)
+    protected override bool CheckSpectralOperation(WarriorAction warriorActionChecker)
     {
-        throw new System.NotImplementedException();
+        InputPrototype inputPrototype = warriorActionChecker.WarriorInput;
+        if(Input.GetKeyDown(inputPrototype.GetKey(InputPrototype.keyTypes.LeftHandAction)) && isHorizontal
+        && Input.GetKey(inputPrototype.GetKey(InputPrototype.keyTypes.Spectral)))
+            return true;
+        else
+            return false;
     }
 
-    protected override void PerformNormalOperation(LocalInputCheck localInputChecker)
+    protected override void PerformNormalOperation(WarriorAction warriorActionChecker)
     {
-        throw new System.NotImplementedException();
+        warriorActionChecker.WarriorAnimator.SetTrigger("OnLeftHorizontalHit");
     }
 
-    protected override void PerformSpectralOperation(LocalInputCheck localInputChecker)
+    protected override void PerformSpectralOperation(WarriorAction warriorActionChecker)
     {
-        throw new System.NotImplementedException();
+        //
     }
 }

@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WarriorInputPC : InputPrototype
+public class PrimaryInput : InputPrototype
 {
     // Constructor
-    public WarriorInputPC()
+    public PrimaryInput()
     {
         Initialize();
     }

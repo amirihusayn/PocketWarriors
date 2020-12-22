@@ -10,7 +10,7 @@ public class ActionContainer
 {
     // Fields
     [SerializeField] private List<ActionPrototype> availableActions;
-    public event Action<LocalInputCheck> WarriorActionsChecker;
+    public event Action<WarriorAction> WarriorActionsChecker;
 
     // Constructor
     public ActionContainer()
@@ -33,14 +33,14 @@ public class ActionContainer
             action.Subscribe(this);
         }
     }
-    public void CheckWarriorActions(LocalInputCheck localInputChecker)
+    public void CheckWarriorActions(WarriorAction warriorActionChecker)
     {
         if(WarriorActionsChecker != null)
-            WarriorActionsChecker(localInputChecker);
+            WarriorActionsChecker(warriorActionChecker);
     }
-    public void PerformWarriorActions(LocalInputCheck localInputChecker)
+    public void PerformWarriorActions(WarriorAction warriorActionChecker)
     {
         foreach(ActionPrototype thisAction in availableActions)
-            thisAction.Perform(localInputChecker);
+            thisAction.Perform(warriorActionChecker);
     }
 }

@@ -1,7 +1,7 @@
 using UnityEngine;
 
-public class RightVerticalHit : ActionPrototype
-{   
+public class MoveRight : ActionPrototype
+{
     public override void Check(WarriorAction warriorActionChecker)
     {
         isNormalOperation = CheckNormalOperation(warriorActionChecker);
@@ -20,17 +20,20 @@ public class RightVerticalHit : ActionPrototype
 
     protected override bool CheckNormalOperation(WarriorAction warriorActionChecker)
     {
+        bool isPerformable = false;
         InputPrototype inputPrototype = warriorActionChecker.WarriorInput;
-        if(Input.GetKeyDown(inputPrototype.GetKey(InputPrototype.keyTypes.RightHandAction)) && !isHorizontal)
-            return true;
-        else
-            return false;
+        if(Input.GetKey(inputPrototype.GetKey(InputPrototype.keyTypes.Right)))
+        {
+           warriorActionChecker.Movement = new Vector3(warriorActionChecker.Movement.x + Time.deltaTime , warriorActionChecker.Movement.y , warriorActionChecker.Movement.z);
+           isPerformable = true;
+        }
+        return isPerformable;
     }
 
     protected override bool CheckSpectralOperation(WarriorAction warriorActionChecker)
     {
         InputPrototype inputPrototype = warriorActionChecker.WarriorInput;
-        if(Input.GetKeyDown(inputPrototype.GetKey(InputPrototype.keyTypes.RightHandAction)) && !isHorizontal
+        if(Input.GetKey(inputPrototype.GetKey(InputPrototype.keyTypes.Right))
         && Input.GetKey(inputPrototype.GetKey(InputPrototype.keyTypes.Spectral)))
             return true;
         else
@@ -39,11 +42,11 @@ public class RightVerticalHit : ActionPrototype
 
     protected override void PerformNormalOperation(WarriorAction warriorActionChecker)
     {
-        warriorActionChecker.WarriorAnimator.SetTrigger("OnRightVerticalHit");
+        warriorActionChecker.WarriorAnimator.SetBool("isWalking" , true);
     }
 
     protected override void PerformSpectralOperation(WarriorAction warriorActionChecker)
     {
-        //
+        // 
     }
 }

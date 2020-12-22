@@ -2,32 +2,34 @@ using UnityEngine;
 
 public class Jump : ActionPrototype
 {
-    public override void Check(LocalInputCheck localInputChecker)
+    public override void Check(WarriorAction warriorActionChecker)
     {
-        isNormalOperation = CheckNormalOperation(localInputChecker);
-        isSpectralOperation = CheckSpectralOperation(localInputChecker);
+        isNormalOperation = CheckNormalOperation(warriorActionChecker);
+        isSpectralOperation = CheckSpectralOperation(warriorActionChecker);
     }
 
-    public override void Perform(LocalInputCheck localInputChecker)
+    public override void Perform(WarriorAction warriorActionChecker)
     {
-        if(isNormalOperation)
-            PerformNormalOperation(localInputChecker);
         if(isSpectralOperation)
-            PerformSpectralOperation(localInputChecker);
+            PerformSpectralOperation(warriorActionChecker);
+        else if(isNormalOperation)
+            PerformNormalOperation(warriorActionChecker);
+        isNormalOperation = false;
+        isSpectralOperation = false;
     }
 
-    protected override bool CheckNormalOperation(LocalInputCheck localInputChecker)
+    protected override bool CheckNormalOperation(WarriorAction warriorActionChecker)
     {
-        InputPrototype inputPrototype = localInputChecker.WarriorInput;
+        InputPrototype inputPrototype = warriorActionChecker.WarriorInput;
         if(Input.GetKeyDown(inputPrototype.GetKey(InputPrototype.keyTypes.Jump)))
             return true;
         else
             return false;
     }
 
-    protected override bool CheckSpectralOperation(LocalInputCheck localInputChecker)
+    protected override bool CheckSpectralOperation(WarriorAction warriorActionChecker)
     {
-        InputPrototype inputPrototype = localInputChecker.WarriorInput;
+        InputPrototype inputPrototype = warriorActionChecker.WarriorInput;
         if(Input.GetKeyDown(inputPrototype.GetKey(InputPrototype.keyTypes.Jump))
         && Input.GetKey(inputPrototype.GetKey(InputPrototype.keyTypes.Spectral)))
             return true;
@@ -35,13 +37,14 @@ public class Jump : ActionPrototype
             return false;
     }
 
-    protected override void PerformNormalOperation(LocalInputCheck localInputChecker)
+    protected override void PerformNormalOperation(WarriorAction warriorActionChecker)
     {
-        localInputChecker.WarriorAnimator.SetTrigger("OnJump");
+        // warriorActionChecker.WarriorAnimator.SetTrigger("OnJump");
+        warriorActionChecker.Movement = new Vector3(warriorActionChecker.Movement.x , warriorActionChecker.Movement.y + 0.5f , warriorActionChecker.Movement.z);
     }
 
-    protected override void PerformSpectralOperation(LocalInputCheck localInputChecker)
+    protected override void PerformSpectralOperation(WarriorAction warriorActionChecker)
     {
-        throw new System.NotImplementedException();
+        // create a projectile on ground that will explode
     }
 }
