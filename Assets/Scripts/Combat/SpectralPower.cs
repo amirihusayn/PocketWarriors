@@ -10,6 +10,8 @@ public class SpectralPower : ScriptableObject
     [SerializeField] private string name;
     [SerializeField] private float powerCost;
     [SerializeField] private float range;
+    [SerializeField] private MeshFilter projectileMesh;
+    [SerializeField] private MeshFilter directPowerMesh;
 
     // Properties
     public float GetPowerCost { get => powerCost;}
