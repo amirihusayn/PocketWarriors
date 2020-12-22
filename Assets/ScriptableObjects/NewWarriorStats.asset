@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 919e8b66c5c81fe43a45b4202825d092, type: 3}
   m_Name: NewWarriorStats
   m_EditorClassIdentifier: 
-  name: 
+  name: a
   comboProfile: {fileID: 0}
   spectralPower: {fileID: 0}
-  maxHealth: 0
-  maxStamina: 0
-  maxPower: 0
-  maxFootSpeed: 0
-  maxHandSpeed: 0
+  maxHealth: 100
+  maxStamina: 100
+  maxPower: 100
+  footSpeed: 20
+  handSpeed: 2.19

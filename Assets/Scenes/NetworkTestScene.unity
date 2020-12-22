@@ -150,7 +150,7 @@ MonoBehaviour:
   m_BroadcastInterval: 1000
   m_UseNetworkManager: 0
   m_BroadcastData: HELLO
-  m_ShowGUI: 0
+  m_ShowGUI: 1
   m_OffsetX: 0
   m_OffsetY: 0
 --- !u!4 &13751429
@@ -263,7 +263,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   match: {fileID: 8607917036285986807, guid: 53577d76b300dd348aed483076e3741f, type: 3}
-  panel: {fileID: 405127851}
+  panel: {fileID: 1673749139}
 --- !u!1 &405127851
 GameObject:
   m_ObjectHideFlags: 0
@@ -419,7 +419,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed30f6c0efd94bc40b253a380209c6b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hostGameButton: {fileID: 1961058339}
+  hostGameButton: {fileID: 1324165959}
   hostName: {fileID: 741898855}
   cancelButton: {fileID: 1401514422}
   networkDiscovery: {fileID: 13751428}
@@ -1784,7 +1784,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1673749140}
   - component: {fileID: 1673749141}
-  - component: {fileID: 1673749143}
   m_Layer: 5
   m_Name: JoinGame
   m_TagString: Untagged
@@ -1821,19 +1820,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1673749139}
   m_CullTransparentMesh: 0
---- !u!114 &1673749143
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1673749139}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1850f6fee44a17a45a69a56822ee1778, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  joinButton: {fileID: 0}
 --- !u!1 &1673989012
 GameObject:
   m_ObjectHideFlags: 0
