@@ -31,7 +31,12 @@ ModelImporter:
     9500000: //RootNode
     13700000: CharacterMesh
     2186277476908879412: ImportLogs
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Body
+    second: {fileID: 2100000, guid: 2cd3abf69ef99874a8809226c870c78c, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
@@ -335,7 +340,7 @@ ModelImporter:
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 1
-    previousCalculatedGlobalScale: 0.01
+    previousCalculatedGlobalScale: 1
     hasPreviousCalculatedGlobalScale: 1
   tangentSpace:
     normalSmoothAngle: 60
@@ -373,17 +378,17 @@ ModelImporter:
       scale: {x: 1, y: 1, z: 1}
     - name: Head
       parentName: Hips
-      position: {x: -0, y: 0.015917849, z: 0}
+      position: {x: -0, y: 1.5917848, z: 0}
       rotation: {x: 0, y: -0.000000119209275, z: -0, w: 1}
       scale: {x: 1, y: 0.99999994, z: 1}
     - name: Weapon.L
       parentName: Head
-      position: {x: -0.0139999995, y: -0.012069678, z: 0.000000002056704}
+      position: {x: -1.4, y: -1.2069678, z: 0.00000020567039}
       rotation: {x: 0, y: -1.4210855e-14, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: Weapon.R
       parentName: Head
-      position: {x: 0.0139999995, y: -0.012069678, z: -0.0000000046190154}
+      position: {x: 1.4, y: -1.2069678, z: -0.00000046190155}
       rotation: {x: 0, y: -1.4210855e-14, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     armTwist: 0.5
