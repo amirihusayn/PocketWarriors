@@ -21,10 +21,12 @@ public class Jump : ActionPrototype
     protected override bool CheckNormalOperation(WarriorAction warriorActionChecker)
     {
         InputPrototype inputPrototype = warriorActionChecker.WarriorInput;
+        bool isPerformable = false;
         if(Input.GetKeyDown(inputPrototype.GetKey(InputPrototype.keyTypes.Jump)))
-            return true;
-        else
-            return false;
+        {
+            isPerformable = true;
+        }
+        return isPerformable;
     }
 
     protected override bool CheckSpectralOperation(WarriorAction warriorActionChecker)
@@ -39,8 +41,8 @@ public class Jump : ActionPrototype
 
     protected override void PerformNormalOperation(WarriorAction warriorActionChecker)
     {
-        // warriorActionChecker.WarriorAnimator.SetTrigger("OnJump");
-        warriorActionChecker.Movement = new Vector3(warriorActionChecker.Movement.x , warriorActionChecker.Movement.y + 0.5f , warriorActionChecker.Movement.z);
+        warriorActionChecker.WarriorRigidBody.velocity = new Vector3(warriorActionChecker.WarriorRigidBody.velocity.x , 0 , warriorActionChecker.WarriorRigidBody.velocity.z);
+        warriorActionChecker.WarriorRigidBody.AddForce(Vector3.up * 100);  
     }
 
     protected override void PerformSpectralOperation(WarriorAction warriorActionChecker)
