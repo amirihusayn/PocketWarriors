@@ -15,9 +15,44 @@ public class Weapon : ScriptableObject
     [SerializeField] private MeshFilter meshFilter;
 
     // Properties
-    public float GetDamage { get => damage;}
-    public float GetRange { get => range;}
-    public float GetWeight { get => weight;}
-    public float GetStaminaCost { get => staminaCost;}
-    public MeshFilter GetMeshFilter { get => meshFilter;}
+
+    public float Damage
+    {
+        get
+        {
+            return damage;
+        }
+    }
+
+    public float Range
+    {
+        get
+        {
+            return range;
+        }
+    }
+
+    public float Weight
+    {
+        get
+        {
+            return weight;
+        }
+    }
+
+    public float StaminaCost
+    {
+        get
+        {
+            return staminaCost;
+        }
+    }
+
+    public MeshFilter MeshFilter
+    {
+        get
+        {
+            return meshFilter;
+        }
+    }
 }

@@ -9,8 +9,8 @@ using UnityEngine;
 public class ActionContainer
 {
     // Fields
-    [SerializeField] private List<ActionPrototype> availableActions;
-    public event Action<WarriorAction> WarriorActionsChecker;
+    public event Action<WarriorAction> Checker;
+    public event Action<WarriorAction> Performer;
 
     // Constructor
     public ActionContainer()
@@ -21,7 +21,6 @@ public class ActionContainer
     // Methods
     private void InitializeActions()
     {
-        availableActions = new List<ActionPrototype>();
         var allActionAssembly = Assembly.GetAssembly(typeof(ActionPrototype));
         var actionTypes = allActionAssembly.GetTypes().Where( 
             thisActionType => typeof(ActionPrototype).IsAssignableFrom(thisActionType) 
@@ -29,18 +28,19 @@ public class ActionContainer
         foreach(var thisActionType in actionTypes)
         {
             ActionPrototype action = System.Activator.CreateInstance(thisActionType) as ActionPrototype;
-            availableActions.Add(action);
             action.Subscribe(this);
         }
     }
-    public void CheckWarriorActions(WarriorAction warriorActionChecker)
+
+    public void CheckActions(WarriorAction warriorAction)
     {
-        if(WarriorActionsChecker != null)
-            WarriorActionsChecker(warriorActionChecker);
+        if(Checker != null)
+            Checker(warriorAction);
     }
-    public void PerformWarriorActions(WarriorAction warriorActionChecker)
+    
+    public void PerformActions(WarriorAction warriorAction)
     {
-        foreach(ActionPrototype thisAction in availableActions)
-            thisAction.Perform(warriorActionChecker);
+        if(Performer != null)
+            Performer(warriorAction);
     }
 }

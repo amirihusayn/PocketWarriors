@@ -5,49 +5,115 @@ using UnityEngine;
 public class WarriorAction : MonoBehaviour
 {
     // Fields
-    [SerializeField] private WarriorStats warriorStats;
+    [SerializeField] private WarriorStats stats;
     [SerializeField] private Animator warriorAnimator;
     [SerializeField] private Rigidbody warriorRigidBody;
     private ActionContainer actionContainer;
-    private SpectralPower spectralPower;
     private InputPrototype warriorInput;
     private Vector3 movement;
-    private Vector3 jump;
 
     // Properties
-    public SpectralPower SpectralPower { get => spectralPower; set => spectralPower = value; }
-    public InputPrototype WarriorInput { get => warriorInput; set => warriorInput = value; }
-    public Animator WarriorAnimator { get => warriorAnimator; set => warriorAnimator = value; }
-    public Vector3 Movement { get => movement; set => movement = value; }
-    public Rigidbody WarriorRigidBody { get => warriorRigidBody; set => warriorRigidBody = value; }
-    public Vector3 Jump { get => jump; set => jump = value; }
+    public InputPrototype WarriorInput
+    {
+        get
+        {
+            return warriorInput;
+        }
+
+        set
+        {
+            warriorInput = value;
+        }
+    }
+
+    public Vector3 Movement
+    {
+        get
+        {
+            return movement;
+        }
+
+        set
+        {
+            movement = value;
+        }
+    }
+
+    public Rigidbody WarriorRigidBody
+    {
+        get
+        {
+            return warriorRigidBody;
+        }
+
+        set
+        {
+            warriorRigidBody = value;
+        }
+    }
+
+    public Animator WarriorAnimator
+    {
+        get
+        {
+            return warriorAnimator;
+        }
+
+        set
+        {
+            warriorAnimator = value;
+        }
+    }
+
+    public WarriorStats Stats
+    {
+        get
+        {
+            return stats;
+        }
+    }
 
     // Methods
-    private void Start() 
+    private void Start()
     {
-        warriorInput = new PrimaryInput();////////// Initialize it somewhere
-        actionContainer = new ActionContainer();
+        if (!GameController.Instance.IsGameLocal)
+            return;
+        Initialize();
     }
-    private void Update() 
+
+    private void Update()
     {
-        actionContainer.CheckWarriorActions(this);
+        if (!GameController.Instance.IsGameLocal)
+            return;
+        Check();
     }
+
     private void FixedUpdate()
     {
-        actionContainer.PerformWarriorActions(this);
-        // Debug.Log(transform.forward);
-        Movement = new Vector3(Movement.x , 0 , Movement.z);
-        warriorRigidBody.velocity = Vector3.Normalize(Movement) * warriorStats.GetFootSpeed + transform.up * warriorRigidBody.velocity.y;
-
-        // Movement = Vector3.Normalize(new Vector3(Movement.x , 0 , Movement.z)) * warriorStats.GetFootSpeed;
-        // Movement += Jump * warriorStats.GetFootSpeed * 10;
-        // warriorRigidBody.AddForce(Movement);
+        if (!GameController.Instance.IsGameLocal)
+            return;
+        Perform();
+    }
+    public void Initialize()
+    {
+        warriorInput = new PrimaryInput();
+        actionContainer = new ActionContainer();
     }
 
-
-    public void InstantiateProjectile()
+    public void Check()
     {
-    //////////// projectile or spectral component fields that are either NetworkBehaviour or MonoBehaviour
-    ////// we call their instantiate method inside related action
+        actionContainer.CheckActions(this);
+    }
+
+    public void Perform()
+    {
+        actionContainer.PerformActions(this);
+        Movement = new Vector3(Movement.x, 0, Movement.z);
+        Movement = Vector3.Normalize(Movement) * stats.FootSpeed;
+        warriorRigidBody.velocity = transform.forward * Movement.z + transform.right * Movement.x + transform.up * warriorRigidBody.velocity.y;
+    }
+
+    public void CreateProjectile()
+    {
     }
 }

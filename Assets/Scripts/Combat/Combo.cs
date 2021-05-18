@@ -12,7 +12,27 @@ public class Combo
     [SerializeField] private float durationTime;
     
     // Properties
-    public int GetAnimationIntParameter { get => animationIntParameter;}
-    public List<ActionPrototype> GetComboChainList { get => comboChainList;}
-    public float GetDurationTime { get => durationTime;}
+    public int AnimationIntParameter
+    {
+        get
+        {
+            return animationIntParameter;
+        }
+    }
+
+    public List<ActionPrototype> ComboChainList
+    {
+        get
+        {
+            return comboChainList;
+        }
+    }
+
+    public float DurationTime
+    {
+        get
+        {
+            return durationTime;
+        }
+    }
 }

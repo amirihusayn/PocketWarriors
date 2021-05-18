@@ -14,6 +14,19 @@ public class SpectralPower : ScriptableObject
     [SerializeField] private MeshFilter directPowerMesh;
 
     // Properties
-    public float GetPowerCost { get => powerCost;}
-    public float GetRange { get => range;}
+    public float PowerCost
+    {
+        get
+        {
+            return powerCost;
+        }
+    }
+
+    public float Range
+    {
+        get
+        {
+            return range;
+        }
+    }
 }

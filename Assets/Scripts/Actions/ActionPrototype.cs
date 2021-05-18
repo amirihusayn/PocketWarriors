@@ -4,19 +4,34 @@ public abstract class ActionPrototype
 {
     // Fields
     protected static string animationTriggerName;
-    protected bool isNormalOperation;
-    protected bool isSpectralOperation;
     protected static bool isHorizontal = false;
+    protected bool isNormalOperation, isSpectralOperation;
     
     // Methods
-    public void Subscribe(ActionContainer targetActionChecker)
+    public void Subscribe(ActionContainer actionContainer)
     {
-        targetActionChecker.WarriorActionsChecker += Check;
+        actionContainer.Checker += Check;
+        actionContainer.Performer += Perform;
     }
-    public abstract void Check(WarriorAction warriorActionChecker);
-    protected abstract bool CheckNormalOperation(WarriorAction warriorActionChecker);
-    protected abstract bool CheckSpectralOperation(WarriorAction warriorActionChecker);
-    public abstract void Perform(WarriorAction warriorActionChecker);
-    protected abstract void PerformNormalOperation(WarriorAction warriorActionChecker);
-    protected abstract void PerformSpectralOperation(WarriorAction warriorActionChecker);
+
+    public virtual void Check(WarriorAction warriorAction)
+    {
+        isNormalOperation = CheckNormalOperation(warriorAction);
+        isSpectralOperation = CheckSpectralOperation(warriorAction);
+    }
+
+    public virtual void Perform(WarriorAction warriorAction)
+    {
+        if(isSpectralOperation)
+            PerformSpectralOperation(warriorAction);
+        else if(isNormalOperation)
+            PerformNormalOperation(warriorAction);
+        isNormalOperation = false;
+        isSpectralOperation = false;
+    }
+
+    protected abstract bool CheckNormalOperation(WarriorAction warriorAction);
+    protected abstract bool CheckSpectralOperation(WarriorAction warriorAction);
+    protected abstract void PerformNormalOperation(WarriorAction warriorAction);
+    protected abstract void PerformSpectralOperation(WarriorAction warriorAction);
 }

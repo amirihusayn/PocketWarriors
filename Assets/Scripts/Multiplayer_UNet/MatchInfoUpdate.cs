@@ -9,7 +9,19 @@ public class MatchInfoUpdate : MonoBehaviour
     [SerializeField] private GameObject panel;
     private Dictionary<Host,GameObject> matchDic;
     private Stack<GameObject> disabledMatcheList;
-    public Dictionary<Host, GameObject> MatchDic { get => matchDic; set => matchDic = value; }
+
+    public Dictionary<Host, GameObject> MatchDic
+    {
+        get
+        {
+            return matchDic;
+        }
+
+        set
+        {
+            matchDic = value;
+        }
+    }
 
     private void Awake()
     {

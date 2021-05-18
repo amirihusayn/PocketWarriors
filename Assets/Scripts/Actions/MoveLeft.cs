@@ -2,50 +2,34 @@ using UnityEngine;
 
 public class MoveLeft : ActionPrototype
 {
-    public override void Check(WarriorAction warriorActionChecker)
-    {
-        isNormalOperation = CheckNormalOperation(warriorActionChecker);
-        isSpectralOperation = CheckSpectralOperation(warriorActionChecker);
-    }
-
-    public override void Perform(WarriorAction warriorActionChecker)
-    {
-        if(isSpectralOperation)
-            PerformSpectralOperation(warriorActionChecker);
-        else if(isNormalOperation)
-            PerformNormalOperation(warriorActionChecker);
-        isNormalOperation = false;
-        isSpectralOperation = false;
-    }
-
-    protected override bool CheckNormalOperation(WarriorAction warriorActionChecker)
+    protected override bool CheckNormalOperation(WarriorAction warriorAction)
     {
         bool isPerformable = false;
-        InputPrototype inputPrototype = warriorActionChecker.WarriorInput;
-        if(Input.GetKey(inputPrototype.GetKey(InputPrototype.keyTypes.Left)))
+        InputPrototype warriorInput = warriorAction.WarriorInput;
+        if(Input.GetKey(warriorInput.GetKey(InputPrototype.keyTypes.Left)))
         {
-           warriorActionChecker.Movement = new Vector3(warriorActionChecker.Movement.x - Time.deltaTime , warriorActionChecker.Movement.y , warriorActionChecker.Movement.z);
+           warriorAction.Movement = new Vector3(warriorAction.Movement.x - 1, warriorAction.Movement.y, warriorAction.Movement.z) * Time.deltaTime;
            isPerformable = true;
         }
         return isPerformable;
     }
 
-    protected override bool CheckSpectralOperation(WarriorAction warriorActionChecker)
+    protected override bool CheckSpectralOperation(WarriorAction warriorAction)
     {
-        InputPrototype inputPrototype = warriorActionChecker.WarriorInput;
-        if(Input.GetKey(inputPrototype.GetKey(InputPrototype.keyTypes.Left))
-        && Input.GetKey(inputPrototype.GetKey(InputPrototype.keyTypes.Spectral)))
+        InputPrototype warriorInput = warriorAction.WarriorInput;
+        if(Input.GetKey(warriorInput.GetKey(InputPrototype.keyTypes.Left))
+        && Input.GetKey(warriorInput.GetKey(InputPrototype.keyTypes.Spectral)))
             return true;
         else
             return false;
     }
 
-    protected override void PerformNormalOperation(WarriorAction warriorActionChecker)
+    protected override void PerformNormalOperation(WarriorAction warriorAction)
     {
-        warriorActionChecker.WarriorAnimator.SetBool("isWalking" , true);
+        warriorAction.WarriorAnimator.SetBool("isWalking" , true);
     }
 
-    protected override void PerformSpectralOperation(WarriorAction warriorActionChecker)
+    protected override void PerformSpectralOperation(WarriorAction warriorAction)
     {
         // 
     }

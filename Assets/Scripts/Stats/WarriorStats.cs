@@ -15,15 +15,89 @@ public class WarriorStats : ScriptableObject
     [SerializeField] private float maxStamina;
     [SerializeField] private float maxPower;
     [SerializeField] private float footSpeed; 
+    [SerializeField] private float jumpSpeed; 
+    [SerializeField] private float jumpLimit;
     [SerializeField] private float handSpeed;
+    [SerializeField] private float rotationSpeed;
 
     // Properties
-    public ComboProfile GetComboProfile { get => comboProfile;}
-    public SpectralPower GetSpectralPower { get => spectralPower;}
-    public float GetMaxHealth { get => maxHealth;}
-    public float GetMaxStamina { get => maxStamina;}
-    public float GetMaxPower { get => maxPower;}
-    public float GetFootSpeed { get => footSpeed;}
-    public float GetHandSpeed { get => handSpeed;}
+    public ComboProfile ComboProfile
+    {
+        get
+        {
+            return comboProfile;
+        }
+    }
 
+    public SpectralPower SpectralPower
+    {
+        get
+        {
+            return spectralPower;
+        }
+    }
+
+    public float MaxHealth
+    {
+        get
+        {
+            return maxHealth;
+        }
+    }
+
+    public float MaxStamina
+    {
+        get
+        {
+            return maxStamina;
+        }
+    }
+
+    public float MaxPower
+    {
+        get
+        {
+            return maxPower;
+        }
+    }
+
+    public float FootSpeed
+    {
+        get
+        {
+            return footSpeed;
+        }
+    }
+
+    public float JumpSpeed
+    {
+        get
+        {
+            return jumpSpeed;
+        }
+    }
+
+    public float JumpLimit
+    {
+        get
+        {
+            return jumpLimit;
+        }
+    }
+
+    public float HandSpeed
+    {
+        get
+        {
+            return handSpeed;
+        }
+    }
+
+    public float RotationSpeed
+    {
+        get
+        {
+            return rotationSpeed;
+        }
+    }
 }

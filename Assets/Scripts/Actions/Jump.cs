@@ -2,50 +2,32 @@ using UnityEngine;
 
 public class Jump : ActionPrototype
 {
-    public override void Check(WarriorAction warriorActionChecker)
+    protected override bool CheckNormalOperation(WarriorAction warriorAction)
     {
-        isNormalOperation = CheckNormalOperation(warriorActionChecker);
-        isSpectralOperation = CheckSpectralOperation(warriorActionChecker);
-    }
-
-    public override void Perform(WarriorAction warriorActionChecker)
-    {
-        if(isSpectralOperation)
-            PerformSpectralOperation(warriorActionChecker);
-        else if(isNormalOperation)
-            PerformNormalOperation(warriorActionChecker);
-        isNormalOperation = false;
-        isSpectralOperation = false;
-    }
-
-    protected override bool CheckNormalOperation(WarriorAction warriorActionChecker)
-    {
-        InputPrototype inputPrototype = warriorActionChecker.WarriorInput;
+        InputPrototype warriorInput = warriorAction.WarriorInput;
         bool isPerformable = false;
-        if(Input.GetKeyDown(inputPrototype.GetKey(InputPrototype.keyTypes.Jump)))
-        {
-            isPerformable = true;
-        }
+        if(Input.GetKeyDown(warriorInput.GetKey(InputPrototype.keyTypes.Jump)))
+            if(warriorAction.transform.position.y <= warriorAction.Stats.JumpLimit)
+                isPerformable = true;
         return isPerformable;
     }
 
-    protected override bool CheckSpectralOperation(WarriorAction warriorActionChecker)
+    protected override bool CheckSpectralOperation(WarriorAction warriorAction)
     {
-        InputPrototype inputPrototype = warriorActionChecker.WarriorInput;
-        if(Input.GetKeyDown(inputPrototype.GetKey(InputPrototype.keyTypes.Jump))
-        && Input.GetKey(inputPrototype.GetKey(InputPrototype.keyTypes.Spectral)))
+        InputPrototype warriorInput = warriorAction.WarriorInput;
+        if(Input.GetKeyDown(warriorInput.GetKey(InputPrototype.keyTypes.Jump))
+        && Input.GetKey(warriorInput.GetKey(InputPrototype.keyTypes.Spectral)))
             return true;
         else
             return false;
     }
 
-    protected override void PerformNormalOperation(WarriorAction warriorActionChecker)
+    protected override void PerformNormalOperation(WarriorAction warriorAction)
     {
-        warriorActionChecker.WarriorRigidBody.velocity = new Vector3(warriorActionChecker.WarriorRigidBody.velocity.x , 0 , warriorActionChecker.WarriorRigidBody.velocity.z);
-        warriorActionChecker.WarriorRigidBody.AddForce(Vector3.up * 100);  
+        warriorAction.WarriorRigidBody.velocity = new Vector3(warriorAction.WarriorRigidBody.velocity.x , warriorAction.Stats.JumpSpeed , warriorAction.WarriorRigidBody.velocity.z);
     }
 
-    protected override void PerformSpectralOperation(WarriorAction warriorActionChecker)
+    protected override void PerformSpectralOperation(WarriorAction warriorAction)
     {
         // create a projectile on ground that will explode
     }
