@@ -10,13 +10,7 @@ public class WeaponHold : MonoBehaviour {
     private float damage;
 
     // Properties
-    public float Damage
-    {
-        get
-        {
-            return damage;
-        }
-    }
+    public float Damage { get => damage; }
 
     // Methods
     private void Awake() 

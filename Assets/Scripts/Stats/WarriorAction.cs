@@ -13,65 +13,11 @@ public class WarriorAction : MonoBehaviour
     private Vector3 movement;
 
     // Properties
-    public InputPrototype WarriorInput
-    {
-        get
-        {
-            return warriorInput;
-        }
-
-        set
-        {
-            warriorInput = value;
-        }
-    }
-
-    public Vector3 Movement
-    {
-        get
-        {
-            return movement;
-        }
-
-        set
-        {
-            movement = value;
-        }
-    }
-
-    public Rigidbody WarriorRigidBody
-    {
-        get
-        {
-            return warriorRigidBody;
-        }
-
-        set
-        {
-            warriorRigidBody = value;
-        }
-    }
-
-    public Animator WarriorAnimator
-    {
-        get
-        {
-            return warriorAnimator;
-        }
-
-        set
-        {
-            warriorAnimator = value;
-        }
-    }
-
-    public WarriorStats Stats
-    {
-        get
-        {
-            return stats;
-        }
-    }
+    public InputPrototype WarriorInput { get => warriorInput; set => warriorInput = value; }
+    public Vector3 Movement { get => movement; set => movement = value; }
+    public Rigidbody WarriorRigidBody { get => warriorRigidBody; set => warriorRigidBody = value; }
+    public Animator WarriorAnimator { get => warriorAnimator; set => warriorAnimator = value; }
+    public WarriorStats Stats { get => stats;}
 
     // Methods
     private void Start()

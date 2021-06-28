@@ -14,10 +14,7 @@ public class LocalHealth : MonoBehaviour
     // Properties
     public float CurrentHealth
     {
-        get
-        {
-            return currentHealth;
-        }
+        get => currentHealth;
         private set
         {
             if(value > maxHealth)
@@ -29,19 +26,7 @@ public class LocalHealth : MonoBehaviour
             OnHealthChanged();
         }
     }
-
-    public float MaxHealth
-    {
-        get
-        {
-            return maxHealth;
-        }
-
-        private set
-        {
-            maxHealth = value;
-        }
-    }
+    public float MaxHealth { get => maxHealth; private set => maxHealth = value; }
 
     // Methods
     private void Start()

@@ -21,83 +21,14 @@ public class WarriorStats : ScriptableObject
     [SerializeField] private float rotationSpeed;
 
     // Properties
-    public ComboProfile ComboProfile
-    {
-        get
-        {
-            return comboProfile;
-        }
-    }
-
-    public SpectralPower SpectralPower
-    {
-        get
-        {
-            return spectralPower;
-        }
-    }
-
-    public float MaxHealth
-    {
-        get
-        {
-            return maxHealth;
-        }
-    }
-
-    public float MaxStamina
-    {
-        get
-        {
-            return maxStamina;
-        }
-    }
-
-    public float MaxPower
-    {
-        get
-        {
-            return maxPower;
-        }
-    }
-
-    public float FootSpeed
-    {
-        get
-        {
-            return footSpeed;
-        }
-    }
-
-    public float JumpSpeed
-    {
-        get
-        {
-            return jumpSpeed;
-        }
-    }
-
-    public float JumpLimit
-    {
-        get
-        {
-            return jumpLimit;
-        }
-    }
-
-    public float HandSpeed
-    {
-        get
-        {
-            return handSpeed;
-        }
-    }
-
-    public float RotationSpeed
-    {
-        get
-        {
-            return rotationSpeed;
-        }
-    }
+    public ComboProfile ComboProfile { get => comboProfile; }
+    public SpectralPower SpectralPower { get => spectralPower; }
+    public float MaxHealth { get => maxHealth; }
+    public float MaxStamina { get => maxStamina; }
+    public float MaxPower { get => maxPower; }
+    public float FootSpeed { get => footSpeed; }
+    public float JumpSpeed { get => jumpSpeed; }
+    public float JumpLimit { get => jumpLimit; }
+    public float HandSpeed { get => handSpeed; }
+    public float RotationSpeed { get => rotationSpeed; }
 }

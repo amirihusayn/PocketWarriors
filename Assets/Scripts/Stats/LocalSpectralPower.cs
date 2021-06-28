@@ -13,10 +13,7 @@ public class LocalSpectralPower : MonoBehaviour
     // Properties
     public float CurrentPower
     {
-        get
-        {
-            return currentPower;
-        }
+        get => currentPower;
         private set
         {
             if(value > maxPower)
@@ -29,19 +26,7 @@ public class LocalSpectralPower : MonoBehaviour
                 currentPower = value;
         }
     }
-
-    public float MaxPower
-    {
-        get
-        {
-            return maxPower;
-        }
-
-        private set
-        {
-            maxPower = value;
-        }
-    }
+    public float MaxPower { get => maxPower; private set => maxPower = value; }
 
     // Methods
     private void Start()

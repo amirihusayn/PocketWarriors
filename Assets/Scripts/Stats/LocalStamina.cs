@@ -14,10 +14,7 @@ public class LocalStamina : MonoBehaviour
     // Properties
     public float CurrentStamina
     {
-        get
-        {
-            return currentStamina;
-        }
+        get => currentStamina;
         private set
         {
             if(value > maxStamina)
@@ -30,19 +27,7 @@ public class LocalStamina : MonoBehaviour
                 currentStamina = value;
         }
     }
-
-    public float MaxStamina
-    {
-        get
-        {
-            return maxStamina;
-        }
-
-        private set
-        {
-            maxStamina = value;
-        }
-    }
+    public float MaxStamina { get => maxStamina; private set => maxStamina = value; }
 
     // Methods
     private void Start()

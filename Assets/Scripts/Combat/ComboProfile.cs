@@ -11,11 +11,5 @@ public class ComboProfile : ScriptableObject
     [SerializeField] private List<Combo> comboList;
 
     // Properties
-    public List<Combo> ComboList
-    {
-        get
-        {
-            return comboList;
-        }
-    }
+    public List<Combo> ComboList { get => comboList;}
 }
