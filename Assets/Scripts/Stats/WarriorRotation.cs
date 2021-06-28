@@ -9,7 +9,6 @@ public class WarriorRotation : MonoBehaviour
     [SerializeField] private Rigidbody warriorRigidBody;
     private float rotationDegree, rotationSpeed;
 
-
     // Methods
     private void Start()
     {
