@@ -4,17 +4,16 @@
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 52d2c3d1f41fd264f9bb3a8eacba82d4, type: 3}
   m_Name: NewWeapon
   m_EditorClassIdentifier: 
-  name: 
-  damage: 0
-  range: 0
-  weight: 0
-  staminaCost: 0
+  name: sword
+  damage: 30
+  range: 30
+  weight: 10
+  staminaCost: 30
   meshFilter: {fileID: 0}
