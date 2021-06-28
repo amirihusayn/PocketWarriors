@@ -45,6 +45,11 @@
         "**/*.unity":true,
         "build/":true,
         "Build/":true,
+        "Assets/Materials/":true,
+        "Assets/Meshs/":true,
+        "Assets/Prefabs/":true,
+        "Assets/Scenes/":true,
+        "Assets/ScriptableObjects/":true,
         "Library/":true,
         "library/":true,
         "obj/":true,
@@ -52,5 +57,12 @@
         "ProjectSettings/":true,
         "temp/":true,
         "Temp/":true
+    },
+    "files.watcherExclude": {
+        "**/Assets/Materials/**": true,
+        "**/Assets/Meshs/**": true,
+        "**/Assets/Prefabs/**": true,
+        "**/Assets/Scenes/**": true,
+        "**/Assets/ScriptableObjects/**": true
     }
 }

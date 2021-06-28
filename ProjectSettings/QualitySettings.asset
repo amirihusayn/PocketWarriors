@@ -21,7 +21,7 @@ QualitySettings:
     blendWeights: 1
     textureQuality: 1
     anisotropicTextures: 0
-    antiAliasing: 4
+    antiAliasing: 0
     softParticles: 0
     softVegetation: 0
     realtimeReflectionProbes: 0
@@ -37,8 +37,7 @@ QualitySettings:
     streamingMipmapsMaxFileIORequests: 1024
     particleRaycastBudget: 4
     asyncUploadTimeSlice: 2
-    asyncUploadBufferSize: 16
-    asyncUploadPersistentBuffer: 1
+    asyncUploadBufferSize: 4
     resolutionScalingFixedDPIFactor: 1
     excludedTargetPlatforms: []
   - serializedVersion: 2
@@ -56,7 +55,7 @@ QualitySettings:
     blendWeights: 2
     textureQuality: 0
     anisotropicTextures: 0
-    antiAliasing: 4
+    antiAliasing: 0
     softParticles: 0
     softVegetation: 0
     realtimeReflectionProbes: 0
@@ -72,11 +71,9 @@ QualitySettings:
     streamingMipmapsMaxFileIORequests: 1024
     particleRaycastBudget: 16
     asyncUploadTimeSlice: 2
-    asyncUploadBufferSize: 16
-    asyncUploadPersistentBuffer: 1
+    asyncUploadBufferSize: 4
     resolutionScalingFixedDPIFactor: 1
-    excludedTargetPlatforms:
-    - Standalone
+    excludedTargetPlatforms: []
   - serializedVersion: 2
     name: Medium
     pixelLightCount: 1
@@ -108,11 +105,9 @@ QualitySettings:
     streamingMipmapsMaxFileIORequests: 1024
     particleRaycastBudget: 64
     asyncUploadTimeSlice: 2
-    asyncUploadBufferSize: 16
-    asyncUploadPersistentBuffer: 1
+    asyncUploadBufferSize: 4
     resolutionScalingFixedDPIFactor: 1
-    excludedTargetPlatforms:
-    - Standalone
+    excludedTargetPlatforms: []
   - serializedVersion: 2
     name: High
     pixelLightCount: 2
@@ -128,7 +123,7 @@ QualitySettings:
     blendWeights: 2
     textureQuality: 0
     anisotropicTextures: 1
-    antiAliasing: 4
+    antiAliasing: 0
     softParticles: 0
     softVegetation: 1
     realtimeReflectionProbes: 1
@@ -144,11 +139,9 @@ QualitySettings:
     streamingMipmapsMaxFileIORequests: 1024
     particleRaycastBudget: 256
     asyncUploadTimeSlice: 2
-    asyncUploadBufferSize: 16
-    asyncUploadPersistentBuffer: 1
+    asyncUploadBufferSize: 4
     resolutionScalingFixedDPIFactor: 1
-    excludedTargetPlatforms:
-    - Standalone
+    excludedTargetPlatforms: []
   - serializedVersion: 2
     name: Very High
     pixelLightCount: 3
@@ -163,8 +156,8 @@ QualitySettings:
     shadowmaskMode: 1
     blendWeights: 4
     textureQuality: 0
-    anisotropicTextures: 1
-    antiAliasing: 0
+    anisotropicTextures: 2
+    antiAliasing: 2
     softParticles: 1
     softVegetation: 1
     realtimeReflectionProbes: 1
@@ -180,11 +173,9 @@ QualitySettings:
     streamingMipmapsMaxFileIORequests: 1024
     particleRaycastBudget: 1024
     asyncUploadTimeSlice: 2
-    asyncUploadBufferSize: 16
-    asyncUploadPersistentBuffer: 1
+    asyncUploadBufferSize: 4
     resolutionScalingFixedDPIFactor: 1
-    excludedTargetPlatforms:
-    - Standalone
+    excludedTargetPlatforms: []
   - serializedVersion: 2
     name: Ultra
     pixelLightCount: 4
@@ -199,8 +190,8 @@ QualitySettings:
     shadowmaskMode: 1
     blendWeights: 4
     textureQuality: 0
-    anisotropicTextures: 1
-    antiAliasing: 0
+    anisotropicTextures: 2
+    antiAliasing: 2
     softParticles: 1
     softVegetation: 1
     realtimeReflectionProbes: 1
@@ -216,21 +207,17 @@ QualitySettings:
     streamingMipmapsMaxFileIORequests: 1024
     particleRaycastBudget: 4096
     asyncUploadTimeSlice: 2
-    asyncUploadBufferSize: 16
-    asyncUploadPersistentBuffer: 1
+    asyncUploadBufferSize: 4
     resolutionScalingFixedDPIFactor: 1
-    excludedTargetPlatforms:
-    - Standalone
+    excludedTargetPlatforms: []
   m_PerPlatformDefaultQuality:
     Android: 2
     Nintendo 3DS: 5
     Nintendo Switch: 5
     PS4: 5
     PSP2: 2
-    Standalone: 0
-    Tizen: 2
+    Standalone: 5
     WebGL: 3
-    WiiU: 5
     Windows Store Apps: 5
     XboxOne: 5
     iPhone: 2
