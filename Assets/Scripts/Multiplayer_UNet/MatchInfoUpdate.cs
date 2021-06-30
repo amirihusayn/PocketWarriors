@@ -5,29 +5,22 @@ using UnityEngine.UI;
 
 public class MatchInfoUpdate : MonoBehaviour
 {
+    // Fields
     [SerializeField] private GameObject match;
     [SerializeField] private GameObject panel;
     private Dictionary<Host,GameObject> matchDic;
     private Stack<GameObject> disabledMatcheList;
 
-    public Dictionary<Host, GameObject> MatchDic
-    {
-        get
-        {
-            return matchDic;
-        }
+    // Properties
+    public Dictionary<Host, GameObject> MatchDic { get => matchDic; set => matchDic = value; }
 
-        set
-        {
-            matchDic = value;
-        }
-    }
-
+    // Methods
     private void Awake()
     {
         matchDic = new Dictionary<Host, GameObject>();
         disabledMatcheList = new Stack<GameObject>();
     }
+
     public void AddNewMatch(Host host , CustomNetworkDiscovery netDiscovery , string formAddress , string data)
     {
         GameObject newMatch;
@@ -40,6 +33,7 @@ public class MatchInfoUpdate : MonoBehaviour
         newMatch.SetActive(true);
         matchDic.Add(host , match);
     }
+
     public void RemoveTimeOutedMatch(Host Host)
     {
         GameObject targetMatch = matchDic[Host];

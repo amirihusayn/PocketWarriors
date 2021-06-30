@@ -3,12 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Linq;
-using UnityEngine;
 
 public static class ListnerContainer
 {
     // Fields
-    public enum ListnerType {MenuButton};
+    public enum ListnerType {ChangeItem, AddItem};
     private static Dictionary<ListnerType,ListnerPrototype> listnerDic;
 
     // Methods
@@ -18,18 +17,22 @@ public static class ListnerContainer
         var allListnerAssemblies = Assembly.GetAssembly(typeof(ListnerPrototype));
         var listners = allListnerAssemblies.GetTypes().Where(
             thisListnerType => typeof(ListnerPrototype).IsAssignableFrom(thisListnerType)
-            && thisListnerType.IsAbstract == false);
+            && thisListnerType != typeof(ListnerPrototype));
         foreach(var thisListner in listners)
         {
-            ListnerPrototype newListner = System.Activator.CreateInstance(thisListner) as ListnerPrototype;
+            ListnerPrototype newListner = Activator.CreateInstance(thisListner) as ListnerPrototype;
             listnerDic.Add(newListner.Type , newListner);
         }
     }
-    
+
     public static ListnerPrototype GetListner(ListnerType type)
     {
-        if(Enum.GetNames(typeof(ListnerType)).Length != listnerDic.Count)
+        if(listnerDic != null)
+            if(Enum.GetNames(typeof(ListnerType)).Length != listnerDic.Count)
+                InitilaizeListners();
+        else
             InitilaizeListners();
+        InitilaizeListners();
         return listnerDic[type];
     }
 }
