@@ -1,8 +1,28 @@
-public abstract class ListnerPrototype
+using UnityEngine;
+using UnityEngine.UI;
+
+[RequireComponent(typeof(Button))]
+public abstract class ListnerPrototype : MonoBehaviour
 {
-    // Properties
-    public abstract ListnerContainer.ListnerType Type { get; }
+    // Fields
+    protected Button button;
 
     // Methods
-    public abstract void OnClickListner(ButtonBehaviour buttonBehaviour);
+    protected abstract void OnClickListner();
+
+    protected virtual void Awake() 
+    {
+        button = GetComponent<Button>();
+        AddOnClickListner();
+    }
+
+    protected virtual void AddOnClickListner()
+    {
+        button.onClick.AddListener(delegate { OnClickListner(); });
+    }
+
+    protected virtual void OnDestroy() 
+    {
+        button.onClick.RemoveAllListeners();
+    }
 }

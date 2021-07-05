@@ -1,20 +1,15 @@
 using UnityEngine;
 
-[System.Serializable]
 public class AddItemListner : ListnerPrototype
 {
-    [SerializeField] private float aaa;
-    // Properties
-    public override ListnerContainer.ListnerType Type { get => ListnerContainer.ListnerType.AddItem; }
+    // Fields
+    [SerializeField] private GameObject item, layout;
 
     // Methods
-    public override void OnClickListner(ButtonBehaviour buttonBehaviour)
+    protected override void OnClickListner()
     {
-        if(buttonBehaviour.TargetItem == null || buttonBehaviour.MasterBehaviour == null)
+        if(item == null)
             return;
-        GameObject targetItem = buttonBehaviour.TargetItem;
-        GameObject targetLayout = buttonBehaviour.MasterBehaviour.TargetLayout;
-        GameObject.Instantiate(targetItem);
-        targetItem.GetComponent<RectTransform>().SetParent(targetLayout.GetComponent<RectTransform>());
+        GameObject.Instantiate(item, layout.GetComponent<RectTransform>());
     }
 }

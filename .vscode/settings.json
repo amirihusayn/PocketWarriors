@@ -64,5 +64,6 @@
         "**/Assets/Prefabs/**": true,
         "**/Assets/Scenes/**": true,
         "**/Assets/ScriptableObjects/**": true
-    }
+    },
+    "omnisharp.projectLoadTimeout": 80
 }

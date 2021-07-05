@@ -23,12 +23,10 @@ public class CustomNetworkDiscovery : NetworkDiscovery
 {
     private float timeOut;
     private Dictionary<Host,float> availableHosts;
-    private MatchInfoUpdate matchInfoUpdator;
 
     private void Awake()
     {
         timeOut = 3f;
-        matchInfoUpdator = GetComponent<MatchInfoUpdate>();
         availableHosts = new Dictionary<Host, float>();
         base.Initialize();
         StartCoroutine("RefereshAvailableHosts");
@@ -40,7 +38,7 @@ public class CustomNetworkDiscovery : NetworkDiscovery
             foreach(Host thisHost in availableHosts.Keys)
                 if(availableHosts[thisHost] <= Time.time)
                 {
-                    matchInfoUpdator.RemoveTimeOutedMatch(thisHost);
+                    MatchInfoUpdate.Instance.RemoveTimeOutedMatch(thisHost);
                     availableHosts.Remove(thisHost);
                 }
             yield return new WaitForSeconds(timeOut);
@@ -67,7 +65,7 @@ public class CustomNetworkDiscovery : NetworkDiscovery
         else
         {
             availableHosts.Add(newHost , Time.time + timeOut);
-            matchInfoUpdator.AddNewMatch(newHost , this , fromAddress , data);
+            MatchInfoUpdate.Instance.AddNewMatch(newHost , this , fromAddress , data);
         }
     }
 }

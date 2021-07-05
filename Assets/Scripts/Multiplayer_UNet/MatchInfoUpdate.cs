@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MatchInfoUpdate : MonoBehaviour
+public class MatchInfoUpdate : singleton<MatchInfoUpdate>
 {
     // Fields
     [SerializeField] private GameObject match;
     [SerializeField] private GameObject panel;
+    [SerializeField] private GameObject scrollView;
     private Dictionary<Host,GameObject> matchDic;
     private Stack<GameObject> disabledMatcheList;
 
@@ -15,10 +16,12 @@ public class MatchInfoUpdate : MonoBehaviour
     public Dictionary<Host, GameObject> MatchDic { get => matchDic; set => matchDic = value; }
 
     // Methods
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         matchDic = new Dictionary<Host, GameObject>();
         disabledMatcheList = new Stack<GameObject>();
+        SetScrollViewActivation();
     }
 
     public void AddNewMatch(Host host , CustomNetworkDiscovery netDiscovery , string formAddress , string data)
@@ -29,17 +32,27 @@ public class MatchInfoUpdate : MonoBehaviour
         else
             newMatch = disabledMatcheList.Pop();
         newMatch.GetComponentInChildren<Text>().text = host.hostName;
-        newMatch.GetComponent<JoinGame>().AddRelatedHostListner(netDiscovery , formAddress , data);
+        newMatch.GetComponentInChildren<JoinGameListner>().AddRelatedHostListner(netDiscovery , formAddress , data);
         newMatch.SetActive(true);
         matchDic.Add(host , match);
+        SetScrollViewActivation();
     }
 
     public void RemoveTimeOutedMatch(Host Host)
     {
         GameObject targetMatch = matchDic[Host];
         targetMatch.SetActive(false);
-        targetMatch.GetComponent<JoinGame>().RemoveListners();
+        targetMatch.GetComponent<JoinGameListner>().RemoveListners();
         disabledMatcheList.Push(targetMatch);
         matchDic.Remove(Host);
+        SetScrollViewActivation();
+    }
+
+    private void SetScrollViewActivation()
+    {
+        if(matchDic.Count > 0)
+            scrollView.SetActive(true);
+        else
+            scrollView.SetActive(false);
     }
 }
