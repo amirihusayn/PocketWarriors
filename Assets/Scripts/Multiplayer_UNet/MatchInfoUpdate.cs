@@ -32,7 +32,7 @@ public class MatchInfoUpdate : singleton<MatchInfoUpdate>
         else
             newMatch = disabledMatcheList.Pop();
         newMatch.GetComponentInChildren<Text>().text = host.hostName;
-        newMatch.GetComponentInChildren<JoinGameListner>().AddRelatedHostListner(netDiscovery , formAddress , data);
+        newMatch.GetComponentInChildren<JoinGameListner>().CreateHostInfo(netDiscovery , formAddress , data);
         newMatch.SetActive(true);
         matchDic.Add(host , match);
         SetScrollViewActivation();
@@ -42,7 +42,6 @@ public class MatchInfoUpdate : singleton<MatchInfoUpdate>
     {
         GameObject targetMatch = matchDic[Host];
         targetMatch.SetActive(false);
-        targetMatch.GetComponent<JoinGameListner>().RemoveListners();
         disabledMatcheList.Push(targetMatch);
         matchDic.Remove(Host);
         SetScrollViewActivation();

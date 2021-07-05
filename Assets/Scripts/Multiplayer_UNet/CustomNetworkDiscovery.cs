@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -7,9 +6,12 @@ using UnityEngine.Networking;
 
 public struct Host 
 {
+    // Fields
     public string hostName;
     public string ipAddress;
     public int portNumber;
+
+    // Constructor
     public Host(string fromAddress , int portNumber , string hostName)
     {
         this.hostName = hostName;
@@ -21,21 +23,24 @@ public struct Host
 
 public class CustomNetworkDiscovery : NetworkDiscovery
 {
+    // Fields
     private float timeOut;
     private Dictionary<Host,float> availableHosts;
 
+    // Methods
     private void Awake()
     {
         timeOut = 3f;
         availableHosts = new Dictionary<Host, float>();
-        base.Initialize();
-        StartCoroutine("RefereshAvailableHosts");
     }
+
     private IEnumerator RefereshAvailableHosts()
     {
+        List<Host> hosts;
         while(true)
         {
-            foreach(Host thisHost in availableHosts.Keys)
+            hosts = availableHosts.Keys.ToList<Host>();
+            foreach(Host thisHost in hosts)
                 if(availableHosts[thisHost] <= Time.time)
                 {
                     MatchInfoUpdate.Instance.RemoveTimeOutedMatch(thisHost);
@@ -44,28 +49,38 @@ public class CustomNetworkDiscovery : NetworkDiscovery
             yield return new WaitForSeconds(timeOut);
         }
     }
+
     public void ListenBradcasts()
     {
         // StopBroadcast();
         base.Initialize();
-        base.StartAsClient();  
+        base.StartAsClient(); 
+        StopAllCoroutines();
+        StartCoroutine("RefereshAvailableHosts"); 
     }
+
     public void StartBroadCast()
     {
         // StopBroadcast();
         base.Initialize();
         base.StartAsServer();
     }
+
     public override void OnReceivedBroadcast(string fromAddress, string data)
     {
         base.OnReceivedBroadcast(fromAddress, data);
-        Host newHost = new Host(fromAddress , NetworkManager.singleton.networkPort , data);
-        if(availableHosts.ContainsKey(newHost))
+        CreateHost(fromAddress, data);
+    }
+
+    private void CreateHost(string fromAddress, string data)
+    {
+        Host newHost = new Host(fromAddress, NetworkManager.singleton.networkPort, data);
+        if (availableHosts.ContainsKey(newHost))
             availableHosts[newHost] = Time.time + timeOut;
         else
         {
-            availableHosts.Add(newHost , Time.time + timeOut);
-            MatchInfoUpdate.Instance.AddNewMatch(newHost , this , fromAddress , data);
+            availableHosts.Add(newHost, Time.time + timeOut);
+            MatchInfoUpdate.Instance.AddNewMatch(newHost, this, fromAddress, data);
         }
     }
 }
