@@ -11,13 +11,15 @@ public class WarriorAction : MonoBehaviour
     private ActionContainer actionContainer;
     private InputPrototype warriorInput;
     private Vector3 movement;
+    private bool isHorizontalAttack;
 
     // Properties
+    public WarriorStats Stats { get => stats;}
+    public Animator WarriorAnimator { get => warriorAnimator; set => warriorAnimator = value; }
+    public Rigidbody WarriorRigidBody { get => warriorRigidBody; set => warriorRigidBody = value; }
     public InputPrototype WarriorInput { get => warriorInput; set => warriorInput = value; }
     public Vector3 Movement { get => movement; set => movement = value; }
-    public Rigidbody WarriorRigidBody { get => warriorRigidBody; set => warriorRigidBody = value; }
-    public Animator WarriorAnimator { get => warriorAnimator; set => warriorAnimator = value; }
-    public WarriorStats Stats { get => stats;}
+    public bool IsHorizontalAttack { get => isHorizontalAttack; set => isHorizontalAttack = value; }
 
     // Methods
     private void Start()

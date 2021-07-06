@@ -5,7 +5,7 @@ public class RightVerticalHit : ActionPrototype
     protected override bool CheckNormalOperation(WarriorAction warriorAction)
     {
         InputPrototype warriorInput = warriorAction.WarriorInput;
-        if(Input.GetKeyDown(warriorInput.GetKey(InputPrototype.keyTypes.RightHandAction)) && !isHorizontal)
+        if(Input.GetKeyDown(warriorInput.GetKey(InputPrototype.keyTypes.RightHandAction)) && !warriorAction.IsHorizontalAttack)
             return true;
         else
             return false;
@@ -14,7 +14,7 @@ public class RightVerticalHit : ActionPrototype
     protected override bool CheckSpectralOperation(WarriorAction warriorAction)
     {
         InputPrototype warriorInput = warriorAction.WarriorInput;
-        if(Input.GetKeyDown(warriorInput.GetKey(InputPrototype.keyTypes.RightHandAction)) && !isHorizontal
+        if(Input.GetKeyDown(warriorInput.GetKey(InputPrototype.keyTypes.RightHandAction)) && !warriorAction.IsHorizontalAttack
         && Input.GetKey(warriorInput.GetKey(InputPrototype.keyTypes.Spectral)))
             return true;
         else

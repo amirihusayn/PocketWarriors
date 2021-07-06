@@ -23,7 +23,7 @@ public class SwitchAction : ActionPrototype
 
     protected override void PerformNormalOperation(WarriorAction warriorAction)
     {
-        isHorizontal = !isHorizontal;
+        warriorAction.IsHorizontalAttack = !warriorAction.IsHorizontalAttack;
         warriorAction.WarriorAnimator.SetTrigger("OnSwitchAction");
     }
 

@@ -24,7 +24,6 @@ public class SwitchHand : ActionPrototype
     protected override void PerformNormalOperation(WarriorAction warriorAction)
     {
         warriorAction.WarriorAnimator.SetTrigger("OnSwitchHand");
-        isHorizontal = !isHorizontal;
     }
 
     protected override void PerformSpectralOperation(WarriorAction warriorAction)

@@ -24,8 +24,8 @@ public class PrimaryInput : InputPrototype
         keyDic.Add(keyTypes.Scabbard , KeyCode.R);
         keyDic.Add(keyTypes.Sit , KeyCode.LeftControl);
         keyDic.Add(keyTypes.Spectral , KeyCode.E);
-        keyDic.Add(keyTypes.SwitchAction , KeyCode.Q);
-        keyDic.Add(keyTypes.SwitchHand , KeyCode.Tab);
+        keyDic.Add(keyTypes.SwitchAction , KeyCode.Tab);
+        keyDic.Add(keyTypes.SwitchHand , KeyCode.Q);
         keyDic.Add(keyTypes.Up , KeyCode.W);
     }
 }
