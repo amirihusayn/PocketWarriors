@@ -3,7 +3,6 @@ using UnityEngine;
 public abstract class ActionPrototype 
 {
     // Fields
-    protected static string animationTriggerName;
     protected static bool isHorizontal = false;
     protected bool isNormalOperation, isSpectralOperation;
     
