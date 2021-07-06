@@ -13,3 +13,16 @@ MonoBehaviour:
   m_Name: ComboProfile
   m_EditorClassIdentifier: 
   name: 
+  comboList:
+  - name: 
+    animationIntParameter: 0
+    comboChainList: 00000000010000000a000000
+    durationTime: 2
+  - name: 
+    animationIntParameter: 0
+    comboChainList: 
+    durationTime: 0
+  - name: 
+    animationIntParameter: 0
+    comboChainList: 
+    durationTime: 0

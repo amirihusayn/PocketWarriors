@@ -19,7 +19,7 @@ MonoBehaviour:
   maxStamina: 100
   maxPower: 100
   footSpeed: 10
-  jumpSpeed: 10
-  jumpLimit: 1.5
+  jumpSpeed: 5
+  jumpLimit: 0.5
   handSpeed: 2.19
   rotationSpeed: 80
