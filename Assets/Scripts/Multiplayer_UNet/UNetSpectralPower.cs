@@ -8,7 +8,7 @@ public class UNetSpectralPower : NetworkBehaviour
 {
     // Fields
     private LocalSpectralPower power;
-    [SyncVar] private float currentPower;
+    [SyncVar(hook = "OnSpectralPowerChanged")] private float currentPower;
     [SyncVar] private float maxPower;
 
     // Methods
@@ -30,4 +30,10 @@ public class UNetSpectralPower : NetworkBehaviour
         currentPower = power.CurrentPower;
         maxPower = power.MaxPower;
     }
+
+    private void OnSpectralPowerChanged(float updatedPower)
+    {
+        power.UpdateSpectralPowerStuffs(updatedPower);
+    }
+
 }

@@ -30,7 +30,7 @@ public class UNetWarriorAction : NetworkBehaviour
     {
         if(!isLocalPlayer)
             return;
-        action.Perform();    
+        action.Perform();  
     }
 
     [Command]

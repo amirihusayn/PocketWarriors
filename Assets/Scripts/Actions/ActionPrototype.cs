@@ -12,6 +12,12 @@ public abstract class ActionPrototype
         actionContainer.Performer += Perform;
     }
 
+    protected void UnSubscribe(ActionContainer actionContainer)
+    {
+        actionContainer.Checker -= Check;
+        actionContainer.Performer -= Perform;
+    }
+
     public virtual void Check(WarriorAction warriorAction)
     {
         isNormalOperation = CheckNormalOperation(warriorAction);

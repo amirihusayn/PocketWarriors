@@ -2,12 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 public class LocalHealth : MonoBehaviour 
 {
     // Fields
     [SerializeField] private WarriorStats stats;
+    [SerializeField] private TextMesh healthText;
     private float currentHealth, maxHealth;
     public static Action NoHealth;
 
@@ -44,8 +46,8 @@ public class LocalHealth : MonoBehaviour
 
     public void Initialize()
     {
-        CurrentHealth = stats.MaxHealth;
         MaxHealth = stats.MaxHealth;
+        CurrentHealth = stats.MaxHealth;
     }
 
     public void TakeDamage(Collider other)
@@ -65,6 +67,7 @@ public class LocalHealth : MonoBehaviour
 
     public void UpdateHealthStuffs(float updatedHealth)
     {
+        healthText.text = updatedHealth.ToString();
     }
 
     public void Die()

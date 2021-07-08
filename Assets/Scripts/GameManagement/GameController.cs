@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameController : singleton<GameController> {
 	// Fields
-	[SerializeField] private bool isGameLocal;
+	[SerializeField] protected bool isGameLocal;
 
     // Properties
     public bool IsGameLocal { get => isGameLocal; }

@@ -17,6 +17,7 @@ public class WarriorAction : MonoBehaviour
     public WarriorStats Stats { get => stats;}
     public Animator WarriorAnimator { get => warriorAnimator; set => warriorAnimator = value; }
     public Rigidbody WarriorRigidBody { get => warriorRigidBody; set => warriorRigidBody = value; }
+    public ActionContainer ActionContainer { get => actionContainer;}
     public InputPrototype WarriorInput { get => warriorInput; set => warriorInput = value; }
     public Vector3 Movement { get => movement; set => movement = value; }
     public bool IsHorizontalAttack { get => isHorizontalAttack; set => isHorizontalAttack = value; }

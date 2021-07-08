@@ -8,7 +8,7 @@ public class UNetStamina : NetworkBehaviour
 {
     // Fields
     private LocalStamina stamina;
-    [SyncVar] private float currentStamina;
+    [SyncVar(hook = "OnStaminaChanged")] private float currentStamina;
     [SyncVar] private float maxStamina;
 
     // Methods
@@ -29,5 +29,10 @@ public class UNetStamina : NetworkBehaviour
     {
         currentStamina = stamina.CurrentStamina;
         maxStamina = stamina.MaxStamina;
+    }
+
+    private void OnStaminaChanged(float updatedStamina)
+    {
+        stamina.UpdateStaminaStuffs(updatedStamina);
     }
 }

@@ -2,12 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 public class LocalStamina : MonoBehaviour 
 {
     // Fields
     [SerializeField] private WarriorStats stats;
+    [SerializeField] private TextMesh staminaText;
     private float currentStamina, maxStamina;
     public static Action NoStamina;
 
@@ -39,12 +41,17 @@ public class LocalStamina : MonoBehaviour
     
     public void Initialize()
     {
-        CurrentStamina = stats.MaxStamina;
         MaxStamina = stats.MaxStamina;
+        CurrentStamina = stats.MaxStamina;
     }
 
     public void ConsumeStamina(float stamina)
     {
         CurrentStamina -= stamina;
+    }
+
+    public void UpdateStaminaStuffs(float updatedStamina)
+    {
+        staminaText.text = updatedStamina.ToString();
     }
 }
