@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.UI;
 
 public class JoinGameListner : ListnerPrototype
@@ -10,7 +11,8 @@ public class JoinGameListner : ListnerPrototype
     // Methods
     protected override void OnClickListner()
     {
-        /// StartClient()
+        CustomNetworkManager.singleton.networkAddress = fromAddress;
+        CustomNetworkManager.singleton.StartClient();
     }
 
     public void CreateHostInfo(CustomNetworkDiscovery networkDiscovery, string fromAddress, string data)

@@ -25,23 +25,24 @@ public class CustomNetworkDiscovery : NetworkDiscovery
 {
     // Fields
     private float timeOut;
-    private Dictionary<Host,float> availableHosts;
+    private Dictionary<Host, float> availableHosts;
 
     // Methods
     private void Awake()
     {
         timeOut = 3f;
         availableHosts = new Dictionary<Host, float>();
+        DontDestroyOnLoad(gameObject);
     }
 
     private IEnumerator RefereshAvailableHosts()
     {
         List<Host> hosts;
-        while(true)
+        while (true)
         {
             hosts = availableHosts.Keys.ToList<Host>();
-            foreach(Host thisHost in hosts)
-                if(availableHosts[thisHost] <= Time.time)
+            foreach (Host thisHost in hosts)
+                if (availableHosts[thisHost] <= Time.time)
                 {
                     MatchInfoUpdate.Instance.RemoveTimeOutedMatch(thisHost);
                     availableHosts.Remove(thisHost);
@@ -54,9 +55,9 @@ public class CustomNetworkDiscovery : NetworkDiscovery
     {
         // StopBroadcast();
         base.Initialize();
-        base.StartAsClient(); 
+        base.StartAsClient();
         StopAllCoroutines();
-        StartCoroutine("RefereshAvailableHosts"); 
+        StartCoroutine("RefereshAvailableHosts");
     }
 
     public void StartBroadCast()

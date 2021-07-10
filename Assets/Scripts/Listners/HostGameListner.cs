@@ -12,5 +12,6 @@ public class HostGameListner : ListnerPrototype
     {
         networkDiscovery.broadcastData = hostName.text.ToString();
         networkDiscovery.StartBroadCast();
+        CustomNetworkManager.singleton.StartHost();
     }
 }
