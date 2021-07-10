@@ -15,11 +15,11 @@ public class ActionContainer
     // Constructor
     public ActionContainer()
     {
-        InitializeActions();
+        Initialize();
     }
 
     // Methods
-    private void InitializeActions()
+    private void Initialize()
     {
         var allActionAssembly = Assembly.GetAssembly(typeof(ActionPrototype));
         var actionTypes = allActionAssembly.GetTypes().Where( 

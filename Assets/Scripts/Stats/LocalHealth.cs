@@ -1,8 +1,5 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 
 public class LocalHealth : MonoBehaviour 
@@ -11,7 +8,7 @@ public class LocalHealth : MonoBehaviour
     [SerializeField] private WarriorStats stats;
     [SerializeField] private TextMesh healthText;
     private float currentHealth, maxHealth;
-    public static Action NoHealth;
+    public Action<LocalHealth> OnDie, OnCurrentHealthChanged;
 
     // Properties
     public float CurrentHealth
@@ -25,7 +22,7 @@ public class LocalHealth : MonoBehaviour
                 currentHealth = 0;
             else
                 currentHealth = value;
-            OnHealthChanged();
+            OnCurrentHealthChanged(this);
         }
     }
     public float MaxHealth { get => maxHealth; private set => maxHealth = value; }
@@ -35,7 +32,19 @@ public class LocalHealth : MonoBehaviour
     {
         if(!GameController.Instance.IsGameLocal)
             return;
-        Initialize();
+        InitializeLocalHealth();
+        OnCurrentHealthChanged += UpdateHealthUI;
+    }
+
+    public void InitializeLocalHealth()
+    {
+        MaxHealth = stats.MaxHealth;
+        CurrentHealth = stats.MaxHealth;
+    }
+
+    public void UpdateHealthUI(LocalHealth localHealth)
+    {
+        healthText.text = localHealth.currentHealth.ToString();
     }
 
     private void OnTriggerEnter(Collider other) {
@@ -44,30 +53,12 @@ public class LocalHealth : MonoBehaviour
         TakeDamage(other);
     }
 
-    public void Initialize()
-    {
-        MaxHealth = stats.MaxHealth;
-        CurrentHealth = stats.MaxHealth;
-    }
-
     public void TakeDamage(Collider other)
     {
         WeaponHold weaponHold = other.GetComponent<WeaponHold>();
         if(weaponHold == null)
             return;
         CurrentHealth -= weaponHold.Damage;
-    }
-
-	private void OnHealthChanged()
-	{
-        if(!GameController.Instance.IsGameLocal)
-            return;
-        UpdateHealthStuffs(currentHealth);
-	}
-
-    public void UpdateHealthStuffs(float updatedHealth)
-    {
-        healthText.text = updatedHealth.ToString();
     }
 
     public void Die()

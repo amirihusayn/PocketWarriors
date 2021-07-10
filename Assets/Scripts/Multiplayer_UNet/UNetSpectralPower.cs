@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Networking;
 
 [RequireComponent(typeof(LocalSpectralPower))]
@@ -8,7 +6,7 @@ public class UNetSpectralPower : NetworkBehaviour
 {
     // Fields
     private LocalSpectralPower power;
-    [SyncVar(hook = "OnSpectralPowerChanged")] private float currentPower;
+    [SyncVar(hook = "UpdateCurrentPower")] private float currentPower;
     [SyncVar] private float maxPower;
 
     // Methods
@@ -19,21 +17,26 @@ public class UNetSpectralPower : NetworkBehaviour
 
     private void Start()
     {
-        if (!isServer)
+        if (!isServer || GameController.Instance.IsGameLocal)
             return;
-        power.Initialize();
-		SetUNetPowerValues();
+        power.InitializeLocalPower();
+        InitializeUNetPower();
+        power.OnCurrentPowerChanged += SetUNetCurrentPower;
+        power.OnCurrentPowerChanged += power.UpdatePowerUI;
     }
 
-    private void SetUNetPowerValues()
+    private void InitializeUNetPower()
     {
-        currentPower = power.CurrentPower;
         maxPower = power.MaxPower;
     }
 
-    private void OnSpectralPowerChanged(float updatedPower)
+    private void SetUNetCurrentPower(LocalSpectralPower localPower)
     {
-        power.UpdateSpectralPowerStuffs(updatedPower);
+        currentPower = localPower.CurrentPower;
     }
 
+    private void UpdateCurrentPower(float updatedPower)
+    {
+        power.OnCurrentPowerChanged(power);
+    }
 }

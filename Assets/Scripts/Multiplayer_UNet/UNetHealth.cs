@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Networking;
 
 [RequireComponent(typeof(LocalHealth))]
@@ -8,7 +6,7 @@ public class UNetHealth : NetworkBehaviour
 {
     // Fields
     private LocalHealth health;
-    [SyncVar(hook = "OnHealthChanged")] private float currentHealth;
+    [SyncVar(hook = "UpdateCurrentHealth")] private float currentHealth;
 	[SyncVar] private float maxHealth;
 
     // Methods
@@ -19,28 +17,34 @@ public class UNetHealth : NetworkBehaviour
 
     private void Start()
     {
-		if(!isServer)
-			return;
-        health.Initialize();
-        SetUNetHealthValues();
+        if (!isServer || GameController.Instance.IsGameLocal)
+            return;
+        health.InitializeLocalHealth();
+        InitializeUNetHealth();
+        health.OnCurrentHealthChanged += SetUNetCurrentHealth;
+        health.OnCurrentHealthChanged += health.UpdateHealthUI;
     }
 
-    private void SetUNetHealthValues()
+    private void InitializeUNetHealth()
     {
         currentHealth = health.CurrentHealth;
         maxHealth = health.MaxHealth;
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void SetUNetCurrentHealth(LocalHealth localHealth)
     {
-        if (!isServer)
-            return;
-        health.TakeDamage(other);
-		SetUNetHealthValues();
+        currentHealth = localHealth.CurrentHealth;
     }
 
-	private void OnHealthChanged(float updatedHealth)
+    private void OnTriggerEnter(Collider other)
+    {
+        if (!isServer || GameController.Instance.IsGameLocal)
+            return;
+        health.TakeDamage(other);
+    }
+
+	private void UpdateCurrentHealth(float updatedHealth)
 	{
-		health.UpdateHealthStuffs(updatedHealth);
+		health.OnCurrentHealthChanged(health);
 	}
 }

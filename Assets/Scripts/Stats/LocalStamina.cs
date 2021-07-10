@@ -1,8 +1,5 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 
 public class LocalStamina : MonoBehaviour 
@@ -11,7 +8,7 @@ public class LocalStamina : MonoBehaviour
     [SerializeField] private WarriorStats stats;
     [SerializeField] private TextMesh staminaText;
     private float currentStamina, maxStamina;
-    public static Action NoStamina;
+    public Action<LocalStamina> OnNoStamina, OnCurrentStaminaChanged;
 
     // Properties
     public float CurrentStamina
@@ -22,11 +19,10 @@ public class LocalStamina : MonoBehaviour
             if(value > maxStamina)
                 currentStamina = maxStamina;
             else if(value <= 0)
-            {
                 currentStamina = 0;
-            }
             else
                 currentStamina = value;
+            OnCurrentStaminaChanged(this);
         }
     }
     public float MaxStamina { get => maxStamina; private set => maxStamina = value; }
@@ -36,22 +32,23 @@ public class LocalStamina : MonoBehaviour
     {
         if(!GameController.Instance.IsGameLocal)
             return;
-        Initialize();
+        InitializeLocalStamina();
+        OnCurrentStaminaChanged += UpdateStaminaUI;
     }
-    
-    public void Initialize()
+
+    public void InitializeLocalStamina()
     {
         MaxStamina = stats.MaxStamina;
         CurrentStamina = stats.MaxStamina;
     }
 
+    public void UpdateStaminaUI(LocalStamina localStamina)
+    {
+        staminaText.text = localStamina.currentStamina.ToString();
+    }
+    
     public void ConsumeStamina(float stamina)
     {
         CurrentStamina -= stamina;
-    }
-
-    public void UpdateStaminaStuffs(float updatedStamina)
-    {
-        staminaText.text = updatedStamina.ToString();
     }
 }

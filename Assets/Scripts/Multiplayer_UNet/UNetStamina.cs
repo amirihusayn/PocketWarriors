@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Networking;
 
 [RequireComponent(typeof(LocalStamina))]
@@ -8,7 +6,7 @@ public class UNetStamina : NetworkBehaviour
 {
     // Fields
     private LocalStamina stamina;
-    [SyncVar(hook = "OnStaminaChanged")] private float currentStamina;
+    [SyncVar(hook = "UpdateCurrentStamina")] private float currentStamina;
     [SyncVar] private float maxStamina;
 
     // Methods
@@ -19,20 +17,27 @@ public class UNetStamina : NetworkBehaviour
 
     void Start()
     {
-		if(!isServer)
+		if(!isServer || GameController.Instance.IsGameLocal)
 			return;
-		stamina.Initialize();
-		SetUNetStaminaValues();
+		stamina.InitializeLocalStamina();
+        InitializeUNetStamina();
+        stamina.OnCurrentStaminaChanged += SetUNetCurrentStamina;
+        stamina.OnCurrentStaminaChanged += stamina.UpdateStaminaUI;
     }
 
-    private void SetUNetStaminaValues()
+    private void InitializeUNetStamina()
     {
         currentStamina = stamina.CurrentStamina;
         maxStamina = stamina.MaxStamina;
     }
 
-    private void OnStaminaChanged(float updatedStamina)
+    private void SetUNetCurrentStamina(LocalStamina localStamina)
     {
-        stamina.UpdateStaminaStuffs(updatedStamina);
+        currentStamina = localStamina.CurrentStamina;
+    }
+
+    private void UpdateCurrentStamina(float updatedStamina)
+    {
+        stamina.OnCurrentStaminaChanged(stamina);
     }
 }
