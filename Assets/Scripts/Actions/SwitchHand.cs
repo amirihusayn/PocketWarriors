@@ -2,6 +2,10 @@ using UnityEngine;
 
 public class SwitchHand : ActionPrototype
 {
+    // Properties
+    public override bool isSubscribable { get => true;}
+
+    // Methods
     protected override bool CheckNormalOperation(WarriorAction warriorAction)
     {
         InputPrototype warriorInput = warriorAction.WarriorInput;

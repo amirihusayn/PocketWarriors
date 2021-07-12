@@ -21,7 +21,8 @@ public class LocalSpectralPower : MonoBehaviour
                 currentPower = 0;
             else
                 currentPower = value;
-            OnCurrentPowerChanged(this);
+            if(OnCurrentPowerChanged != null)
+                OnCurrentPowerChanged(this);
         }
     }
     public float MaxPower { get => maxPower; private set => maxPower = value; }

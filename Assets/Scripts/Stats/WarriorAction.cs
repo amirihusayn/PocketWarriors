@@ -8,6 +8,7 @@ public class WarriorAction : MonoBehaviour
     [SerializeField] private WarriorStats stats;
     [SerializeField] private Animator warriorAnimator;
     [SerializeField] private Rigidbody warriorRigidBody;
+    [SerializeField] private GameObject cameraPrefab;
     private ActionContainer actionContainer;
     private InputPrototype warriorInput;
     private Vector3 movement;
@@ -47,6 +48,13 @@ public class WarriorAction : MonoBehaviour
     {
         warriorInput = new PrimaryInput();
         actionContainer = new ActionContainer();
+        InstantiateCamera();
+    }
+
+    private void InstantiateCamera()
+    {
+        GameObject camera = Instantiate(cameraPrefab, new Vector3(0, 15, -18), Quaternion.Euler(30, 0, 0));
+        camera.transform.SetParent(gameObject.transform);
     }
 
     public void Check()

@@ -38,6 +38,7 @@ public class UNetStamina : NetworkBehaviour
 
     private void UpdateCurrentStamina(float updatedStamina)
     {
-        stamina.OnCurrentStaminaChanged(stamina);
+        if(stamina.OnCurrentStaminaChanged != null)
+            stamina.OnCurrentStaminaChanged(stamina);
     }
 }

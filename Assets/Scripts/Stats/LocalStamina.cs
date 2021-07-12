@@ -22,7 +22,8 @@ public class LocalStamina : MonoBehaviour
                 currentStamina = 0;
             else
                 currentStamina = value;
-            OnCurrentStaminaChanged(this);
+            if(OnCurrentStaminaChanged != null)
+                OnCurrentStaminaChanged(this);
         }
     }
     public float MaxStamina { get => maxStamina; private set => maxStamina = value; }

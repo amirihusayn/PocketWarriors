@@ -1,16 +1,18 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using UnityEngine;
 
 
 public class ActionContainer
 {
     // Fields
+    private Dictionary<Type, ActionPrototype> actionDictionary;
     public event Action<WarriorAction> Checker;
     public event Action<WarriorAction> Performer;
+
+    // Properties
+    public Dictionary<Type, ActionPrototype> ActionDictionary { get => actionDictionary; }
 
     // Constructor
     public ActionContainer()
@@ -21,6 +23,7 @@ public class ActionContainer
     // Methods
     private void Initialize()
     {
+        actionDictionary = new Dictionary<Type, ActionPrototype>();
         var allActionAssembly = Assembly.GetAssembly(typeof(ActionPrototype));
         var actionTypes = allActionAssembly.GetTypes().Where( 
             thisActionType => typeof(ActionPrototype).IsAssignableFrom(thisActionType) 
@@ -28,7 +31,11 @@ public class ActionContainer
         foreach(var thisActionType in actionTypes)
         {
             ActionPrototype action = System.Activator.CreateInstance(thisActionType) as ActionPrototype;
-            action.Subscribe(this);
+            if(action.isSubscribable)
+            {
+                actionDictionary.Add(thisActionType, action);
+                action.Subscribe(this);
+            }
         }
     }
 

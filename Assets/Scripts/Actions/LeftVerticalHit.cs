@@ -2,6 +2,10 @@ using UnityEngine;
 
 public class LeftVerticalHit : ActionPrototype
 {
+    // Properties
+    public override bool isSubscribable { get => GameController.Instance.IsGameLocal;}
+
+    // Methods
     protected override bool CheckNormalOperation(WarriorAction warriorAction)
     {
         InputPrototype warriorInput = warriorAction.WarriorInput;

@@ -7,11 +7,14 @@ public class UNet_LeftVerticalHit : ActionPrototype
     private NetworkAnimator networkAnimator;
     private bool isNetworkAnimatorInitialized;
 
+    // Properties
+    public override bool isSubscribable { get => !GameController.Instance.IsGameLocal;}
+
     // Methods
-    public override void Perform(WarriorAction warriorAction)
+    public override void Check(WarriorAction warriorAction)
     {
         InitializeNetworkAnimator(warriorAction);
-        base.Perform(warriorAction);
+        base.Check(warriorAction);
     }
 
     private void InitializeNetworkAnimator(WarriorAction warriorAction)
@@ -19,9 +22,6 @@ public class UNet_LeftVerticalHit : ActionPrototype
         if(isNetworkAnimatorInitialized)
             return;
         networkAnimator = warriorAction.GetComponent<NetworkAnimator>();
-        isNetworkAnimatorInitialized = true;
-        if(networkAnimator == null)
-            UnSubscribe(warriorAction.ActionContainer);
     }
 
     protected override bool CheckNormalOperation(WarriorAction warriorAction)

@@ -48,7 +48,7 @@ MonoBehaviour:
   m_BroadcastKey: 2222
   m_BroadcastVersion: 1
   m_BroadcastSubVersion: 1
-  m_BroadcastInterval: 1000
+  m_BroadcastInterval: 3000
   m_UseNetworkManager: 0
   m_BroadcastData: HELLO
   m_ShowGUI: 0

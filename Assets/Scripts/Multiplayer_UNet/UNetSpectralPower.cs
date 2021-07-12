@@ -37,6 +37,7 @@ public class UNetSpectralPower : NetworkBehaviour
 
     private void UpdateCurrentPower(float updatedPower)
     {
-        power.OnCurrentPowerChanged(power);
+        if(power.OnCurrentPowerChanged != null)
+            power.OnCurrentPowerChanged(power);
     }
 }

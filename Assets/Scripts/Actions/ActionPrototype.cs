@@ -1,21 +1,16 @@
-using UnityEngine;
-
 public abstract class ActionPrototype 
 {
     // Fields
     protected bool isNormalOperation, isSpectralOperation;
+
+    // Properties
+    public abstract bool isSubscribable { get;}
     
     // Methods
     public void Subscribe(ActionContainer actionContainer)
     {
         actionContainer.Checker += Check;
         actionContainer.Performer += Perform;
-    }
-
-    protected void UnSubscribe(ActionContainer actionContainer)
-    {
-        actionContainer.Checker -= Check;
-        actionContainer.Performer -= Perform;
     }
 
     public virtual void Check(WarriorAction warriorAction)
