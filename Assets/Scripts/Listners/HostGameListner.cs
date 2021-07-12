@@ -10,8 +10,16 @@ public class HostGameListner : ListnerPrototype
     // Methods
     protected override void OnClickListner()
     {
-        networkDiscovery.broadcastData = hostName.text.ToString();
+        networkDiscovery.broadcastData = GetBroadcastData();
         networkDiscovery.StartBroadCast();
         CustomNetworkManager.singleton.StartHost();
+    }
+
+    private string GetBroadcastData()
+    {
+        if(hostName.text.ToString() != string.Empty)
+            return hostName.text.ToString();
+        else
+            return "NoName Host !";
     }
 }
