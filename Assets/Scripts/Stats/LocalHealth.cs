@@ -1,13 +1,11 @@
 using System;
 using UnityEngine;
 
-
 public class LocalHealth : MonoBehaviour 
 {
     // Fields
     [SerializeField] private WarriorStats stats;
-    [SerializeField] private TextMesh healthText;
-    [SerializeField] private GameObject healthTextPrefab;
+    [SerializeField] private HealthIndicator healthIndicator;
     private float currentHealth, maxHealth;
     public Action<float> OnCurrentHealthChanged;
     public Action OnDie;
@@ -33,34 +31,44 @@ public class LocalHealth : MonoBehaviour
         }
     }
     public float MaxHealth { get => maxHealth; private set => maxHealth = value; }
+    public HealthIndicator HealthIndicator { get => healthIndicator; }
 
     // Methods
     private void Start()
     {
-        if(!GameController.Instance.IsGameLocal)
+        if (!GameController.Instance.IsGameLocal)
             return;
+        InitializeActions();
         InitializeLocalHealth();
-        InstantiateHealthText();
-        OnCurrentHealthChanged += UpdateHealthUI;
+        healthIndicator.InitializeIndicator();
+    }
+
+    private void InitializeActions()
+    {
+        OnCurrentHealthChanged += UpdateIndicator;
         OnDie += Die;
+    }
+
+    public void UpdateIndicator(float updatedCurrentHealth)
+    {
+        healthIndicator.Update(updatedCurrentHealth, maxHealth);
+    }
+
+    public void Die()
+    {
+        int xValue = UnityEngine.Random.Range(-5, 5);
+        int yValue = 5;
+        int zValue = UnityEngine.Random.Range(-5, 5);
+        gameObject.SetActive(false);
+        transform.position = new Vector3(xValue, yValue, zValue);
+        CurrentHealth = MaxHealth;
+        gameObject.SetActive(true);
     }
 
     public void InitializeLocalHealth()
     {
         MaxHealth = stats.MaxHealth;
         CurrentHealth = stats.MaxHealth;
-    }
-
-    public void InstantiateHealthText()
-    {
-        GameObject healthTextObject = Instantiate(healthTextPrefab);
-        healthTextObject.transform.SetParent(gameObject.transform);
-        healthText = healthTextObject.GetComponent<TextMesh>();
-    }
-
-    public void UpdateHealthUI(float updatedCurrentHealth)
-    {
-        healthText.text = updatedCurrentHealth.ToString();
     }
 
     private void OnTriggerEnter(Collider other) 
@@ -76,16 +84,5 @@ public class LocalHealth : MonoBehaviour
         if(weaponHold == null || weaponHold.WarriorID == gameObject.GetInstanceID())
             return;
         CurrentHealth -= weaponHold.Damage;
-    }
-
-    public void Die()
-    {
-        int xValue = UnityEngine.Random.Range(-5, 5);
-        int yValue = 5;
-        int zValue = UnityEngine.Random.Range(-5, 5);
-        gameObject.SetActive(false);
-        transform.position = new Vector3(xValue, yValue, zValue);
-        CurrentHealth = MaxHealth;
-        gameObject.SetActive(true);
     }
 }

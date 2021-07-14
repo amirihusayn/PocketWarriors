@@ -34,7 +34,7 @@ public class UNetWarriorAction : NetworkBehaviour
     }
 
     [Command]
-    public void CmdCreateProjectile()
+    private void CmdCreateProjectile()
     {
         if(!isLocalPlayer)
             return;

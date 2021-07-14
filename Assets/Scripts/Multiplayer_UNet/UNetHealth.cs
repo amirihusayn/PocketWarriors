@@ -6,36 +6,50 @@ public class UNetHealth : NetworkBehaviour
 {
     // Fields
     private LocalHealth localHealth;
-    [SyncVar(hook = "UpdateCurrentHealth")] private float currentHealth;
+    private HealthIndicator healthIndicator;
+    [SyncVar(hook = "OnUpdateCurrentHealth")] private float currentHealth;
 	[SyncVar] private float maxHealth;
+    [SyncVar(hook = "OnUpdateIndicatorScale")] private float indicatorScale;
 
     // Methods
     private void Awake()
     {
         localHealth = GetComponent<LocalHealth>();
+        healthIndicator = localHealth.HealthIndicator;
     }
 
     private void Start()
     {
-        localHealth.InstantiateHealthText();
+        healthIndicator.InitializeIndicator();
         if (!isServer || GameController.Instance.IsGameLocal)
             return;
+        InitializeActions();
         localHealth.InitializeLocalHealth();
+        indicatorScale = healthIndicator.CurrentScale;
         InitializeUNetHealth();
+    }
+
+    private void InitializeActions()
+    {
         localHealth.OnCurrentHealthChanged += SetUNetCurrentHealth;
-        localHealth.OnCurrentHealthChanged += localHealth.UpdateHealthUI;
         localHealth.OnDie += RpcDie;
+    }
+
+    private void SetUNetCurrentHealth(float updatedCurrentHealth)
+    {
+        currentHealth = updatedCurrentHealth;
+    }
+
+    [ClientRpc]
+    private void RpcDie()
+    {
+        localHealth.Die();
     }
 
     private void InitializeUNetHealth()
     {
         currentHealth = localHealth.CurrentHealth;
         maxHealth = localHealth.MaxHealth;
-    }
-
-    private void SetUNetCurrentHealth(float updatedCurrentHealth)
-    {
-        currentHealth = updatedCurrentHealth;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -45,14 +59,18 @@ public class UNetHealth : NetworkBehaviour
         localHealth.TakeDamage(other);
     }
 
-	private void UpdateCurrentHealth(float updatedCurrentHealth)
+	private void OnUpdateCurrentHealth(float updatedCurrentHealth)
 	{
-        localHealth.UpdateHealthUI(updatedCurrentHealth);
+        if(localHealth == null || healthIndicator == null)
+            return;
+        healthIndicator.Update(updatedCurrentHealth, maxHealth);
+        indicatorScale = healthIndicator.CurrentScale;
 	}
 
-    [ClientRpc]
-    private void RpcDie()
+    private void OnUpdateIndicatorScale(float updatedScale)
     {
-        localHealth.Die();
+        if(localHealth == null || healthIndicator == null)
+            return;
+        healthIndicator.SetCurrentScale(updatedScale);
     }
 }

@@ -31,19 +31,6 @@ public class WarriorAction : MonoBehaviour
         Initialize();
     }
 
-    private void Update()
-    {
-        if (!GameController.Instance.IsGameLocal)
-            return;
-        Check();
-    }
-
-    private void FixedUpdate()
-    {
-        if (!GameController.Instance.IsGameLocal)
-            return;
-        Perform();
-    }
     public void Initialize()
     {
         warriorInput = new PrimaryInput();
@@ -57,9 +44,23 @@ public class WarriorAction : MonoBehaviour
         camera.transform.SetParent(gameObject.transform);
     }
 
+    private void Update()
+    {
+        if (!GameController.Instance.IsGameLocal)
+            return;
+        Check();
+    }
+
     public void Check()
     {
         actionContainer.CheckActions(this);
+    }
+
+    private void FixedUpdate()
+    {
+        if (!GameController.Instance.IsGameLocal)
+            return;
+        Perform();
     }
 
     public void Perform()
