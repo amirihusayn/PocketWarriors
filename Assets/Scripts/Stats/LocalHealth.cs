@@ -1,57 +1,62 @@
 using System;
 using UnityEngine;
 
-public class LocalHealth : MonoBehaviour 
+public class LocalHealth : MonoBehaviour, IState<float>
 {
     // Fields
     [SerializeField] private WarriorStats stats;
     [SerializeField] private HealthIndicator healthIndicator;
-    private float currentHealth, maxHealth;
+    private float currentState, maxState;
     public Action<float> OnCurrentHealthChanged;
     public Action OnDie;
 
     // Properties
-    public float CurrentHealth
+    public float CurrentState
     {
-        get => currentHealth;
+        get => currentState;
         private set
         {
-            if(value > maxHealth)
-                currentHealth = maxHealth;
-            else if(value <= 0)
-            {
-                currentHealth = 0;
-                if(OnDie != null)
-                    OnDie();
-            }
-            else
-                currentHealth = value;
-            if(OnCurrentHealthChanged != null)
-                OnCurrentHealthChanged(currentHealth);
+            UpdateState(value);
         }
     }
-    public float MaxHealth { get => maxHealth; private set => maxHealth = value; }
-    public HealthIndicator HealthIndicator { get => healthIndicator; }
+    public float MaxState { get => maxState; private set => maxState = value; }
+    public IIndicator<float> Indicator { get => healthIndicator; }
 
     // Methods
+    public void UpdateState(float updatedState)
+    {
+        if (updatedState > MaxState)
+            currentState = MaxState;
+        else if (updatedState <= 0)
+        {
+            currentState = 0;
+            if (OnDie != null)
+                OnDie();
+        }
+        else
+            currentState = updatedState;
+        if (OnCurrentHealthChanged != null)
+            OnCurrentHealthChanged(currentState);
+    }
+
     private void Start()
     {
         if (!GameController.Instance.IsGameLocal)
             return;
         InitializeActions();
-        InitializeLocalHealth();
-        healthIndicator.InitializeIndicator();
+        InitializeState();
+        Indicator.InitializeIndicator();
     }
 
-    private void InitializeActions()
+    public void InitializeActions()
     {
         OnCurrentHealthChanged += UpdateIndicator;
         OnDie += Die;
     }
 
-    public void UpdateIndicator(float updatedCurrentHealth)
+    public void UpdateIndicator(float updatedState)
     {
-        healthIndicator.Update(updatedCurrentHealth, maxHealth);
+        Indicator.UpdateIndicator(updatedState, MaxState);
     }
 
     public void Die()
@@ -61,14 +66,14 @@ public class LocalHealth : MonoBehaviour
         int zValue = UnityEngine.Random.Range(-5, 5);
         gameObject.SetActive(false);
         transform.position = new Vector3(xValue, yValue, zValue);
-        CurrentHealth = MaxHealth;
+        CurrentState = MaxState;
         gameObject.SetActive(true);
     }
 
-    public void InitializeLocalHealth()
+    public void InitializeState()
     {
-        MaxHealth = stats.MaxHealth;
-        CurrentHealth = stats.MaxHealth;
+        MaxState = stats.MaxHealth;
+        CurrentState = stats.MaxHealth;
     }
 
     private void OnTriggerEnter(Collider other) 
@@ -83,6 +88,6 @@ public class LocalHealth : MonoBehaviour
         WeaponHold weaponHold = other.GetComponent<WeaponHold>();
         if(weaponHold == null || weaponHold.WarriorID == gameObject.GetInstanceID())
             return;
-        CurrentHealth -= weaponHold.Damage;
+        CurrentState -= weaponHold.Damage;
     }
 }

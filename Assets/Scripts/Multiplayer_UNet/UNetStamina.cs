@@ -3,61 +3,64 @@ using UnityEngine;
 using UnityEngine.Networking;
 
 [RequireComponent(typeof(LocalStamina))]
-public class UNetStamina : NetworkBehaviour
+public class UNetStamina : NetworkBehaviour, IState<float>
 {
     // Fields
     private LocalStamina localStamina;
-    private StaminaIndicator staminaIndicator;
-    [SyncVar(hook = "OnUpdateCurrentStamina")] private float currentStamina;
-	[SyncVar] private float maxStamina;
-    [SyncVar(hook = "OnUpdateIndicatorHeight")] private float indicatorHeight;
+    [SyncVar(hook = "UpdateState")] private float currentState;
+	[SyncVar] private float maxState;
+    [SyncVar(hook = "UpdateIndicator")] private float indicatorValue;
+
+    // Properties
+    public float CurrentState { get => currentState; private set => currentState = value; }
+    public float MaxState { get => maxState; private set => maxState = value; }
+    public IIndicator<float> Indicator { get => localStamina.Indicator; }
 
     // Methods
     private void Awake()
     {
         localStamina = GetComponent<LocalStamina>();
-        staminaIndicator = localStamina.StaminaIndicator;
     }
 
     void Start()
     {
-        staminaIndicator.InitializeIndicator();
+        Indicator.InitializeIndicator();
         if (!isServer || GameController.Instance.IsGameLocal)
             return;
         InitializeActions();
-        localStamina.InitializeLocalStamina();
-        indicatorHeight = staminaIndicator.CurrentHeight;
-        InitializeUNetStamina();
+        localStamina.InitializeState();
+        indicatorValue = Indicator.CurrentValue;
+        InitializeState();
     }
 
-    private void InitializeActions()
+    public void InitializeActions()
     {
         localStamina.OnCurrentStaminaChanged += SetUNetCurrentStamina;
     }
 
-    private void SetUNetCurrentStamina(float updatedCurrentStamina)
+    private void SetUNetCurrentStamina(float updatedState)
     {
-        currentStamina = updatedCurrentStamina;
+        CurrentState = updatedState;
     }
 
-    private void InitializeUNetStamina()
+    public void InitializeState()
     {
-        currentStamina = localStamina.CurrentStamina;
-        maxStamina = localStamina.MaxStamina;
+        CurrentState = localStamina.CurrentState;
+        MaxState = localStamina.MaxState;
     }
 
-    private void OnUpdateCurrentStamina(float updatedCurrentStamina)
+    public void UpdateState(float updatedState)
     {
-        if(localStamina == null || staminaIndicator == null)
+        if(localStamina == null || Indicator == null)
             return;
-        staminaIndicator.Update(updatedCurrentStamina, maxStamina);
-        indicatorHeight = staminaIndicator.CurrentHeight;
+        Indicator.UpdateIndicator(updatedState, MaxState);
+        indicatorValue = Indicator.CurrentValue;
     }
 
-    private void OnUpdateIndicatorHeight(float updatedHeight)
+    public void UpdateIndicator(float updatedIndicatorValue)
     {
-        if(localStamina == null || staminaIndicator == null)
+        if(localStamina == null || Indicator == null)
             return;
-        staminaIndicator.SetCurrentHeight(updatedHeight);
+        Indicator.SetCurrentValue(updatedIndicatorValue);
     }
 }

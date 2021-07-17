@@ -2,42 +2,45 @@
 using UnityEngine.Networking;
 
 [RequireComponent(typeof(LocalHealth))]
-public class UNetHealth : NetworkBehaviour
+public class UNetHealth : NetworkBehaviour, IState<float>
 {
     // Fields
     private LocalHealth localHealth;
-    private HealthIndicator healthIndicator;
-    [SyncVar(hook = "OnUpdateCurrentHealth")] private float currentHealth;
-	[SyncVar] private float maxHealth;
-    [SyncVar(hook = "OnUpdateIndicatorScale")] private float indicatorScale;
+    [SyncVar(hook = "UpdateState")] private float currentState;
+	[SyncVar] private float maxState;
+    [SyncVar(hook = "UpdateIndicator")] private float indicatorValue;
+
+    // Properties
+    public float CurrentState { get => currentState; private set => currentState = value; }
+    public float MaxState { get => maxState; private set => maxState = value; }
+    public IIndicator<float> Indicator { get => localHealth.Indicator; }
 
     // Methods
     private void Awake()
     {
         localHealth = GetComponent<LocalHealth>();
-        healthIndicator = localHealth.HealthIndicator;
     }
 
     private void Start()
     {
-        healthIndicator.InitializeIndicator();
+        Indicator.InitializeIndicator();
         if (!isServer || GameController.Instance.IsGameLocal)
             return;
         InitializeActions();
-        localHealth.InitializeLocalHealth();
-        indicatorScale = healthIndicator.CurrentScale;
-        InitializeUNetHealth();
+        localHealth.InitializeState();
+        indicatorValue = Indicator.CurrentValue;
+        InitializeState();
     }
 
-    private void InitializeActions()
+    public void InitializeActions()
     {
         localHealth.OnCurrentHealthChanged += SetUNetCurrentHealth;
         localHealth.OnDie += RpcDie;
     }
 
-    private void SetUNetCurrentHealth(float updatedCurrentHealth)
+    private void SetUNetCurrentHealth(float updatedState)
     {
-        currentHealth = updatedCurrentHealth;
+        CurrentState = updatedState;
     }
 
     [ClientRpc]
@@ -46,10 +49,10 @@ public class UNetHealth : NetworkBehaviour
         localHealth.Die();
     }
 
-    private void InitializeUNetHealth()
+    public void InitializeState()
     {
-        currentHealth = localHealth.CurrentHealth;
-        maxHealth = localHealth.MaxHealth;
+        CurrentState = localHealth.CurrentState;
+        MaxState = localHealth.MaxState;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -59,18 +62,18 @@ public class UNetHealth : NetworkBehaviour
         localHealth.TakeDamage(other);
     }
 
-	private void OnUpdateCurrentHealth(float updatedCurrentHealth)
+	public void UpdateState(float updatedState)
 	{
-        if(localHealth == null || healthIndicator == null)
+        if(localHealth == null || Indicator == null)
             return;
-        healthIndicator.Update(updatedCurrentHealth, maxHealth);
-        indicatorScale = healthIndicator.CurrentScale;
+        Indicator.UpdateIndicator(updatedState, MaxState);
+        indicatorValue = Indicator.CurrentValue;
 	}
 
-    private void OnUpdateIndicatorScale(float updatedScale)
+    public void UpdateIndicator(float updatedIndicatorValue)
     {
-        if(localHealth == null || healthIndicator == null)
+        if(localHealth == null || Indicator == null)
             return;
-        healthIndicator.SetCurrentScale(updatedScale);
+        Indicator.SetCurrentValue(updatedIndicatorValue);
     }
 }
