@@ -5,9 +5,9 @@ using UnityEngine;
 public class HealthIndicator
 {
     // Fields
-    [SerializeField] private float offsetFromCenter, defaultScale;
     [SerializeField] private Transform indicatorTransform;
-    private float currentScale, maxScale;
+    [SerializeField] private float minScale, maxScale;
+    private float currentScale;
 
     // Properties
     public float CurrentScale { get => currentScale; set => currentScale = value; }
@@ -15,7 +15,6 @@ public class HealthIndicator
     // Methods
     public void InitializeIndicator()
     {
-        maxScale = defaultScale + offsetFromCenter; 
         currentScale = maxScale;
         SetCurrentScale();
     }
@@ -25,13 +24,17 @@ public class HealthIndicator
         if(maxHealth == 0)
             return;
         float currentHealthPercentage = (updatedCurrentHealth / maxHealth) * 100;
-        currentScale = (currentHealthPercentage * maxScale) / 100;
+        float totalScale =  (float)(Math.Pow(maxScale, 2f) - Math.Pow(minScale, 2f));
+        float minScaleInPower2 =  (float)(Math.Pow(minScale, 2f));
+        currentScale = (currentHealthPercentage * totalScale) / 100;
+        currentScale += minScaleInPower2;
+        currentScale = (float)Math.Sqrt(currentScale);
         SetCurrentScale();
     }
 
     public void SetCurrentScale()
     {
-        indicatorTransform.localScale = 
+        indicatorTransform.GetComponent<SmoothTransform>().LocalTargetScale = 
             new Vector3(currentScale, indicatorTransform.localScale.y, currentScale);
     }
 

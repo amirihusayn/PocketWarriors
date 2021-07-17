@@ -2,15 +2,19 @@ public abstract class ActionPrototype
 {
     // Fields
     protected bool isNormalOperation, isSpectralOperation;
+    protected LocalStamina localStamina;
+    protected LocalSpectralPower localPower;
 
     // Properties
-    public abstract bool isSubscribable { get;}
+    public abstract bool IsSubscribable { get;}
     
     // Methods
-    public void Subscribe(ActionContainer actionContainer)
+    public void Subscribe(ActionContainer actionContainer, WarriorAction warriorAction)
     {
         actionContainer.Checker += Check;
         actionContainer.Performer += Perform;
+        localStamina = warriorAction.GetComponent<LocalStamina>();
+        localPower = warriorAction.GetComponent<LocalSpectralPower>();
     }
 
     public virtual void Check(WarriorAction warriorAction)
@@ -22,9 +26,15 @@ public abstract class ActionPrototype
     public virtual void Perform(WarriorAction warriorAction)
     {
         if(isSpectralOperation)
+        {
+            warriorAction.WarriorAnimator.SetBool("isSpectral", true);
             PerformSpectralOperation(warriorAction);
+        }
         else if(isNormalOperation)
+        {
+            warriorAction.WarriorAnimator.SetBool("isSpectral", false);
             PerformNormalOperation(warriorAction);
+        }
         isNormalOperation = false;
         isSpectralOperation = false;
     }

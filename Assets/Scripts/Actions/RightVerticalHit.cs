@@ -3,7 +3,7 @@ using UnityEngine;
 public class RightVerticalHit : ActionPrototype
 {
     // Properties
-    public override bool isSubscribable { get => GameController.Instance.IsGameLocal;}
+    public override bool IsSubscribable { get => GameController.Instance.IsGameLocal;}
 
     // Methods
     protected override bool CheckNormalOperation(WarriorAction warriorAction)

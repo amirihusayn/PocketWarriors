@@ -16,10 +16,10 @@ public class WarriorAction : MonoBehaviour
 
     // Properties
     public WarriorStats Stats { get => stats;}
-    public Animator WarriorAnimator { get => warriorAnimator; set => warriorAnimator = value; }
-    public Rigidbody WarriorRigidBody { get => warriorRigidBody; set => warriorRigidBody = value; }
+    public Animator WarriorAnimator { get => warriorAnimator; }
+    public Rigidbody WarriorRigidBody { get => warriorRigidBody; }
     public ActionContainer ActionContainer { get => actionContainer;}
-    public InputPrototype WarriorInput { get => warriorInput; set => warriorInput = value; }
+    public InputPrototype WarriorInput { get => warriorInput; }
     public Vector3 Movement { get => movement; set => movement = value; }
     public bool IsHorizontalAttack { get => isHorizontalAttack; set => isHorizontalAttack = value; }
 
@@ -34,7 +34,7 @@ public class WarriorAction : MonoBehaviour
     public void Initialize()
     {
         warriorInput = new PrimaryInput();
-        actionContainer = new ActionContainer();
+        actionContainer = new ActionContainer(this);
         InstantiateCamera();
     }
 

@@ -991,7 +991,7 @@ PrefabInstance:
     - target: {fileID: 3001125067363080917, guid: 2b56760abaddb41459e20604b8191d03,
         type: 3}
       propertyPath: m_Text
-      value: Battle
+      value: LAN Battle
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2b56760abaddb41459e20604b8191d03, type: 3}

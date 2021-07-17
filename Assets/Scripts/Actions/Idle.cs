@@ -3,7 +3,7 @@ using UnityEngine;
 public class Idle : ActionPrototype
 {
     // Properties
-    public override bool isSubscribable { get => true;}
+    public override bool IsSubscribable { get => true;}
 
     // Methods
     protected override bool CheckNormalOperation(WarriorAction warriorAction)
@@ -45,5 +45,6 @@ public class Idle : ActionPrototype
 
     protected override void PerformSpectralOperation(WarriorAction warriorAction)
     {
+
     }
 }

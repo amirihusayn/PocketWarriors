@@ -3,7 +3,7 @@ using UnityEngine;
 public class Jump : ActionPrototype
 {
     // Properties
-    public override bool isSubscribable { get => true;}
+    public override bool IsSubscribable { get => true;}
 
     // Methods
     protected override bool CheckNormalOperation(WarriorAction warriorAction)
@@ -33,6 +33,7 @@ public class Jump : ActionPrototype
 
     protected override void PerformSpectralOperation(WarriorAction warriorAction)
     {
+
         // create a projectile on ground that will explode
     }
 }

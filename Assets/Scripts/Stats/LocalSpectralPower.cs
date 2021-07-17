@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class LocalSpectralPower : MonoBehaviour 
@@ -6,6 +7,8 @@ public class LocalSpectralPower : MonoBehaviour
     // Fields
     [SerializeField] private WarriorStats stats;
     [SerializeField] private TextMesh spectralText;
+    [SerializeField] private float reloadTimeInSeconds;
+    [SerializeField] private float increaseAmount;
     private float currentPower, maxPower;
     public Action<LocalSpectralPower> OnNoPower, OnCurrentPowerChanged;
 
@@ -30,9 +33,14 @@ public class LocalSpectralPower : MonoBehaviour
     // Methods
     private void Start()
     {
-        if(!GameController.Instance.IsGameLocal)
+        if (!GameController.Instance.IsGameLocal)
             return;
+        InitializeActions();
         InitializeLocalPower();
+    }
+
+    private void InitializeActions()
+    {
         OnCurrentPowerChanged += UpdatePowerUI;
     }
 
@@ -40,6 +48,17 @@ public class LocalSpectralPower : MonoBehaviour
     {
         MaxPower = stats.MaxPower;
         CurrentPower = stats.MaxPower;
+        StopAllCoroutines();
+        StartCoroutine("IncreasePower");
+    }
+
+    private IEnumerator IncreasePower()
+    {
+        while(true)
+        {
+            yield return new WaitForSeconds(reloadTimeInSeconds);
+            currentPower += increaseAmount;
+        }
     }
 
     public void UpdatePowerUI(LocalSpectralPower localPower)
@@ -47,8 +66,13 @@ public class LocalSpectralPower : MonoBehaviour
         spectralText.text = localPower.currentPower.ToString();
     }
 
-    public void ConsumePower(float power)
+    public void ConsumePower(float powerAmount)
     {
-        CurrentPower -= power;
+        CurrentPower -= powerAmount;
+    }
+
+    public bool HasEnoughPower(float powerCost)
+    {
+        return powerCost <= currentPower;
     }
 }

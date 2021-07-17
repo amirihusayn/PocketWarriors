@@ -3,8 +3,8 @@ using UnityEngine;
 public class MoveLeft : ActionPrototype
 {
     // Properties
-    public override bool isSubscribable { get => true;}
-
+    public override bool IsSubscribable { get => true;}
+    
     // Methods
     protected override bool CheckNormalOperation(WarriorAction warriorAction)
     {
@@ -35,6 +35,7 @@ public class MoveLeft : ActionPrototype
 
     protected override void PerformSpectralOperation(WarriorAction warriorAction)
     {
+
         // 
     }
 }

@@ -3,8 +3,7 @@ using UnityEngine;
 public class RightHorizontalHit : ActionPrototype
 {
     // Properties
-    public override bool isSubscribable { get => GameController.Instance.IsGameLocal;}
-
+    public override bool IsSubscribable { get => GameController.Instance.IsGameLocal;}
     // Methods
     protected override bool CheckNormalOperation(WarriorAction warriorAction)
     {
@@ -32,6 +31,7 @@ public class RightHorizontalHit : ActionPrototype
 
     protected override void PerformSpectralOperation(WarriorAction warriorAction)
     {
+
         //
     }
 }

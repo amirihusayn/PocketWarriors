@@ -15,13 +15,13 @@ public class ActionContainer
     public Dictionary<Type, ActionPrototype> ActionDictionary { get => actionDictionary; }
 
     // Constructor
-    public ActionContainer()
+    public ActionContainer(WarriorAction warriorAction)
     {
-        Initialize();
+        Initialize(warriorAction);
     }
 
     // Methods
-    private void Initialize()
+    private void Initialize(WarriorAction warriorAction)
     {
         actionDictionary = new Dictionary<Type, ActionPrototype>();
         var allActionAssembly = Assembly.GetAssembly(typeof(ActionPrototype));
@@ -31,10 +31,10 @@ public class ActionContainer
         foreach(var thisActionType in actionTypes)
         {
             ActionPrototype action = System.Activator.CreateInstance(thisActionType) as ActionPrototype;
-            if(action.isSubscribable)
+            if(action.IsSubscribable)
             {
                 actionDictionary.Add(thisActionType, action);
-                action.Subscribe(this);
+                action.Subscribe(this, warriorAction);
             }
         }
     }

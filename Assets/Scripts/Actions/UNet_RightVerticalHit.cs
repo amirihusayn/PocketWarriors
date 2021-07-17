@@ -8,7 +8,7 @@ public class UNet_RightVerticalHit : ActionPrototype
     private bool isNetworkAnimatorInitialized;
 
     // Properties
-    public override bool isSubscribable { get => !GameController.Instance.IsGameLocal;}
+    public override bool IsSubscribable { get => !GameController.Instance.IsGameLocal;}
 
     // Methods
     public override void Check(WarriorAction warriorAction)

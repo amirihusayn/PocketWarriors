@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 
@@ -6,9 +7,12 @@ public class LocalStamina : MonoBehaviour
 {
     // Fields
     [SerializeField] private WarriorStats stats;
-    [SerializeField] private TextMesh staminaText;
+    [SerializeField] private StaminaIndicator staminaIndicator;
+    [SerializeField] private float reloadTimeInSeconds;
+    [SerializeField] private float increaseAmount;
     private float currentStamina, maxStamina;
-    public Action<LocalStamina> OnNoStamina, OnCurrentStaminaChanged;
+    public Action<float> OnCurrentStaminaChanged;
+    public Action OnNoStamina;
 
     // Properties
     public float CurrentStamina
@@ -23,33 +27,61 @@ public class LocalStamina : MonoBehaviour
             else
                 currentStamina = value;
             if(OnCurrentStaminaChanged != null)
-                OnCurrentStaminaChanged(this);
+                OnCurrentStaminaChanged(currentStamina);
         }
     }
     public float MaxStamina { get => maxStamina; private set => maxStamina = value; }
+    public StaminaIndicator StaminaIndicator { get => staminaIndicator; }
 
     // Methods
     private void Start()
     {
-        if(!GameController.Instance.IsGameLocal)
+        if (!GameController.Instance.IsGameLocal)
             return;
+        Initialize();
+    }
+
+    public void Initialize()
+    {
+        InitializeActions();
         InitializeLocalStamina();
-        OnCurrentStaminaChanged += UpdateStaminaUI;
+        staminaIndicator.InitializeIndicator();
+    }
+
+    private void InitializeActions()
+    {
+        OnCurrentStaminaChanged += UpdateIndicator;
+    }
+
+    public void UpdateIndicator(float updatedCurrentStamina)
+    {
+        staminaIndicator.Update(updatedCurrentStamina, maxStamina);
     }
 
     public void InitializeLocalStamina()
     {
         MaxStamina = stats.MaxStamina;
         CurrentStamina = stats.MaxStamina;
+        StopAllCoroutines();
+        StartCoroutine("IncreaseStamina");
     }
 
-    public void UpdateStaminaUI(LocalStamina localStamina)
+    private IEnumerator IncreaseStamina()
     {
-        staminaText.text = localStamina.currentStamina.ToString();
+        while(true)
+        {
+            yield return new WaitForSeconds(reloadTimeInSeconds);
+            CurrentStamina += increaseAmount;
+        }
     }
-    
-    public void ConsumeStamina(float stamina)
+        
+    public void ConsumeStamina(float staminaAmount)
     {
-        CurrentStamina -= stamina;
+        CurrentStamina -= staminaAmount;
+    }
+
+    public bool HasEnoughStamina(float staminaCost)
+    {
+        return staminaCost <= currentStamina;
     }
 }

@@ -3,7 +3,7 @@ using UnityEngine;
 public class LeftVerticalHit : ActionPrototype
 {
     // Properties
-    public override bool isSubscribable { get => GameController.Instance.IsGameLocal;}
+    public override bool IsSubscribable { get => GameController.Instance.IsGameLocal;}
 
     // Methods
     protected override bool CheckNormalOperation(WarriorAction warriorAction)
@@ -32,6 +32,7 @@ public class LeftVerticalHit : ActionPrototype
 
     protected override void PerformSpectralOperation(WarriorAction warriorAction)
     {
+
         // create a direct spectral power mesh front of warrior
     }
 }

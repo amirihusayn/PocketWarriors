@@ -1,44 +1,63 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.Networking;
 
 [RequireComponent(typeof(LocalStamina))]
 public class UNetStamina : NetworkBehaviour
 {
     // Fields
-    private LocalStamina stamina;
-    [SyncVar(hook = "UpdateCurrentStamina")] private float currentStamina;
-    [SyncVar] private float maxStamina;
+    private LocalStamina localStamina;
+    private StaminaIndicator staminaIndicator;
+    [SyncVar(hook = "OnUpdateCurrentStamina")] private float currentStamina;
+	[SyncVar] private float maxStamina;
+    [SyncVar(hook = "OnUpdateIndicatorHeight")] private float indicatorHeight;
 
     // Methods
     private void Awake()
     {
-        stamina = GetComponent<LocalStamina>();
+        localStamina = GetComponent<LocalStamina>();
+        staminaIndicator = localStamina.StaminaIndicator;
     }
 
     void Start()
     {
-		if(!isServer || GameController.Instance.IsGameLocal)
-			return;
-		stamina.InitializeLocalStamina();
+        staminaIndicator.InitializeIndicator();
+        if (!isServer || GameController.Instance.IsGameLocal)
+            return;
+        InitializeActions();
+        localStamina.InitializeLocalStamina();
+        indicatorHeight = staminaIndicator.CurrentHeight;
         InitializeUNetStamina();
-        stamina.OnCurrentStaminaChanged += SetUNetCurrentStamina;
-        stamina.OnCurrentStaminaChanged += stamina.UpdateStaminaUI;
+    }
+
+    private void InitializeActions()
+    {
+        localStamina.OnCurrentStaminaChanged += SetUNetCurrentStamina;
+    }
+
+    private void SetUNetCurrentStamina(float updatedCurrentStamina)
+    {
+        currentStamina = updatedCurrentStamina;
     }
 
     private void InitializeUNetStamina()
     {
-        currentStamina = stamina.CurrentStamina;
-        maxStamina = stamina.MaxStamina;
-    }
-
-    private void SetUNetCurrentStamina(LocalStamina localStamina)
-    {
         currentStamina = localStamina.CurrentStamina;
+        maxStamina = localStamina.MaxStamina;
     }
 
-    private void UpdateCurrentStamina(float updatedStamina)
+    private void OnUpdateCurrentStamina(float updatedCurrentStamina)
     {
-        if(stamina.OnCurrentStaminaChanged != null)
-            stamina.OnCurrentStaminaChanged(stamina);
+        if(localStamina == null || staminaIndicator == null)
+            return;
+        staminaIndicator.Update(updatedCurrentStamina, maxStamina);
+        indicatorHeight = staminaIndicator.CurrentHeight;
+    }
+
+    private void OnUpdateIndicatorHeight(float updatedHeight)
+    {
+        if(localStamina == null || staminaIndicator == null)
+            return;
+        staminaIndicator.SetCurrentHeight(updatedHeight);
     }
 }
