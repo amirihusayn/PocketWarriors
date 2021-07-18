@@ -34,6 +34,7 @@ public class WarriorRotation : MonoBehaviour
     public void Initialize()
     {
         Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
         rotationSpeed = stats.RotationSpeed;
     }
 
