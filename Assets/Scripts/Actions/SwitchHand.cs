@@ -3,7 +3,7 @@ using UnityEngine;
 public class SwitchHand : ActionPrototype
 {
     // Properties
-    public override bool IsSubscribable { get => true;}
+    public override bool IsSubscribable { get => GameController.Instance.IsGameLocal;}
 
     // Methods
     protected override bool CheckNormalOperation(WarriorAction warriorAction)

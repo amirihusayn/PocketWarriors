@@ -46,6 +46,7 @@ public class LocalStamina : MonoBehaviour, IState<float>
         InitializeActions();
         InitializeState();
         Indicator.InitializeIndicator();
+        InitializeAllStaminaCosts();
     }
 
     public void InitializeActions()
@@ -74,7 +75,15 @@ public class LocalStamina : MonoBehaviour, IState<float>
             CurrentState += increaseAmount;
         }
     }
-        
+
+    private void InitializeAllStaminaCosts()
+    {
+        Animator animator = GetComponent<Animator>();
+        StaminaCost []staminaCostArray = animator.GetBehaviours<StaminaCost>();
+        foreach(StaminaCost thisStaminaCost in staminaCostArray)
+            thisStaminaCost.InitializeStaminaCostBehaviour(this);
+    } 
+
     public void ConsumeStamina(float staminaAmount)
     {
         CurrentState -= staminaAmount;

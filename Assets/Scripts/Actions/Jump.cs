@@ -3,7 +3,7 @@ using UnityEngine;
 public class Jump : ActionPrototype
 {
     // Properties
-    public override bool IsSubscribable { get => true;}
+    public override bool IsSubscribable { get => GameController.Instance.IsGameLocal;}
 
     // Methods
     protected override bool CheckNormalOperation(WarriorAction warriorAction)
@@ -28,6 +28,7 @@ public class Jump : ActionPrototype
 
     protected override void PerformNormalOperation(WarriorAction warriorAction)
     {
+        warriorAction.WarriorAnimator.SetTrigger("OnJump");
         warriorAction.WarriorRigidBody.velocity = new Vector3(warriorAction.WarriorRigidBody.velocity.x , warriorAction.Stats.JumpSpeed , warriorAction.WarriorRigidBody.velocity.z);
     }
 
