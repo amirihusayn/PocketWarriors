@@ -1,24 +1,42 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.Networking;
 
-[RequireComponent(typeof(LocalHealth))]
-public class UNetHealth : NetworkBehaviour, IState<float>
+public class UNetHealth : NetworkBehaviour, IState<short>, IHealth<short>
 {
     // Fields
-    private LocalHealth localHealth;
-    [SyncVar(hook = "UpdateState")] private float currentState;
-	[SyncVar] private float maxState;
-    [SyncVar(hook = "UpdateIndicator")] private float indicatorValue;
+    [SerializeField] private WarriorStats stats;
+    [SerializeField] private HealthIndicator healthIndicator;
+    [SyncVar(hook = "UpdateState")] private short currentState;
+	[SyncVar] private short maxState;
+    [SyncVar(hook = "UpdateIndicator")] private short indicatorValue;
+    public Action OnDie;
 
     // Properties
-    public float CurrentState { get => currentState; private set => currentState = value; }
-    public float MaxState { get => maxState; private set => maxState = value; }
-    public IIndicator<float> Indicator { get => localHealth.Indicator; }
+    public short CurrentState
+    {
+        get => currentState;
+        private set
+        {
+            SetCurrentState(value);
+        }
+    }
+    public short MaxState { get => maxState; private set => maxState = value; }
+    public IIndicator<short> Indicator { get => healthIndicator; }
 
     // Methods
-    private void Awake()
+    public void SetCurrentState(short updatedState)
     {
-        localHealth = GetComponent<LocalHealth>();
+        if (updatedState > MaxState)
+            currentState = MaxState;
+        else if (updatedState <= 0)
+        {
+            currentState = 0;
+            if (OnDie != null)
+                OnDie();
+        }
+        else
+            currentState = updatedState;
     }
 
     private void Start()
@@ -27,52 +45,59 @@ public class UNetHealth : NetworkBehaviour, IState<float>
         if (!isServer || GameController.Instance.IsGameLocal)
             return;
         InitializeActions();
-        localHealth.InitializeState();
-        indicatorValue = Indicator.CurrentValue;
         InitializeState();
+        indicatorValue = Indicator.CurrentValue;
     }
 
     public void InitializeActions()
     {
-        localHealth.OnCurrentHealthChanged += SetUNetCurrentHealth;
-        localHealth.OnDie += RpcDie;
-    }
-
-    private void SetUNetCurrentHealth(float updatedState)
-    {
-        CurrentState = updatedState;
+        OnDie += RpcDie;
     }
 
     [ClientRpc]
     private void RpcDie()
     {
-        localHealth.Die();
+        int xValue = UnityEngine.Random.Range(-5, 5);
+        int yValue = 5;
+        int zValue = UnityEngine.Random.Range(-5, 5);
+        gameObject.SetActive(false);
+        transform.position = new Vector3(xValue, yValue, zValue);
+        gameObject.SetActive(true);
+        CurrentState = MaxState;
     }
 
     public void InitializeState()
     {
-        CurrentState = localHealth.CurrentState;
-        MaxState = localHealth.MaxState;
+        MaxState = (short)stats.MaxHealth;
+        CurrentState = (short)stats.MaxHealth;
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (!isServer || GameController.Instance.IsGameLocal)
             return;
-        localHealth.TakeDamage(other);
+        TakeDamage(other);
     }
 
-	public void UpdateState(float updatedState)
+    public void TakeDamage(Collider other)
+    {
+        WeaponHold weaponHold = other.GetComponent<WeaponHold>();
+        if(weaponHold == null || weaponHold.WarriorID == gameObject.GetInstanceID())
+            return;
+        CurrentState -= (short)weaponHold.Damage;
+    }
+
+	public void UpdateState(short updatedState)
 	{
-        if(localHealth == null || Indicator == null)
+        if(Indicator == null)
             return;
         Indicator.UpdateIndicator(updatedState, MaxState);
         indicatorValue = Indicator.CurrentValue;
 	}
 
-    public void UpdateIndicator(float updatedIndicatorValue)
+    public void UpdateIndicator(short updatedIndicatorValue)
     {
-        if(localHealth == null || Indicator == null)
+        if(Indicator == null)
             return;
         Indicator.SetCurrentValue(updatedIndicatorValue);
     }

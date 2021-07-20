@@ -16,7 +16,6 @@ GameObject:
   - component: {fileID: 4607435883562438494}
   - component: {fileID: 4607435883562438495}
   - component: {fileID: 4607435883562438480}
-  - component: {fileID: 4607435883562438481}
   m_Layer: 9
   m_Name: Warrior_Local
   m_TagString: Untagged
@@ -153,24 +152,8 @@ MonoBehaviour:
     minHeight: 0
     maxHeight: 7
     indicatorTransform: {fileID: 6085587264327893688}
-  reloadTimeInSeconds: 1
-  increaseAmount: 15
---- !u!114 &4607435883562438481
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4607435883562469873}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae60f92e56064bc458f398bed002d924, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  stats: {fileID: 0}
-  spectralText: {fileID: 0}
-  reloadTimeInSeconds: 0
-  increaseAmount: 0
+  reloadTimeInSeconds: 0.5
+  increaseAmount: 7
 --- !u!1 &4607435883562469875
 GameObject:
   m_ObjectHideFlags: 0

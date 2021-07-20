@@ -3,19 +3,19 @@ using System.Collections;
 using UnityEngine;
 
 
-public class LocalStamina : MonoBehaviour, IState<float>
+public class LocalStamina : MonoBehaviour, IState<short>, IStamina<short>
 {
     // Fields
     [SerializeField] private WarriorStats stats;
     [SerializeField] private StaminaIndicator staminaIndicator;
     [SerializeField] private float reloadTimeInSeconds;
-    [SerializeField] private float increaseAmount;
-    private float currentState, maxState;
-    public Action<float> OnCurrentStaminaChanged;
+    [SerializeField] private short increaseAmount;
+    private short currentState, maxState;
+    public Action<short> OnCurrentStaminaChanged;
     public Action OnNoStamina;
 
     // Properties
-    public float CurrentState
+    public short CurrentState
     {
         get => currentState;
         private set
@@ -23,11 +23,11 @@ public class LocalStamina : MonoBehaviour, IState<float>
             UpdateState(value);
         }
     }
-    public float MaxState { get => maxState; private set => maxState = value; }
-    public IIndicator<float> Indicator { get => staminaIndicator; }
+    public short MaxState { get => maxState; private set => maxState = value; }
+    public IIndicator<short> Indicator { get => staminaIndicator; }
 
     // Methods
-    public void UpdateState(float updatedState)
+    public void UpdateState(short updatedState)
     {
         if (updatedState > MaxState)
             currentState = MaxState;
@@ -44,9 +44,9 @@ public class LocalStamina : MonoBehaviour, IState<float>
         if (!GameController.Instance.IsGameLocal)
             return;
         InitializeActions();
+        InitializeAllStaminaCosts();
         InitializeState();
         Indicator.InitializeIndicator();
-        InitializeAllStaminaCosts();
     }
 
     public void InitializeActions()
@@ -54,15 +54,15 @@ public class LocalStamina : MonoBehaviour, IState<float>
         OnCurrentStaminaChanged += UpdateIndicator;
     }
 
-    public void UpdateIndicator(float updatedState)
+    public void UpdateIndicator(short updatedState)
     {
         Indicator.UpdateIndicator(updatedState, MaxState);
     }
 
     public void InitializeState()
     {
-        MaxState = stats.MaxStamina;
-        CurrentState = stats.MaxStamina;
+        MaxState = (short) stats.MaxStamina;
+        CurrentState = (short) stats.MaxStamina;
         StopAllCoroutines();
         StartCoroutine("IncreaseStamina");
     }
@@ -84,12 +84,12 @@ public class LocalStamina : MonoBehaviour, IState<float>
             thisStaminaCost.InitializeStaminaCostBehaviour(this);
     } 
 
-    public void ConsumeStamina(float staminaAmount)
+    public void ConsumeStamina(short staminaAmount)
     {
         CurrentState -= staminaAmount;
     }
 
-    public bool HasEnoughStamina(float staminaCost)
+    public bool HasEnoughStamina(short staminaCost)
     {
         return staminaCost <= CurrentState;
     }

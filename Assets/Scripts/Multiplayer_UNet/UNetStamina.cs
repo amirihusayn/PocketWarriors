@@ -1,66 +1,107 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Networking;
 
-[RequireComponent(typeof(LocalStamina))]
-public class UNetStamina : NetworkBehaviour, IState<float>
+public class UNetStamina : NetworkBehaviour, IState<short>, IStamina<short>
 {
     // Fields
-    private LocalStamina localStamina;
-    [SyncVar(hook = "UpdateState")] private float currentState;
-	[SyncVar] private float maxState;
-    [SyncVar(hook = "UpdateIndicator")] private float indicatorValue;
+    [SerializeField] private WarriorStats stats;
+    [SerializeField] private StaminaIndicator staminaIndicator;
+    [SerializeField] private float reloadTimeInSeconds;
+    [SerializeField] private short increaseAmount;
+    [SyncVar(hook = "UpdateState")] private short currentState;
+	[SyncVar] private short maxState;
+    [SyncVar(hook = "UpdateIndicator")] private short indicatorValue;
+    public Action OnNoStamina;
 
     // Properties
-    public float CurrentState { get => currentState; private set => currentState = value; }
-    public float MaxState { get => maxState; private set => maxState = value; }
-    public IIndicator<float> Indicator { get => localStamina.Indicator; }
+    public short CurrentState
+    {
+        get => currentState;
+        private set
+        {
+            SetCurrentState(value);
+        }
+    }
+    public short MaxState { get => maxState; private set => maxState = value; }
+    public IIndicator<short> Indicator { get => staminaIndicator; }
 
     // Methods
-    private void Awake()
+    public void SetCurrentState(short updatedState)
     {
-        localStamina = GetComponent<LocalStamina>();
+        if (updatedState > MaxState)
+            currentState = MaxState;
+        else if (updatedState <= 0)
+            currentState = 0;
+        else
+            currentState = updatedState;
     }
 
+
+    private void OnEnable() {
+        InitializeAllStaminaCosts();
+        StopAllCoroutines();
+        StartCoroutine("IncreaseStamina");
+    }
+    
     void Start()
     {
         Indicator.InitializeIndicator();
         if (!isServer || GameController.Instance.IsGameLocal)
             return;
         InitializeActions();
-        localStamina.InitializeState();
-        indicatorValue = Indicator.CurrentValue;
         InitializeState();
+        InitializeAllStaminaCosts();
+        indicatorValue = Indicator.CurrentValue;
     }
 
     public void InitializeActions()
     {
-        localStamina.OnCurrentStaminaChanged += SetUNetCurrentStamina;
     }
 
-    private void SetUNetCurrentStamina(float updatedState)
+    private void InitializeAllStaminaCosts()
     {
-        CurrentState = updatedState;
-    }
-
+        Animator animator = GetComponent<Animator>();
+        StaminaCost []staminaCostArray = animator.GetBehaviours<StaminaCost>();
+        foreach(StaminaCost thisStaminaCost in staminaCostArray)
+            thisStaminaCost.InitializeStaminaCostBehaviour(this);
+    } 
+    
     public void InitializeState()
     {
-        CurrentState = localStamina.CurrentState;
-        MaxState = localStamina.MaxState;
+        MaxState = (short) stats.MaxStamina;
+        CurrentState = (short) stats.MaxStamina;
+        StopAllCoroutines();
+        StartCoroutine("IncreaseStamina");
     }
 
-    public void UpdateState(float updatedState)
+    private IEnumerator IncreaseStamina()
     {
-        if(localStamina == null || Indicator == null)
+        while(true)
+        {
+            yield return new WaitForSeconds(reloadTimeInSeconds);
+            CurrentState += increaseAmount;
+        }
+    }
+
+    public void UpdateState(short updatedState)
+    {
+        if(Indicator == null)
             return;
         Indicator.UpdateIndicator(updatedState, MaxState);
         indicatorValue = Indicator.CurrentValue;
     }
 
-    public void UpdateIndicator(float updatedIndicatorValue)
+    public void UpdateIndicator(short updatedIndicatorValue)
     {
-        if(localStamina == null || Indicator == null)
+        if(Indicator == null)
             return;
         Indicator.SetCurrentValue(updatedIndicatorValue);
+    }
+
+    public void ConsumeStamina(short staminaAmount)
+    {
+        CurrentState -= staminaAmount;
     }
 }

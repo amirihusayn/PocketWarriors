@@ -6,14 +6,14 @@ using UnityEngine;
 public class StaminaCost : StateMachineBehaviour
 {
    // Fields
-   [SerializeField] private float staminaCost;
+   [SerializeField] private short staminaCost;
    [SerializeField] private bool isCostInOnStateEnter, isCostInOnStateUpdate, isCostInOnStateExit;
-   private LocalStamina localStamina;
+   private IStamina<short> staminaComponent;
 
    // Methods
-   public void InitializeStaminaCostBehaviour(LocalStamina localStamina) 
+   public void InitializeStaminaCostBehaviour(IStamina<short> staminaComponent) 
    {
-      this.localStamina = localStamina;
+      this.staminaComponent = staminaComponent;
    } 
 
    override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -21,7 +21,7 @@ public class StaminaCost : StateMachineBehaviour
       if(!isCostInOnStateEnter)
          return;
       if(!animator.GetBool("isSpectral"))
-         animator.GetComponent<LocalStamina>().ConsumeStamina(staminaCost);
+         staminaComponent.ConsumeStamina(staminaCost);
       base.OnStateEnter(animator, stateInfo, layerIndex);
    }
 
@@ -30,7 +30,7 @@ public class StaminaCost : StateMachineBehaviour
       if(!isCostInOnStateUpdate)
          return;
       if(!animator.GetBool("isSpectral"))
-         animator.GetComponent<LocalStamina>().ConsumeStamina(staminaCost);
+         staminaComponent.ConsumeStamina(staminaCost);
       base.OnStateUpdate(animator, stateInfo, layerIndex);
    }
 
@@ -39,7 +39,7 @@ public class StaminaCost : StateMachineBehaviour
       if(!isCostInOnStateExit)
          return;
       if(!animator.GetBool("isSpectral"))
-         animator.GetComponent<LocalStamina>().ConsumeStamina(staminaCost);
+         staminaComponent.ConsumeStamina(staminaCost);
       base.OnStateExit(animator, stateInfo, layerIndex);
    }
 

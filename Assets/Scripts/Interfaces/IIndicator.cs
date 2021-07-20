@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-public interface IIndicator<T>
+﻿public interface IIndicator<T>
 {
     T CurrentValue { get; set;}
     void InitializeIndicator();

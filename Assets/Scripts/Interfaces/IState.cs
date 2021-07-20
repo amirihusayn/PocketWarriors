@@ -1,7 +1,7 @@
 ﻿public interface IState<T>
 {
-    float CurrentState {get; }
-    float MaxState {get; }
+    T CurrentState {get; }
+    T MaxState {get; }
     IIndicator<T> Indicator {get; }
     void InitializeActions();
     void InitializeState();

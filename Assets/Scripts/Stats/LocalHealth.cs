@@ -1,17 +1,17 @@
 using System;
 using UnityEngine;
 
-public class LocalHealth : MonoBehaviour, IState<float>
+public class LocalHealth : MonoBehaviour, IState<short>, IHealth<short>
 {
     // Fields
     [SerializeField] private WarriorStats stats;
     [SerializeField] private HealthIndicator healthIndicator;
-    private float currentState, maxState;
-    public Action<float> OnCurrentHealthChanged;
+    private short currentState, maxState;
+    public Action<short> OnCurrentHealthChanged;
     public Action OnDie;
 
     // Properties
-    public float CurrentState
+    public short CurrentState
     {
         get => currentState;
         private set
@@ -19,11 +19,11 @@ public class LocalHealth : MonoBehaviour, IState<float>
             UpdateState(value);
         }
     }
-    public float MaxState { get => maxState; private set => maxState = value; }
-    public IIndicator<float> Indicator { get => healthIndicator; }
+    public short MaxState { get => maxState; private set => maxState = value; }
+    public IIndicator<short> Indicator { get => healthIndicator; }
 
     // Methods
-    public void UpdateState(float updatedState)
+    public void UpdateState(short updatedState)
     {
         if (updatedState > MaxState)
             currentState = MaxState;
@@ -54,7 +54,7 @@ public class LocalHealth : MonoBehaviour, IState<float>
         OnDie += Die;
     }
 
-    public void UpdateIndicator(float updatedState)
+    public void UpdateIndicator(short updatedState)
     {
         Indicator.UpdateIndicator(updatedState, MaxState);
     }
@@ -66,14 +66,14 @@ public class LocalHealth : MonoBehaviour, IState<float>
         int zValue = UnityEngine.Random.Range(-5, 5);
         gameObject.SetActive(false);
         transform.position = new Vector3(xValue, yValue, zValue);
-        CurrentState = MaxState;
         gameObject.SetActive(true);
+        CurrentState = MaxState;
     }
 
     public void InitializeState()
     {
-        MaxState = stats.MaxHealth;
-        CurrentState = stats.MaxHealth;
+        MaxState = (short)stats.MaxHealth;
+        CurrentState = (short)stats.MaxHealth;
     }
 
     private void OnTriggerEnter(Collider other) 
@@ -88,6 +88,6 @@ public class LocalHealth : MonoBehaviour, IState<float>
         WeaponHold weaponHold = other.GetComponent<WeaponHold>();
         if(weaponHold == null || weaponHold.WarriorID == gameObject.GetInstanceID())
             return;
-        CurrentState -= weaponHold.Damage;
+        CurrentState -= (short)weaponHold.Damage;
     }
 }

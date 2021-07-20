@@ -3,31 +3,34 @@ using System.Collections;
 using UnityEngine;
 
 [Serializable]
-public class StaminaIndicator : IIndicator<float>
+public class StaminaIndicator : IIndicator<short>
 {
     // Fields
     [SerializeField] private float minHeight, maxHeight;
     [SerializeField] private Transform indicatorTransform;
-    private float currentHeight;
+    private short currentHeight;
 
     // Properties
-    public float CurrentValue { get => currentHeight; set => currentHeight = value; }
+    public short CurrentValue { get => currentHeight; set => currentHeight = value; }
 
     // Methods
     public void InitializeIndicator()
     {
-        currentHeight = maxHeight;
+        currentHeight = (short) maxHeight;
         SetCurrentValue();
     }
 
-    public void UpdateIndicator(float updatedState, float maxState)
+    public void UpdateIndicator(short updatedState, short maxState)
     {
         if(maxState == 0)
             return;
-        float currentHealthPercentage = (updatedState / maxState) * 100;
+        float updatedStateAsFloat = (float) updatedState;
+        float maxStateAsFloat = (float) maxState;
+        float currentHealthPercentage = (float) (updatedStateAsFloat / maxStateAsFloat) * 100;
         float totalHeight = maxHeight - minHeight;
-        currentHeight = (currentHealthPercentage * totalHeight) / 100;
-        currentHeight += minHeight;
+        float result = (float) (currentHealthPercentage * totalHeight) / 100;
+        result += minHeight;
+        currentHeight = (short) result;
         SetCurrentValue();
     }
 
@@ -37,7 +40,7 @@ public class StaminaIndicator : IIndicator<float>
             new Vector3(indicatorTransform.localPosition.x, currentHeight, indicatorTransform.localPosition.z);
     }
 
-    public void SetCurrentValue(float updatedHeight)
+    public void SetCurrentValue(short updatedHeight)
     {
         currentHeight = updatedHeight;
         SetCurrentValue();

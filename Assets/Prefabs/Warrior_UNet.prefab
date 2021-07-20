@@ -134,14 +134,10 @@ GameObject:
   - component: {fileID: 7945345328095838167}
   - component: {fileID: 3893672668503082155}
   - component: {fileID: 7438898956468208775}
-  - component: {fileID: 7128435105163115103}
-  - component: {fileID: 4767940214844997475}
-  - component: {fileID: 2920857534114399807}
   - component: {fileID: 3124215731247847944}
   - component: {fileID: 8183923211947678398}
   - component: {fileID: 9048159320001263126}
   - component: {fileID: 3692233625411681496}
-  - component: {fileID: 8587782674495800866}
   m_Layer: 9
   m_Name: Warrior_UNet
   m_TagString: Untagged
@@ -319,58 +315,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stats: {fileID: 11400000, guid: a0bf98f9b17c72c49ab376d273355785, type: 2}
   warriorRigidBody: {fileID: 2466784160850234551}
---- !u!114 &7128435105163115103
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3891381460622665541}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c3530b45710b0564f97955879a310856, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  stats: {fileID: 11400000, guid: a0bf98f9b17c72c49ab376d273355785, type: 2}
-  healthIndicator:
-    indicatorTransform: {fileID: 6236573919229966269}
-    minScale: 1.5
-    maxScale: 5
---- !u!114 &4767940214844997475
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3891381460622665541}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f661a3bf3b56044d99cdd4ac32f9c4d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  stats: {fileID: 11400000, guid: a0bf98f9b17c72c49ab376d273355785, type: 2}
-  staminaIndicator:
-    minHeight: 0
-    maxHeight: 7
-    indicatorTransform: {fileID: 518266630844345429}
-  reloadTimeInSeconds: 1
-  increaseAmount: 15
---- !u!114 &2920857534114399807
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3891381460622665541}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae60f92e56064bc458f398bed002d924, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  stats: {fileID: 11400000, guid: a0bf98f9b17c72c49ab376d273355785, type: 2}
-  spectralText: {fileID: 0}
-  reloadTimeInSeconds: 1
-  increaseAmount: 15
 --- !u!114 &3124215731247847944
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -407,6 +351,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30a29835fa2294dd29286362f3faac7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stats: {fileID: 11400000, guid: a0bf98f9b17c72c49ab376d273355785, type: 2}
+  healthIndicator:
+    indicatorTransform: {fileID: 6236573919229966269}
+    minScale: 1.5
+    maxScale: 5
 --- !u!114 &3692233625411681496
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -419,18 +368,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e05fe82c84d14cf2a11d883de369142, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &8587782674495800866
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3891381460622665541}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 338f0f8f8ef2d4c1593e91a2d5afb4ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  stats: {fileID: 11400000, guid: a0bf98f9b17c72c49ab376d273355785, type: 2}
+  staminaIndicator:
+    minHeight: 0
+    maxHeight: 7
+    indicatorTransform: {fileID: 518266630844345429}
+  reloadTimeInSeconds: 0.5
+  increaseAmount: 7
 --- !u!1 &3891381460622665543
 GameObject:
   m_ObjectHideFlags: 0
@@ -694,6 +638,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3891381460622637935}
     m_Modifications:
+    - target: {fileID: 114074519755015270, guid: 8990df3cf7dc6bc4b9e2486fe2a0b239,
+        type: 3}
+      propertyPath: smoothing
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 2689561505632793624, guid: 8990df3cf7dc6bc4b9e2486fe2a0b239,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -837,6 +786,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3891381460622637935}
     m_Modifications:
+    - target: {fileID: 2528425287734154884, guid: 9f1f3577afb065942abcad3539afb1ab,
+        type: 3}
+      propertyPath: smoothing
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 3503491153051690276, guid: 9f1f3577afb065942abcad3539afb1ab,
         type: 3}
       propertyPath: m_Name
