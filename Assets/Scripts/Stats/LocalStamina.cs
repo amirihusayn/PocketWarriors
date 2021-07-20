@@ -39,6 +39,13 @@ public class LocalStamina : MonoBehaviour, IState<short>, IStamina<short>
             OnCurrentStaminaChanged(currentState);
     }
 
+    private void OnEnable() 
+    {
+        InitializeAllStaminaCosts();
+        StopAllCoroutines();
+        StartCoroutine("IncreaseStamina");
+    }
+
     private void Start()
     {
         if (!GameController.Instance.IsGameLocal)

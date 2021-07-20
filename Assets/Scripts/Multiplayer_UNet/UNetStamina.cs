@@ -38,8 +38,8 @@ public class UNetStamina : NetworkBehaviour, IState<short>, IStamina<short>
             currentState = updatedState;
     }
 
-
-    private void OnEnable() {
+    private void OnEnable() 
+    {
         InitializeAllStaminaCosts();
         StopAllCoroutines();
         StartCoroutine("IncreaseStamina");
