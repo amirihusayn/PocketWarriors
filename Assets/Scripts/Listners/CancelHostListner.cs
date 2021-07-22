@@ -2,10 +2,10 @@
 
 public class CancelHostListner : ListnerPrototype
 {
-    // Fields
+    // Fields________________________________________________________
     [SerializeField] private CustomNetworkDiscovery networkDiscovery;
 
-    // Methods
+    // Methods_____________________________________________________
     protected override void OnClickListner()
     {
         networkDiscovery.ListenBradcasts();

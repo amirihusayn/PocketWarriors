@@ -4,15 +4,15 @@ using UnityEngine;
 [Serializable]
 public class HealthIndicator : IIndicator<short>
 {
-    // Fields
+    // Fields________________________________________________________
     [SerializeField] private Transform indicatorTransform;
     [SerializeField] private float minScale, maxScale;
     private short currentScale;
 
-    // Properties
+    // Properties___________________________________________________
     public short CurrentValue { get => currentScale; set => currentScale = value; }
 
-    // Methods
+    // Methods_____________________________________________________
     public void InitializeIndicator()
     {
         currentScale = (short) maxScale;

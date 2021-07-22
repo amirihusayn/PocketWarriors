@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class SmoothTransform : MonoBehaviour
 {
-    // Fields
+    // Fields________________________________________________________
     [SerializeField] private float smoothing;
     private Vector3 localTargetPosition, globalTargetPosition;
     private Vector3 localTargetRotation, globalTargetRotation;
     private Vector3 localTargetScale;
 
-    // Properties
+    // Properties___________________________________________________
     public Vector3 LocalTargetPosition 
     {
         get => localTargetPosition;
@@ -76,7 +76,7 @@ public class SmoothTransform : MonoBehaviour
         }
     }
 
-    // Methods
+    // Methods_____________________________________________________
     private IEnumerator LerpLocalPosition()
     {
         while(Vector3.Distance(transform.localPosition, localTargetPosition) > 0.05f)

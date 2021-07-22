@@ -3,14 +3,14 @@ using UnityEngine.Networking;
 
 public class UNet_SwitchAction : ActionPrototype
 {
-    // Fields
+    // Fields________________________________________________________
     private NetworkAnimator networkAnimator;
     private bool isNetworkAnimatorInitialized;
 
-    // Properties
+    // Properties___________________________________________________
     public override bool IsSubscribable { get => !GameController.Instance.IsGameLocal;}
 
-    // Methods
+    // Methods_____________________________________________________
     public override void Check(WarriorAction warriorAction)
     {
         InitializeNetworkAnimator(warriorAction);

@@ -5,15 +5,15 @@ using UnityEngine;
 [Serializable]
 public class StaminaIndicator : IIndicator<short>
 {
-    // Fields
+    // Fields________________________________________________________
     [SerializeField] private float minHeight, maxHeight;
     [SerializeField] private Transform indicatorTransform;
     private short currentHeight;
 
-    // Properties
+    // Properties___________________________________________________
     public short CurrentValue { get => currentHeight; set => currentHeight = value; }
 
-    // Methods
+    // Methods_____________________________________________________
     public void InitializeIndicator()
     {
         currentHeight = (short) maxHeight;

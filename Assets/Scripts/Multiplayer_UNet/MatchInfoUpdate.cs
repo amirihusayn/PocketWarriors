@@ -5,17 +5,17 @@ using UnityEngine.UI;
 
 public class MatchInfoUpdate : singleton<MatchInfoUpdate>
 {
-    // Fields
+    // Fields________________________________________________________
     [SerializeField] private GameObject match;
     [SerializeField] private GameObject panel;
     [SerializeField] private GameObject scrollView;
     private Dictionary<Host,GameObject> matchDic;
     private Stack<GameObject> disabledMatcheList;
 
-    // Properties
+    // Properties___________________________________________________
     public Dictionary<Host, GameObject> MatchDic { get => matchDic; set => matchDic = value; }
 
-    // Methods
+    // Methods_____________________________________________________
     protected override void Awake()
     {
         base.Awake();

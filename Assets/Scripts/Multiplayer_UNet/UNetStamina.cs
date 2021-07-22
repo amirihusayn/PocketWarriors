@@ -5,7 +5,7 @@ using UnityEngine.Networking;
 
 public class UNetStamina : NetworkBehaviour, IState<short>, IStamina<short>
 {
-    // Fields
+    // Fields________________________________________________________
     [SerializeField] private WarriorStats stats;
     [SerializeField] private StaminaIndicator staminaIndicator;
     [SerializeField] private float reloadTimeInSeconds;
@@ -15,7 +15,7 @@ public class UNetStamina : NetworkBehaviour, IState<short>, IStamina<short>
     [SyncVar(hook = "UpdateIndicator")] private short indicatorValue;
     public Action OnNoStamina;
 
-    // Properties
+    // Properties___________________________________________________
     public short CurrentState
     {
         get => currentState;
@@ -27,7 +27,7 @@ public class UNetStamina : NetworkBehaviour, IState<short>, IStamina<short>
     public short MaxState { get => maxState; private set => maxState = value; }
     public IIndicator<short> Indicator { get => staminaIndicator; }
 
-    // Methods
+    // Methods_____________________________________________________
     public void SetCurrentState(short updatedState)
     {
         if (updatedState > MaxState)

@@ -3,11 +3,11 @@ using UnityEngine.UI;
 
 public class HostGameListner : ListnerPrototype
 {
-    // Fields
+    // Fields________________________________________________________
     [SerializeField] private Text hostName;
     [SerializeField] private CustomNetworkDiscovery networkDiscovery;
     
-    // Methods
+    // Methods_____________________________________________________
     protected override void OnClickListner()
     {
         networkDiscovery.broadcastData = GetBroadcastData();

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WarriorAction : MonoBehaviour
 {
-    // Fields
+    // Fields________________________________________________________
     [SerializeField] private WarriorStats stats;
     [SerializeField] private Animator warriorAnimator;
     [SerializeField] private Rigidbody warriorRigidBody;
@@ -14,7 +14,7 @@ public class WarriorAction : MonoBehaviour
     private Vector3 movement;
     private bool isHorizontalAttack;
 
-    // Properties
+    // Properties___________________________________________________
     public WarriorStats Stats { get => stats;}
     public Animator WarriorAnimator { get => warriorAnimator; }
     public Rigidbody WarriorRigidBody { get => warriorRigidBody; }
@@ -23,7 +23,7 @@ public class WarriorAction : MonoBehaviour
     public Vector3 Movement { get => movement; set => movement = value; }
     public bool IsHorizontalAttack { get => isHorizontalAttack; set => isHorizontalAttack = value; }
 
-    // Methods
+    // Methods_____________________________________________________
     private void Start()
     {
         if (!GameController.Instance.IsGameLocal)

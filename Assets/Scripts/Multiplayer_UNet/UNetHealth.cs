@@ -4,7 +4,7 @@ using UnityEngine.Networking;
 
 public class UNetHealth : NetworkBehaviour, IState<short>, IHealth<short>
 {
-    // Fields
+    // Fields________________________________________________________
     [SerializeField] private WarriorStats stats;
     [SerializeField] private HealthIndicator healthIndicator;
     [SyncVar(hook = "UpdateState")] private short currentState;
@@ -12,7 +12,7 @@ public class UNetHealth : NetworkBehaviour, IState<short>, IHealth<short>
     [SyncVar(hook = "UpdateIndicator")] private short indicatorValue;
     public Action OnDie;
 
-    // Properties
+    // Properties___________________________________________________
     public short CurrentState
     {
         get => currentState;
@@ -24,7 +24,7 @@ public class UNetHealth : NetworkBehaviour, IState<short>, IHealth<short>
     public short MaxState { get => maxState; private set => maxState = value; }
     public IIndicator<short> Indicator { get => healthIndicator; }
 
-    // Methods
+    // Methods_____________________________________________________
     public void SetCurrentState(short updatedState)
     {
         if (updatedState > MaxState)

@@ -10,7 +10,7 @@ public class PrimaryInput : InputPrototype
         Initialize();
     }
 
-    // Methods
+    // Methods_____________________________________________________
     protected override void Initialize()
     {
         keyDic = new Dictionary<keyTypes, KeyCode>();

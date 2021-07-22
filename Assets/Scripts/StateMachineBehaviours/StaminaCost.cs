@@ -5,12 +5,12 @@ using UnityEngine;
 
 public class StaminaCost : StateMachineBehaviour
 {
-   // Fields
+   // Fields________________________________________________________
    [SerializeField] private short staminaCost;
    [SerializeField] private bool isCostInOnStateEnter, isCostInOnStateUpdate, isCostInOnStateExit;
    private IStamina<short> staminaComponent;
 
-   // Methods
+   // Methods_____________________________________________________
    public void InitializeStaminaCostBehaviour(IStamina<short> staminaComponent) 
    {
       this.staminaComponent = staminaComponent;

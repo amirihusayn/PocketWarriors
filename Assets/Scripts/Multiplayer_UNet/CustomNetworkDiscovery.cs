@@ -6,7 +6,7 @@ using UnityEngine.Networking;
 
 public struct Host 
 {
-    // Fields
+    // Fields________________________________________________________
     public string hostName;
     public string ipAddress;
     public int portNumber;
@@ -23,11 +23,11 @@ public struct Host
 
 public class CustomNetworkDiscovery : NetworkDiscovery
 {
-    // Fields
+    // Fields________________________________________________________
     private float timeOut;
     private Dictionary<Host, float> availableHosts;
 
-    // Methods
+    // Methods_____________________________________________________
     private void Awake()
     {
         timeOut = 3f;

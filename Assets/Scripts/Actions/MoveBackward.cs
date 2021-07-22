@@ -2,10 +2,10 @@ using UnityEngine;
 
 public class MoveBackward : ActionPrototype
 {
-    // Properties
+    // Properties___________________________________________________
     public override bool IsSubscribable { get => true;}
 
-    // Methods
+    // Methods_____________________________________________________
     protected override bool CheckNormalOperation(WarriorAction warriorAction)
     {
         bool isPerformable = false;

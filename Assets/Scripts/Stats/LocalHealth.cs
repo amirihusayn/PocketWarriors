@@ -3,14 +3,14 @@ using UnityEngine;
 
 public class LocalHealth : MonoBehaviour, IState<short>, IHealth<short>
 {
-    // Fields
+    // Fields________________________________________________________
     [SerializeField] private WarriorStats stats;
     [SerializeField] private HealthIndicator healthIndicator;
     private short currentState, maxState;
     public Action<short> OnCurrentHealthChanged;
     public Action OnDie;
 
-    // Properties
+    // Properties___________________________________________________
     public short CurrentState
     {
         get => currentState;
@@ -22,7 +22,7 @@ public class LocalHealth : MonoBehaviour, IState<short>, IHealth<short>
     public short MaxState { get => maxState; private set => maxState = value; }
     public IIndicator<short> Indicator { get => healthIndicator; }
 
-    // Methods
+    // Methods_____________________________________________________
     public void UpdateState(short updatedState)
     {
         if (updatedState > MaxState)

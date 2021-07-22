@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class WarriorRotation : MonoBehaviour
 {
-    // Fields
+    // Fields________________________________________________________
     [SerializeField] private WarriorStats stats;
     [SerializeField] private Rigidbody warriorRigidBody;
     private float rotationDegree, rotationSpeed;
 
-    // Methods
+    // Methods_____________________________________________________
     private void Start()
     {
         if(!GameController.Instance.IsGameLocal)

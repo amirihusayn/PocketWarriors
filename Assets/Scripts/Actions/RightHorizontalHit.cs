@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class RightHorizontalHit : ActionPrototype
 {
-    // Properties
+    // Properties___________________________________________________
     public override bool IsSubscribable { get => GameController.Instance.IsGameLocal;}
-    // Methods
+    // Methods_____________________________________________________
     protected override bool CheckNormalOperation(WarriorAction warriorAction)
     {
         InputPrototype warriorInput = warriorAction.WarriorInput;

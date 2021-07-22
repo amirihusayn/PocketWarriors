@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class ComboCheck : MonoBehaviour 
 {
-    // Fields
+    // Fields________________________________________________________
     private int keysCount, maxComboLength;
     private float durationTime;
     private string comboString; 
     private ComboProfile comboProfile;
     [SerializeField] private WarriorAction warriorAction;
 
-    // Methods
+    // Methods_____________________________________________________
     private void Awake()
     {
         Initialize();

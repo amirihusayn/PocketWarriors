@@ -6,7 +6,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewWeapon", menuName = "PocketWarriors/Weapon", order = 2)]
 public class Weapon : ScriptableObject 
 {
-    // Fields
+    // Fields________________________________________________________
     [SerializeField] private string name;
     [SerializeField] private float damage;
     [SerializeField] private float range;
@@ -14,7 +14,7 @@ public class Weapon : ScriptableObject
     [SerializeField] private float staminaCost;
     [SerializeField] private MeshFilter meshFilter;
 
-    // Properties
+    // Properties___________________________________________________
     public string Name { get => name; }
     public float Damage { get => damage; }
     public float Range { get => range; }

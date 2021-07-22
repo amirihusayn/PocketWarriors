@@ -4,11 +4,11 @@ using UnityEngine.UI;
 
 public class JoinGameListner : ListnerPrototype
 {
-    // Fields
+    // Fields________________________________________________________
     [SerializeField] private CustomNetworkDiscovery networkDiscovery;
     [SerializeField] private string fromAddress, data;
 
-    // Methods
+    // Methods_____________________________________________________
     protected override void OnClickListner()
     {
         CustomNetworkManager.singleton.networkAddress = fromAddress;

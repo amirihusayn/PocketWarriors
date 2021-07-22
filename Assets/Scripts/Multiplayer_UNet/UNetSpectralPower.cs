@@ -4,12 +4,12 @@ using UnityEngine.Networking;
 [RequireComponent(typeof(LocalSpectralPower))]
 public class UNetSpectralPower : NetworkBehaviour
 {
-    // Fields
+    // Fields________________________________________________________
     private LocalSpectralPower power;
     [SyncVar(hook = "UpdateCurrentPower")] private float currentPower;
     [SyncVar] private float maxPower;
 
-    // Methods
+    // Methods_____________________________________________________
     private void Awake()
     {
         power = GetComponent<LocalSpectralPower>();

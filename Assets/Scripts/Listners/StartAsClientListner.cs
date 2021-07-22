@@ -3,10 +3,10 @@ using UnityEngine.UI;
 
 public class StartAsClientListner : ListnerPrototype
 {
-    // Fields
+    // Fields________________________________________________________
     [SerializeField] private CustomNetworkDiscovery networkDiscovery;
 
-    // Methods
+    // Methods_____________________________________________________
     protected override void OnClickListner()
     {
         networkDiscovery.ListenBradcasts();

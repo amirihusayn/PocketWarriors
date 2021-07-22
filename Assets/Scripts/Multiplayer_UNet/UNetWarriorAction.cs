@@ -5,8 +5,10 @@ using UnityEngine.Networking;
 [RequireComponent(typeof(WarriorAction))]
 public class UNetWarriorAction : NetworkBehaviour
 {
+    // Fields________________________________________________________
     private WarriorAction action;
-
+    
+    // Methods_____________________________________________________
     private void Awake()
     {
         action = GetComponent<WarriorAction>();

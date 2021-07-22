@@ -2,10 +2,10 @@ using UnityEngine;
 
 public class AddItemListner : ListnerPrototype
 {
-    // Fields
+    // Fields________________________________________________________
     [SerializeField] private GameObject item, layout;
 
-    // Methods
+    // Methods_____________________________________________________
     protected override void OnClickListner()
     {
         if(item == null)

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class LocalStamina : MonoBehaviour, IState<short>, IStamina<short>
 {
-    // Fields
+    // Fields________________________________________________________
     [SerializeField] private WarriorStats stats;
     [SerializeField] private StaminaIndicator staminaIndicator;
     [SerializeField] private float reloadTimeInSeconds;
@@ -14,7 +14,7 @@ public class LocalStamina : MonoBehaviour, IState<short>, IStamina<short>
     public Action<short> OnCurrentStaminaChanged;
     public Action OnNoStamina;
 
-    // Properties
+    // Properties___________________________________________________
     public short CurrentState
     {
         get => currentState;
@@ -26,7 +26,7 @@ public class LocalStamina : MonoBehaviour, IState<short>, IStamina<short>
     public short MaxState { get => maxState; private set => maxState = value; }
     public IIndicator<short> Indicator { get => staminaIndicator; }
 
-    // Methods
+    // Methods_____________________________________________________
     public void UpdateState(short updatedState)
     {
         if (updatedState > MaxState)

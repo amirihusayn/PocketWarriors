@@ -4,10 +4,10 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Button))]
 public abstract class ListnerPrototype : MonoBehaviour
 {
-    // Fields
+    // Fields________________________________________________________
     protected Button button;
 
-    // Methods
+    // Methods_____________________________________________________
     protected abstract void OnClickListner();
 
     protected virtual void Awake() 

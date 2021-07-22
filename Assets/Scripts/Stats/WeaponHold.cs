@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class WeaponHold : MonoBehaviour {
-    // Fields
+    // Fields________________________________________________________
     [SerializeField] private Weapon weapon;
     private float damage;
     private int warriorID;
 
-    // Properties
+    // Properties___________________________________________________
     public float Damage { get => damage; }
     public int WarriorID { get => warriorID; }
 
-    // Methods
+    // Methods_____________________________________________________
     private void Awake() 
     {
         Initialize();    

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class InputPrototype 
 {
-    // Fields
+    // Fields________________________________________________________
     protected Dictionary<keyTypes , KeyCode> keyDic;
     public enum keyTypes
     { 
@@ -12,7 +12,7 @@ public abstract class InputPrototype
         Left,Right,Up,Down,Run,Sit,Jump,Spectral,Scabbard 
     };
 
-    // Methods
+    // Methods_____________________________________________________
     public KeyCode GetKey(keyTypes keyType)
     {
         KeyCode key;

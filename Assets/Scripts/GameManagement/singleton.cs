@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class singleton<T> : MonoBehaviour where T : MonoBehaviour {
-    // Properties
+    // Properties___________________________________________________
 	public static T Instance { get; private set; }
 
-    // Methods
+    // Methods_____________________________________________________
     protected virtual void Awake()
     {
         if(Instance == null)

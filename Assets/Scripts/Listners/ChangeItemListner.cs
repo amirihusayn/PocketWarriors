@@ -4,12 +4,12 @@ using UnityEngine;
                                                                                                     
 public class ChangeItemListner : ListnerPrototype
 {
-    // Fields
+    // Fields________________________________________________________
     private static List<ChangeItemListner> availableInstances = new List<ChangeItemListner>();
     [SerializeField] private int filterID;
     [SerializeField] private GameObject currentItem, nextItem, layout;
 
-    // Methods
+    // Methods_____________________________________________________
     protected override void Awake()
     {
         base.Awake();

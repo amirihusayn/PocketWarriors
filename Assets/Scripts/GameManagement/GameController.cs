@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GameController : singleton<GameController> {
-    // Fields
+    // Fields________________________________________________________
     [SerializeField] private bool isGameLocal;
 
-    // Properties
+    // Properties___________________________________________________
     public bool IsGameLocal { get => isGameLocal; }
 }

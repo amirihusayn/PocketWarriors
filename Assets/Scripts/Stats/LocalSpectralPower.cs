@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LocalSpectralPower : MonoBehaviour 
 {
-    // Fields
+    // Fields________________________________________________________
     [SerializeField] private WarriorStats stats;
     [SerializeField] private TextMesh spectralText;
     [SerializeField] private float reloadTimeInSeconds;
@@ -12,7 +12,7 @@ public class LocalSpectralPower : MonoBehaviour
     private float currentPower, maxPower;
     public Action<LocalSpectralPower> OnNoPower, OnCurrentPowerChanged;
 
-    // Properties
+    // Properties___________________________________________________
     public float CurrentPower
     {
         get => currentPower;
@@ -30,7 +30,7 @@ public class LocalSpectralPower : MonoBehaviour
     }
     public float MaxPower { get => maxPower; private set => maxPower = value; }
 
-    // Methods
+    // Methods_____________________________________________________
     private void Start()
     {
         if (!GameController.Instance.IsGameLocal)

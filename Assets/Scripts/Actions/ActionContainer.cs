@@ -6,12 +6,12 @@ using System.Reflection;
 
 public class ActionContainer
 {
-    // Fields
+    // Fields________________________________________________________
     private Dictionary<Type, ActionPrototype> actionDictionary;
     public event Action<WarriorAction> Checker;
     public event Action<WarriorAction> Performer;
 
-    // Properties
+    // Properties___________________________________________________
     public Dictionary<Type, ActionPrototype> ActionDictionary { get => actionDictionary; }
 
     // Constructor
@@ -20,7 +20,7 @@ public class ActionContainer
         Initialize(warriorAction);
     }
 
-    // Methods
+    // Methods_____________________________________________________
     private void Initialize(WarriorAction warriorAction)
     {
         actionDictionary = new Dictionary<Type, ActionPrototype>();

@@ -6,10 +6,10 @@ using UnityEngine.Networking;
 [RequireComponent(typeof(WarriorRotation))]
 public class UNetWarriorRotation : NetworkBehaviour
 {
-	// Fields
+	// Fields________________________________________________________
     private WarriorRotation rotation;
 
-    // Methods
+    // Methods_____________________________________________________
     private void Awake()
     {
         rotation = GetComponent<WarriorRotation>();

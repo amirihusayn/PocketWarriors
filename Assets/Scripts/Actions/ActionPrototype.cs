@@ -1,14 +1,14 @@
 public abstract class ActionPrototype 
 {
-    // Fields
+    // Fields________________________________________________________
     protected bool isNormalOperation, isSpectralOperation;
     protected LocalStamina localStamina;
     protected LocalSpectralPower localPower;
 
-    // Properties
+    // Properties___________________________________________________
     public abstract bool IsSubscribable { get;}
     
-    // Methods
+    // Methods_____________________________________________________
     public void Subscribe(ActionContainer actionContainer, WarriorAction warriorAction)
     {
         actionContainer.Checker += Check;

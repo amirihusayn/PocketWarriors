@@ -7,7 +7,7 @@ using UnityEngine;
 menuName = "PocketWarriors/WarriorStats", order = 0)]
 public class WarriorStats : ScriptableObject
 {
-    // Fields
+    // Fields________________________________________________________
     [SerializeField] private string name;
     [SerializeField] private ComboProfile comboProfile;
     [SerializeField] private SpectralPower spectralPower;
@@ -20,7 +20,7 @@ public class WarriorStats : ScriptableObject
     [SerializeField] private float handSpeed;
     [SerializeField] private float rotationSpeed;
 
-    // Properties
+    // Properties___________________________________________________
     public ComboProfile ComboProfile { get => comboProfile; }
     public SpectralPower SpectralPower { get => spectralPower; }
     public float MaxHealth { get => maxHealth; }
