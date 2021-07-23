@@ -1,4 +1,7 @@
-﻿public interface IStamina<T>
+﻿namespace PocketWarriors
 {
-    void ConsumeStamina(T stamina);
+    public interface IStamina<T>
+    {
+        void ConsumeStamina(T stamina);
+    }
 }

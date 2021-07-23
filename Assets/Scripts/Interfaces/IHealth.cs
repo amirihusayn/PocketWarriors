@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 
-public interface IHealth<T>
+namespace PocketWarriors
 {
-    void TakeDamage(Collider other);
+    public interface IHealth<T>
+    {
+        void TakeDamage(Collider other);
+    }
 }

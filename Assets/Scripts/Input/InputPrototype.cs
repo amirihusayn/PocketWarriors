@@ -2,29 +2,39 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class InputPrototype 
+namespace PocketWarriors
 {
-    // Fields________________________________________________________
-    protected Dictionary<keyTypes , KeyCode> keyDic;
-    public enum keyTypes
-    { 
-        RightHandAction,LeftHandAction,SwitchHand,SwitchAction,
-        Left,Right,Up,Down,Run,Sit,Jump,Spectral,Scabbard 
-    };
+    public abstract class InputPrototype
+    {
+        // Fields________________________________________________________
+        protected Dictionary<keyTypes , KeyCode> keyDic;
+        public enum keyTypes
+        { 
+            RightHandAction, LeftHandAction, SwitchHand, SwitchAction,
+            Left, Right, Up, Down, Run, Sit, Jump, Spectral, Scabbard 
+        };
 
-    // Methods_____________________________________________________
-    public KeyCode GetKey(keyTypes keyType)
-    {
-        KeyCode key;
-        keyDic.TryGetValue(keyType , out key);
-        return key;
+        // Methods_____________________________________________________
+        public KeyCode GetKey(keyTypes keyType)
+        {
+            KeyCode key;
+            keyDic.TryGetValue(keyType , out key);
+            return key;
+        }
+
+        public void SetKeyCode(keyTypes keyType , KeyCode keyCode)
+        {
+            if(!keyDic.ContainsKey(keyType))
+                throw new System.Exception("Key not found !");
+            else
+                keyDic[keyType] = keyCode;
+        }
+
+        public bool ContainsKeyCode(KeyCode keyCode)
+        {
+            return !keyDic.ContainsValue(keyCode);
+        }
+
+        protected abstract void Initialize();
     }
-    public void SetKey(keyTypes keyType , KeyCode keyCode)
-    {
-        if(!keyDic.ContainsKey(keyType))
-            throw new System.Exception("Key not found !");
-        else
-            keyDic[keyType] = keyCode;
-    }
-    protected abstract void Initialize();
 }

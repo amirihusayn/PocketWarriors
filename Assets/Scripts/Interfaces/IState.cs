@@ -1,10 +1,13 @@
-﻿public interface IState<T>
+﻿namespace PocketWarriors
 {
-    T CurrentState {get; }
-    T MaxState {get; }
-    IIndicator<T> Indicator {get; }
-    void InitializeActions();
-    void InitializeState();
-    void UpdateState(T updatedState);
-    void UpdateIndicator(T updatedValue);
+    public interface IState<T>
+    {
+        T CurrentState {get; }
+        T MaxState {get; }
+        IIndicator<T> Indicator {get; }
+        void InitializeActions();
+        void InitializeState();
+        void UpdateState(T updatedState);
+        void UpdateIndicator(T updatedValue);
+    }
 }
