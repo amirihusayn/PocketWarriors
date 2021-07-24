@@ -1,10 +1,13 @@
 using UnityEngine;
 
-public class ExitListner : ListnerPrototype
+namespace PocketWarriors
 {
-    // Methods_____________________________________________________
-    protected override void OnClickListner()
+    public class ExitListner : ListnerPrototype
     {
-        Application.Quit();
+        // Methods_____________________________________________________
+        protected override void OnClickListner()
+        {
+            Application.Quit();
+        }
     }
 }

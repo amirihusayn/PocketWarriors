@@ -1,14 +1,17 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class StartAsClientListner : ListnerPrototype
+namespace PocketWarriors
 {
-    // Fields________________________________________________________
-    [SerializeField] private CustomNetworkDiscovery networkDiscovery;
-
-    // Methods_____________________________________________________
-    protected override void OnClickListner()
+    public class StartAsClientListner : ListnerPrototype
     {
-        networkDiscovery.ListenBradcasts();
+        // Fields________________________________________________________
+        [SerializeField] private CustomNetworkDiscovery networkDiscovery;
+
+        // Methods_____________________________________________________
+        protected override void OnClickListner()
+        {
+            networkDiscovery.ListenBradcasts();
+        }
     }
 }

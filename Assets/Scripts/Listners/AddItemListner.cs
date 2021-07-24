@@ -1,15 +1,18 @@
 using UnityEngine;
 
-public class AddItemListner : ListnerPrototype
+namespace PocketWarriors
 {
-    // Fields________________________________________________________
-    [SerializeField] private GameObject item, layout;
-
-    // Methods_____________________________________________________
-    protected override void OnClickListner()
+    public class AddItemListner : ListnerPrototype
     {
-        if(item == null)
-            return;
-        GameObject.Instantiate(item, layout.GetComponent<RectTransform>());
+        // Fields________________________________________________________
+        [SerializeField] private GameObject item, layout;
+
+        // Methods_____________________________________________________
+        protected override void OnClickListner()
+        {
+            if(item == null)
+                return;
+            GameObject.Instantiate(item, layout.GetComponent<RectTransform>());
+        }
     }
 }

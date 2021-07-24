@@ -1,55 +1,58 @@
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class UNet_RightVerticalHit : ActionPrototype
+namespace PocketWarriors
 {
-    // Fields________________________________________________________
-    private NetworkAnimator networkAnimator;
-    private bool isNetworkAnimatorInitialized;
-
-    // Properties___________________________________________________
-    public override bool IsSubscribable { get => !GameController.Instance.IsGameLocal;}
-
-    // Methods_____________________________________________________
-    public override void Check(WarriorAction warriorAction)
+    public class UNet_RightVerticalHit : ActionPrototype
     {
-        InitializeNetworkAnimator(warriorAction);
-        base.Check(warriorAction);
-    }
+        // Fields________________________________________________________
+        private NetworkAnimator networkAnimator;
+        private bool isNetworkAnimatorInitialized;
 
-    private void InitializeNetworkAnimator(WarriorAction warriorAction)
-    {
-        if(isNetworkAnimatorInitialized)
-            return;
-        networkAnimator = warriorAction.GetComponent<NetworkAnimator>();
-    }
+        // Properties___________________________________________________
+        public override bool IsSubscribable { get => !GameController.Instance.IsGameLocal;}
 
-    protected override bool CheckNormalOperation(WarriorAction warriorAction)
-    {
-        InputPrototype warriorInput = warriorAction.WarriorInput;
-        if(Input.GetKeyDown(warriorInput.GetKey(InputPrototype.keyTypes.RightHandAction)) && !warriorAction.IsHorizontalAttack)
-            return true;
-        else
-            return false;
-    }
+        // Methods_____________________________________________________
+        public override void Check(WarriorAction warriorAction)
+        {
+            InitializeNetworkAnimator(warriorAction);
+            base.Check(warriorAction);
+        }
 
-    protected override bool CheckSpectralOperation(WarriorAction warriorAction)
-    {
-        InputPrototype warriorInput = warriorAction.WarriorInput;
-        if(Input.GetKeyDown(warriorInput.GetKey(InputPrototype.keyTypes.RightHandAction)) && !warriorAction.IsHorizontalAttack
-        && Input.GetKey(warriorInput.GetKey(InputPrototype.keyTypes.Spectral)))
-            return true;
-        else
-            return false;
-    }
+        private void InitializeNetworkAnimator(WarriorAction warriorAction)
+        {
+            if(isNetworkAnimatorInitialized)
+                return;
+            networkAnimator = warriorAction.GetComponent<NetworkAnimator>();
+        }
 
-    protected override void PerformNormalOperation(WarriorAction warriorAction)
-    {
-        networkAnimator.SetTrigger("OnRightVerticalHit");
-    }
+        protected override bool CheckNormalOperation(WarriorAction warriorAction)
+        {
+            InputPrototype warriorInput = warriorAction.WarriorInput;
+            if(Input.GetKeyDown(warriorInput.GetKey(InputPrototype.keyTypes.RightHandAction)) && !warriorAction.IsHorizontalAttack)
+                return true;
+            else
+                return false;
+        }
 
-    protected override void PerformSpectralOperation(WarriorAction warriorAction)
-    {
-        //
+        protected override bool CheckSpectralOperation(WarriorAction warriorAction)
+        {
+            InputPrototype warriorInput = warriorAction.WarriorInput;
+            if(Input.GetKeyDown(warriorInput.GetKey(InputPrototype.keyTypes.RightHandAction)) && !warriorAction.IsHorizontalAttack
+            && Input.GetKey(warriorInput.GetKey(InputPrototype.keyTypes.Spectral)))
+                return true;
+            else
+                return false;
+        }
+
+        protected override void PerformNormalOperation(WarriorAction warriorAction)
+        {
+            networkAnimator.SetTrigger("OnRightVerticalHit");
+        }
+
+        protected override void PerformSpectralOperation(WarriorAction warriorAction)
+        {
+            //
+        }
     }
 }

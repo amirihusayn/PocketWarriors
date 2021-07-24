@@ -2,77 +2,80 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-public class LocalSpectralPower : MonoBehaviour 
+namespace PocketWarriors
 {
-    // Fields________________________________________________________
-    [SerializeField] private WarriorStats stats;
-    [SerializeField] private TextMesh spectralText;
-    [SerializeField] private float reloadTimeInSeconds;
-    [SerializeField] private float increaseAmount;
-    private float currentPower, maxPower;
-    public Action<LocalSpectralPower> OnNoPower, OnCurrentPowerChanged;
-
-    // Properties___________________________________________________
-    public float CurrentPower
+    public class LocalSpectralPower : MonoBehaviour 
     {
-        get => currentPower;
-        private set
+        // Fields________________________________________________________
+        [SerializeField] private WarriorStats stats;
+        [SerializeField] private TextMesh spectralText;
+        [SerializeField] private float reloadTimeInSeconds;
+        [SerializeField] private float increaseAmount;
+        private float currentPower, maxPower;
+        public Action<LocalSpectralPower> OnNoPower, OnCurrentPowerChanged;
+
+        // Properties___________________________________________________
+        public float CurrentPower
         {
-            if(value > maxPower)
-                currentPower = maxPower;
-            else if(value <= 0)
-                currentPower = 0;
-            else
-                currentPower = value;
-            if(OnCurrentPowerChanged != null)
-                OnCurrentPowerChanged(this);
+            get => currentPower;
+            private set
+            {
+                if(value > maxPower)
+                    currentPower = maxPower;
+                else if(value <= 0)
+                    currentPower = 0;
+                else
+                    currentPower = value;
+                if(OnCurrentPowerChanged != null)
+                    OnCurrentPowerChanged(this);
+            }
         }
-    }
-    public float MaxPower { get => maxPower; private set => maxPower = value; }
+        public float MaxPower { get => maxPower; private set => maxPower = value; }
 
-    // Methods_____________________________________________________
-    private void Start()
-    {
-        if (!GameController.Instance.IsGameLocal)
-            return;
-        InitializeActions();
-        InitializeLocalPower();
-    }
-
-    private void InitializeActions()
-    {
-        OnCurrentPowerChanged += UpdatePowerUI;
-    }
-
-    public void InitializeLocalPower()
-    {
-        MaxPower = stats.MaxPower;
-        CurrentPower = stats.MaxPower;
-        StopAllCoroutines();
-        StartCoroutine("IncreasePower");
-    }
-
-    private IEnumerator IncreasePower()
-    {
-        while(true)
+        // Methods_____________________________________________________
+        private void Start()
         {
-            yield return new WaitForSeconds(reloadTimeInSeconds);
-            currentPower += increaseAmount;
+            if (!GameController.Instance.IsGameLocal)
+                return;
+            InitializeActions();
+            InitializeLocalPower();
         }
-    }
 
-    public void UpdatePowerUI(LocalSpectralPower localPower)
-    {
-        spectralText.text = localPower.currentPower.ToString();
-    }
+        private void InitializeActions()
+        {
+            OnCurrentPowerChanged += UpdatePowerUI;
+        }
 
-    public void ConsumePower(float powerAmount)
-    {
-        CurrentPower -= powerAmount;
-    }
+        public void InitializeLocalPower()
+        {
+            MaxPower = stats.MaxPower;
+            CurrentPower = stats.MaxPower;
+            StopAllCoroutines();
+            StartCoroutine("IncreasePower");
+        }
 
-    public bool HasEnoughPower(float powerCost)
-    {
-        return powerCost <= currentPower;
+        private IEnumerator IncreasePower()
+        {
+            while(true)
+            {
+                yield return new WaitForSeconds(reloadTimeInSeconds);
+                currentPower += increaseAmount;
+            }
+        }
+
+        public void UpdatePowerUI(LocalSpectralPower localPower)
+        {
+            spectralText.text = localPower.currentPower.ToString();
+        }
+
+        public void ConsumePower(float powerAmount)
+        {
+            CurrentPower -= powerAmount;
+        }
+
+        public bool HasEnoughPower(float powerCost)
+        {
+            return powerCost <= currentPower;
+        }
     }
 }

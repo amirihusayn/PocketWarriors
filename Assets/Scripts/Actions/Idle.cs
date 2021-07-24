@@ -1,50 +1,53 @@
 using UnityEngine;
 
-public class Idle : ActionPrototype
+namespace PocketWarriors
 {
-    // Properties___________________________________________________
-    public override bool IsSubscribable { get => true;}
-
-    // Methods_____________________________________________________
-    protected override bool CheckNormalOperation(WarriorAction warriorAction)
+    public class Idle : ActionPrototype
     {
-        InputPrototype warriorInput = warriorAction.WarriorInput;
-        bool isStoppedMovingDown = Input.GetKeyUp(warriorInput.GetKey(InputPrototype.keyTypes.Down));
-        bool isStoppedMovingUp = Input.GetKeyUp(warriorInput.GetKey(InputPrototype.keyTypes.Up));
-        bool isStoppedMovingLeft = Input.GetKeyUp(warriorInput.GetKey(InputPrototype.keyTypes.Left));
-        bool isStoppedMovingRight = Input.GetKeyUp(warriorInput.GetKey(InputPrototype.keyTypes.Right));
+        // Properties___________________________________________________
+        public override bool IsSubscribable { get => true;}
 
-        if(isStoppedMovingDown)
+        // Methods_____________________________________________________
+        protected override bool CheckNormalOperation(WarriorAction warriorAction)
         {
-           warriorAction.Movement = new Vector3(warriorAction.Movement.x , warriorAction.Movement.y , 0 );
+            InputPrototype warriorInput = warriorAction.WarriorInput;
+            bool isStoppedMovingDown = Input.GetKeyUp(warriorInput.GetKey(InputPrototype.keyTypes.Down));
+            bool isStoppedMovingUp = Input.GetKeyUp(warriorInput.GetKey(InputPrototype.keyTypes.Up));
+            bool isStoppedMovingLeft = Input.GetKeyUp(warriorInput.GetKey(InputPrototype.keyTypes.Left));
+            bool isStoppedMovingRight = Input.GetKeyUp(warriorInput.GetKey(InputPrototype.keyTypes.Right));
+
+            if(isStoppedMovingDown)
+            {
+            warriorAction.Movement = new Vector3(warriorAction.Movement.x , warriorAction.Movement.y , 0 );
+            }
+            if(isStoppedMovingUp)
+            {
+            warriorAction.Movement = new Vector3(warriorAction.Movement.x , warriorAction.Movement.y , 0 );
+            }
+            if(isStoppedMovingLeft)
+            {
+            warriorAction.Movement = new Vector3(0 , warriorAction.Movement.y , warriorAction.Movement.z );
+            }
+            if(isStoppedMovingRight)
+            {
+            warriorAction.Movement = new Vector3(0 , warriorAction.Movement.y , warriorAction.Movement.z );
+            }
+            return false;
         }
-        if(isStoppedMovingUp)
+
+        protected override bool CheckSpectralOperation(WarriorAction warriorAction)
         {
-           warriorAction.Movement = new Vector3(warriorAction.Movement.x , warriorAction.Movement.y , 0 );
+            return false;
         }
-        if(isStoppedMovingLeft)
+
+        protected override void PerformNormalOperation(WarriorAction warriorAction)
         {
-           warriorAction.Movement = new Vector3(0 , warriorAction.Movement.y , warriorAction.Movement.z );
+            warriorAction.WarriorAnimator.SetBool("isWalking" , false);
         }
-        if(isStoppedMovingRight)
+
+        protected override void PerformSpectralOperation(WarriorAction warriorAction)
         {
-           warriorAction.Movement = new Vector3(0 , warriorAction.Movement.y , warriorAction.Movement.z );
+
         }
-        return false;
-    }
-
-    protected override bool CheckSpectralOperation(WarriorAction warriorAction)
-    {
-        return false;
-    }
-
-    protected override void PerformNormalOperation(WarriorAction warriorAction)
-    {
-        warriorAction.WarriorAnimator.SetBool("isWalking" , false);
-    }
-
-    protected override void PerformSpectralOperation(WarriorAction warriorAction)
-    {
-
     }
 }

@@ -1,14 +1,17 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class ChangeSceneListner : ListnerPrototype
+namespace PocketWarriors
 {
-    // Fields________________________________________________________
-    [SerializeField] private string sceneName;
-
-    // Methods_____________________________________________________
-    protected override void OnClickListner()
+    public class ChangeSceneListner : ListnerPrototype
     {
-        SceneManager.LoadScene(sceneName);
+        // Fields________________________________________________________
+        [SerializeField] private string sceneName;
+
+        // Methods_____________________________________________________
+        protected override void OnClickListner()
+        {
+            SceneManager.LoadScene(sceneName);
+        }
     }
 }

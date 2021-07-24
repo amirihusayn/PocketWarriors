@@ -1,25 +1,28 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class HostGameListner : ListnerPrototype
+namespace PocketWarriors
 {
-    // Fields________________________________________________________
-    [SerializeField] private Text hostName;
-    [SerializeField] private CustomNetworkDiscovery networkDiscovery;
-    
-    // Methods_____________________________________________________
-    protected override void OnClickListner()
+    public class HostGameListner : ListnerPrototype
     {
-        networkDiscovery.broadcastData = GetBroadcastData();
-        networkDiscovery.StartBroadCast();
-        CustomNetworkManager.singleton.StartHost();
-    }
+        // Fields________________________________________________________
+        [SerializeField] private Text hostName;
+        [SerializeField] private CustomNetworkDiscovery networkDiscovery;
+        
+        // Methods_____________________________________________________
+        protected override void OnClickListner()
+        {
+            networkDiscovery.broadcastData = GetBroadcastData();
+            networkDiscovery.StartBroadCast();
+            CustomNetworkManager.singleton.StartHost();
+        }
 
-    private string GetBroadcastData()
-    {
-        if(hostName.text.ToString() != string.Empty)
-            return hostName.text.ToString();
-        else
-            return "NoName Host !";
+        private string GetBroadcastData()
+        {
+            if(hostName.text.ToString() != string.Empty)
+                return hostName.text.ToString();
+            else
+                return "NoName Host !";
+        }
     }
 }

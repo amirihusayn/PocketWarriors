@@ -2,27 +2,30 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraForward : MonoBehaviour
+namespace PocketWarriors
 {
-    private Transform cameraTransform;
-    private bool isCameraTransformInitialized;
-
-    private void Start() 
+    public class CameraForward : MonoBehaviour
     {
-        StopAllCoroutines();
-        StartCoroutine("GetCameraTransform");
-    }
+        private Transform cameraTransform;
+        private bool isCameraTransformInitialized;
 
-    private void LateUpdate() 
-    {
-        if(isCameraTransformInitialized)
-            gameObject.transform.forward = cameraTransform.forward;
-    }
+        private void Start() 
+        {
+            StopAllCoroutines();
+            StartCoroutine("GetCameraTransform");
+        }
 
-    private IEnumerator GetCameraTransform()
-    {
-        yield return new WaitForSeconds(3f);
-        cameraTransform = Camera.main.gameObject.transform;
-        isCameraTransformInitialized = true;
+        private void LateUpdate() 
+        {
+            if(isCameraTransformInitialized)
+                gameObject.transform.forward = cameraTransform.forward;
+        }
+
+        private IEnumerator GetCameraTransform()
+        {
+            yield return new WaitForSeconds(3f);
+            cameraTransform = Camera.main.gameObject.transform;
+            isCameraTransformInitialized = true;
+        }
     }
 }

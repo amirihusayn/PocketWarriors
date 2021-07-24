@@ -1,37 +1,40 @@
 using UnityEngine;
 
-public class Sit : ActionPrototype
+namespace PocketWarriors
 {
-    // Properties___________________________________________________
-    public override bool IsSubscribable { get => true;}
-
-    // Methods_____________________________________________________
-    protected override bool CheckNormalOperation(WarriorAction warriorAction)
+    public class Sit : ActionPrototype
     {
-        InputPrototype warriorInput = warriorAction.WarriorInput;
-        if(Input.GetKeyDown(warriorInput.GetKey(InputPrototype.keyTypes.Sit)))
-            return true;
-        else
-            return false;
-    }
+        // Properties___________________________________________________
+        public override bool IsSubscribable { get => true;}
 
-    protected override bool CheckSpectralOperation(WarriorAction warriorAction)
-    {
-        InputPrototype warriorInput = warriorAction.WarriorInput;
-        if(Input.GetKeyDown(warriorInput.GetKey(InputPrototype.keyTypes.Sit))
-        && Input.GetKey(warriorInput.GetKey(InputPrototype.keyTypes.Spectral)))
-            return true;
-        else
-            return false;
-    }
+        // Methods_____________________________________________________
+        protected override bool CheckNormalOperation(WarriorAction warriorAction)
+        {
+            InputPrototype warriorInput = warriorAction.WarriorInput;
+            if(Input.GetKeyDown(warriorInput.GetKey(InputPrototype.keyTypes.Sit)))
+                return true;
+            else
+                return false;
+        }
 
-    protected override void PerformNormalOperation(WarriorAction warriorAction)
-    {
-        warriorAction.WarriorAnimator.SetBool("isSit" , true);
-    }
+        protected override bool CheckSpectralOperation(WarriorAction warriorAction)
+        {
+            InputPrototype warriorInput = warriorAction.WarriorInput;
+            if(Input.GetKeyDown(warriorInput.GetKey(InputPrototype.keyTypes.Sit))
+            && Input.GetKey(warriorInput.GetKey(InputPrototype.keyTypes.Spectral)))
+                return true;
+            else
+                return false;
+        }
 
-    protected override void PerformSpectralOperation(WarriorAction warriorAction)
-    {
-        // 
+        protected override void PerformNormalOperation(WarriorAction warriorAction)
+        {
+            warriorAction.WarriorAnimator.SetBool("isSit" , true);
+        }
+
+        protected override void PerformSpectralOperation(WarriorAction warriorAction)
+        {
+            // 
+        }
     }
 }

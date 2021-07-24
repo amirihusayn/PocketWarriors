@@ -3,36 +3,39 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-[RequireComponent(typeof(WarriorRotation))]
-public class UNetWarriorRotation : NetworkBehaviour
+namespace PocketWarriors
 {
-	// Fields________________________________________________________
-    private WarriorRotation rotation;
-
-    // Methods_____________________________________________________
-    private void Awake()
+    [RequireComponent(typeof(WarriorRotation))]
+    public class UNetWarriorRotation : NetworkBehaviour
     {
-        rotation = GetComponent<WarriorRotation>();
-    }
+        // Fields________________________________________________________
+        private WarriorRotation rotation;
 
-    private void Start()
-    {
-        if(!isLocalPlayer)
-          return;
-        rotation.Initialize();
-    }
+        // Methods_____________________________________________________
+        private void Awake()
+        {
+            rotation = GetComponent<WarriorRotation>();
+        }
 
-    private void Update()
-    {
-        if(!isLocalPlayer)
-          return;
-        rotation.GetInputRotation();
-    }
+        private void Start()
+        {
+            if (!isLocalPlayer)
+                return;
+            rotation.Initialize();
+        }
 
-    private void FixedUpdate()
-    {
-        if(!isLocalPlayer)
-          return;
-        rotation.Rotate();
+        private void Update()
+        {
+            if (!isLocalPlayer)
+                return;
+            rotation.GetInputRotation();
+        }
+
+        private void FixedUpdate()
+        {
+            if (!isLocalPlayer)
+                return;
+            rotation.Rotate();
+        }
     }
 }

@@ -3,51 +3,53 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-
-public class ActionContainer
+namespace PocketWarriors
 {
-    // Fields________________________________________________________
-    private Dictionary<Type, ActionPrototype> actionDictionary;
-    public event Action<WarriorAction> Checker;
-    public event Action<WarriorAction> Performer;
-
-    // Properties___________________________________________________
-    public Dictionary<Type, ActionPrototype> ActionDictionary { get => actionDictionary; }
-
-    // Constructor
-    public ActionContainer(WarriorAction warriorAction)
+    public class ActionContainer
     {
-        Initialize(warriorAction);
-    }
+        // Fields________________________________________________________
+        private Dictionary<Type, ActionPrototype> actionDictionary;
+        public event Action<WarriorAction> Checker;
+        public event Action<WarriorAction> Performer;
 
-    // Methods_____________________________________________________
-    private void Initialize(WarriorAction warriorAction)
-    {
-        actionDictionary = new Dictionary<Type, ActionPrototype>();
-        var allActionAssembly = Assembly.GetAssembly(typeof(ActionPrototype));
-        var actionTypes = allActionAssembly.GetTypes().Where( 
-            thisActionType => typeof(ActionPrototype).IsAssignableFrom(thisActionType) 
-            && thisActionType.IsAbstract == false);
-        foreach(var thisActionType in actionTypes)
+        // Properties___________________________________________________
+        public Dictionary<Type, ActionPrototype> ActionDictionary { get => actionDictionary; }
+
+        // Constructor
+        public ActionContainer(WarriorAction warriorAction)
         {
-            ActionPrototype action = System.Activator.CreateInstance(thisActionType) as ActionPrototype;
-            if(action.IsSubscribable)
+            Initialize(warriorAction);
+        }
+
+        // Methods_____________________________________________________
+        private void Initialize(WarriorAction warriorAction)
+        {
+            actionDictionary = new Dictionary<Type, ActionPrototype>();
+            var allActionAssembly = Assembly.GetAssembly(typeof(ActionPrototype));
+            var actionTypes = allActionAssembly.GetTypes().Where( 
+                thisActionType => typeof(ActionPrototype).IsAssignableFrom(thisActionType) 
+                && thisActionType.IsAbstract == false);
+            foreach(var thisActionType in actionTypes)
             {
-                actionDictionary.Add(thisActionType, action);
-                action.Subscribe(this, warriorAction);
+                ActionPrototype action = System.Activator.CreateInstance(thisActionType) as ActionPrototype;
+                if(action.IsSubscribable)
+                {
+                    actionDictionary.Add(thisActionType, action);
+                    action.Subscribe(this, warriorAction);
+                }
             }
         }
-    }
 
-    public void CheckActions(WarriorAction warriorAction)
-    {
-        if(Checker != null)
-            Checker(warriorAction);
-    }
-    
-    public void PerformActions(WarriorAction warriorAction)
-    {
-        if(Performer != null)
-            Performer(warriorAction);
+        public void CheckActions(WarriorAction warriorAction)
+        {
+            if(Checker != null)
+                Checker(warriorAction);
+        }
+        
+        public void PerformActions(WarriorAction warriorAction)
+        {
+            if(Performer != null)
+                Performer(warriorAction);
+        }
     }
 }

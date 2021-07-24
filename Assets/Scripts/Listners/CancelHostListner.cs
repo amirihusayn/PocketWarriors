@@ -1,13 +1,16 @@
 ﻿using UnityEngine;
 
-public class CancelHostListner : ListnerPrototype
+namespace PocketWarriors
 {
-    // Fields________________________________________________________
-    [SerializeField] private CustomNetworkDiscovery networkDiscovery;
-
-    // Methods_____________________________________________________
-    protected override void OnClickListner()
+    public class CancelHostListner : ListnerPrototype
     {
-        networkDiscovery.ListenBradcasts();
+        // Fields________________________________________________________
+        [SerializeField] private CustomNetworkDiscovery networkDiscovery;
+
+        // Methods_____________________________________________________
+        protected override void OnClickListner()
+        {
+            networkDiscovery.ListenBradcasts();
+        }
     }
 }

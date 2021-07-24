@@ -1,28 +1,31 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(Button))]
-public abstract class ListnerPrototype : MonoBehaviour
+namespace PocketWarriors
 {
-    // Fields________________________________________________________
-    protected Button button;
-
-    // Methods_____________________________________________________
-    protected abstract void OnClickListner();
-
-    protected virtual void Awake() 
+    [RequireComponent(typeof(Button))]
+    public abstract class ListnerPrototype : MonoBehaviour
     {
-        button = GetComponent<Button>();
-        AddOnClickListner();
-    }
+        // Fields________________________________________________________
+        protected Button button;
 
-    protected virtual void AddOnClickListner()
-    {
-        button.onClick.AddListener(delegate { OnClickListner(); });
-    }
+        // Methods_____________________________________________________
+        protected abstract void OnClickListner();
 
-    protected virtual void OnDestroy() 
-    {
-        button.onClick.RemoveAllListeners();
+        protected virtual void Awake() 
+        {
+            button = GetComponent<Button>();
+            AddOnClickListner();
+        }
+
+        protected virtual void AddOnClickListner()
+        {
+            button.onClick.AddListener(delegate { OnClickListner(); });
+        }
+
+        protected virtual void OnDestroy() 
+        {
+            button.onClick.RemoveAllListeners();
+        }
     }
 }
