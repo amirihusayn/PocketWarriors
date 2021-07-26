@@ -6,10 +6,24 @@ namespace PocketWarriors
 {
     public class DefaultJoystickInput : InputPrototype
     {
-        // Constructor
+        // Fields________________________________________________________
+        private static DefaultJoystickInput instance;
+
+        // Constructor_________________________________________________
         public DefaultJoystickInput()
         {
             Initialize();
+        }
+
+        // Properties___________________________________________________
+        public static DefaultJoystickInput Instance
+        {
+            get 
+            {
+                if(instance == null)
+                    instance = new DefaultJoystickInput();
+                return instance;
+            }
         }
 
         // Methods_____________________________________________________

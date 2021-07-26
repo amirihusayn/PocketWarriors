@@ -4,12 +4,26 @@ using UnityEngine;
 
 namespace PocketWarriors
 {
-    public class PrimaryInput : InputPrototype
+    public class DefaultKeyboardInput : InputPrototype
     {
-        // Constructor
-        public PrimaryInput()
+        // Fields________________________________________________________
+        private static DefaultKeyboardInput instance;
+
+        // Constructor_________________________________________________
+        private DefaultKeyboardInput()
         {
             Initialize();
+        }
+
+        // Properties___________________________________________________
+        public static DefaultKeyboardInput Instance
+        {
+            get 
+            {
+                if(instance == null)
+                    instance = new DefaultKeyboardInput();
+                return instance;
+            }
         }
 
         // Methods_____________________________________________________

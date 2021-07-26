@@ -35,7 +35,7 @@ namespace PocketWarriors
 
         public void Initialize()
         {
-            warriorInput = new PrimaryInput();
+            warriorInput = new CustomeKeyboardInput();
             actionContainer = new ActionContainer(this);
             InstantiateCamera();
         }

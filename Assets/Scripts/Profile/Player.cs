@@ -4,15 +4,26 @@ namespace PocketWarriors
 {
     public class Player : MonoBehaviour
     {
-        // Fields
+        // Fields________________________________________________________
         private Profile profile;
         private Settings settings;
 
-        // Methods
+        // Methods_____________________________________________________
         private void Awake() 
         {
             profile = new Profile();  
             settings = new Settings();
+        }
+
+        private void OnEnable() 
+        {
+            LoadProfile();
+            LoadSettings();
+        }
+
+        public void LoadProfile()
+        {
+            profile.LoadPrefrences();
         }
 
         private void OnDisable() 
@@ -23,6 +34,11 @@ namespace PocketWarriors
         public void SaveProfile()
         {
             profile.SavePrefrences();
+        }
+
+        public void LoadSettings()
+        {
+            settings.LoadPrefrences();
         }
 
         public void SaveSettings()

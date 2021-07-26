@@ -4,27 +4,27 @@ namespace PocketWarriors
 {
     public class Settings : ISavable
     {
-        // Fields
+        // Fields________________________________________________________
         private CustomeKeyboardInput customInput;
         // resolutions, quality and sound option fields here
 
-        // Constructor
+        // Constructor_________________________________________________
         public Settings()
         {
             customInput = new PocketWarriors.CustomeKeyboardInput();
-            LoadPrefrences();
         }
 
-        // Properties
+        // Properties___________________________________________________
         public CustomeKeyboardInput CustomeInput { get => customInput; set => customInput = value; }
 
-        // Methods
+        // Methods_____________________________________________________
         public void SavePrefrences()
         {
         }
 
         public void LoadPrefrences()
         {
+            // if(PlayerPrefs.HasKey)
         }
     }
 }

@@ -24,10 +24,10 @@ namespace PocketWarriors
 
         public void SetKeyCode(keyTypes keyType , KeyCode keyCode)
         {
-            if(!keyDic.ContainsKey(keyType))
-                throw new System.Exception("Key not found !");
-            else
+            if(keyDic.ContainsKey(keyType))
                 keyDic[keyType] = keyCode;
+            else
+                keyDic.Add(keyType, keyCode);
         }
 
         public bool ContainsKeyCode(KeyCode keyCode)

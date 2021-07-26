@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace PocketWarriors 
+namespace PocketWarriors
 {
-    public class CustomeKeyboardInput : InputPrototype, ISavable
+    public class CustomeJoystickInput : InputPrototype
     {
         // Constructor_________________________________________________
-        public CustomeKeyboardInput()
+        public CustomeJoystickInput()
         {
             Initialize();
         }
@@ -39,7 +39,7 @@ namespace PocketWarriors
                     keyCodeNumber = PlayerPrefs.GetInt(thisKeyType.ToString());
                 else
                 {
-                    keyCodeNumber = (int)(DefaultKeyboardInput.Instance.GetKey(thisKeyType));
+                    keyCodeNumber = (int)(DefaultJoystickInput.Instance.GetKey(thisKeyType));
                     SaveKey(thisKeyType, keyCodeNumber);
                 }
                 SetKeyCode(thisKeyType, (KeyCode)keyCodeNumber);
