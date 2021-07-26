@@ -9,7 +9,8 @@ namespace PocketWarriors
         // Fields________________________________________________________
         private static List<ChangeItemListner> availableInstances = new List<ChangeItemListner>();
         [SerializeField] private int filterID;
-        [SerializeField] private GameObject currentItem, nextItem, layout;
+        [SerializeField] private GameObject layout;
+        [SerializeField] private List<GameObject> currentItem, nextItem;
 
         // Methods_____________________________________________________
         protected override void Awake()
@@ -20,11 +21,14 @@ namespace PocketWarriors
 
         protected override void OnClickListner()
         {
-            if(nextItem == null || currentItem == nextItem)
+            if(nextItem.Count == 0 || currentItem == nextItem)
                 return;
             if(currentItem != null)
-                currentItem.SetActive(false);
-            nextItem.SetActive(true);  
+                foreach(GameObject item in currentItem)
+                    item.SetActive(false);
+            if(nextItem != null)
+                foreach(GameObject item in nextItem)
+                    item.SetActive(true);  
             ChangeItemListner.UpdateCurrentItem(this);
         }
 

@@ -198,7 +198,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5adc78c91606c7b44a5e7d696d94954d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  staminaCost: 9
+  staminaCost: 12
   isCostInOnStateEnter: 1
   isCostInOnStateUpdate: 0
   isCostInOnStateExit: 0
