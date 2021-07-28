@@ -191,6 +191,18 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 2cd3abf69ef99874a8809226c870c78c, type: 2}
+    - target: {fileID: 13700000, guid: 0f287c61cb641d445956dfdc299accf6, type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 13700000, guid: 0f287c61cb641d445956dfdc299accf6, type: 3}
+      propertyPath: m_LightProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 13700000, guid: 0f287c61cb641d445956dfdc299accf6, type: 3}
+      propertyPath: m_ReflectionProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0f287c61cb641d445956dfdc299accf6, type: 3}
 --- !u!4 &3052861702453019704 stripped

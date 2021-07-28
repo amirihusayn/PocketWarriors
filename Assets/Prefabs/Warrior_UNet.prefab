@@ -74,10 +74,10 @@ SkinnedMeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
+  m_DynamicOccludee: 0
   m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
+  m_LightProbeUsage: 0
+  m_ReflectionProbeUsage: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -674,12 +674,12 @@ PrefabInstance:
     - target: {fileID: 2689561505632793624, guid: 8990df3cf7dc6bc4b9e2486fe2a0b239,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2689561505632793624, guid: 8990df3cf7dc6bc4b9e2486fe2a0b239,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2689561505632793624, guid: 8990df3cf7dc6bc4b9e2486fe2a0b239,
         type: 3}

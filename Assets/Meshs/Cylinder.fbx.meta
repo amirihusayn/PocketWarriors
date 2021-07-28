@@ -1,14 +1,14 @@
 fileFormatVersion: 2
-guid: 448b28114f1b70044a9858b3b297e11d
+guid: 881bed6ed41489d4ab41858ad32327b4
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
     100000: //RootNode
     400000: //RootNode
-    2100000: Emoji
+    2100000: No Name
     2300000: //RootNode
     3300000: //RootNode
-    4300000: Emoji
+    4300000: Cylinder
   externalObjects: {}
   materials:
     importMaterials: 0
@@ -68,7 +68,7 @@ ModelImporter:
     normalImportMode: 0
     tangentImportMode: 3
     normalCalculationMode: 4
-    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 1
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
     blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
   importAnimation: 0

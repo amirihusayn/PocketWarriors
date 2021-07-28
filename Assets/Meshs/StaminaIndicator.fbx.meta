@@ -1,14 +1,25 @@
 fileFormatVersion: 2
-guid: 448b28114f1b70044a9858b3b297e11d
+guid: 3f35fbb87330a1a4d87462a6ad42ecbf
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
     100000: //RootNode
+    100002: StaminaIndicator
+    100004: StaminaIndicator.001
     400000: //RootNode
-    2100000: Emoji
+    400002: StaminaIndicator
+    400004: StaminaIndicator.001
+    2100000: SVGMat.001
+    2100002: No Name
     2300000: //RootNode
+    2300002: StaminaIndicator
+    2300004: StaminaIndicator.001
     3300000: //RootNode
-    4300000: Emoji
+    3300002: StaminaIndicator
+    3300004: StaminaIndicator.001
+    4300000: path5015
+    4300002: StaminaIndicator
+    4300004: StaminaIndicator.001
   externalObjects: {}
   materials:
     importMaterials: 0
@@ -68,10 +79,10 @@ ModelImporter:
     normalImportMode: 0
     tangentImportMode: 3
     normalCalculationMode: 4
-    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 1
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
     blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
-  importAnimation: 0
+  importAnimation: 1
   copyAvatar: 0
   humanDescription:
     serializedVersion: 2
