@@ -8,21 +8,21 @@ namespace PocketWarriors
         public override bool IsSubscribable { get => true;}
 
         // Methods_____________________________________________________
-        protected override bool CheckNormalOperation(WarriorAction warriorAction)
+        protected override bool CheckNormalOperation(ActionRequirement requirement)
         {
             bool isPerformable = false;
-            InputPrototype warriorInput = warriorAction.WarriorInput;
+            InputPrototype warriorInput = requirement.WarriorInput;
             if(Input.GetKey(warriorInput.GetKey(InputPrototype.keyTypes.Down)))
             {
-            warriorAction.Movement = new Vector3(warriorAction.Movement.x, warriorAction.Movement.y, warriorAction.Movement.z - 1) * Time.deltaTime;
+            requirement.Movement = new Vector3(requirement.Movement.x, requirement.Movement.y, requirement.Movement.z - 1) * Time.deltaTime;
             isPerformable = true;
             }
             return isPerformable;
         }
 
-        protected override bool CheckSpectralOperation(WarriorAction warriorAction)
+        protected override bool CheckSpectralOperation(ActionRequirement requirement)
         {
-            InputPrototype warriorInput = warriorAction.WarriorInput;
+            InputPrototype warriorInput = requirement.WarriorInput;
             if(Input.GetKey(warriorInput.GetKey(InputPrototype.keyTypes.Down))
             && Input.GetKey(warriorInput.GetKey(InputPrototype.keyTypes.Spectral)))
                 return true;
@@ -30,12 +30,12 @@ namespace PocketWarriors
                 return false;
         }
 
-        protected override void PerformNormalOperation(WarriorAction warriorAction)
+        protected override void PerformNormalOperation(ActionRequirement requirement)
         {
-            warriorAction.WarriorAnimator.SetBool("isWalking" , true);
+            requirement.Animator.SetBool("isWalking" , true);
         }
 
-        protected override void PerformSpectralOperation(WarriorAction warriorAction)
+        protected override void PerformSpectralOperation(ActionRequirement requirement)
         {
 
             // 

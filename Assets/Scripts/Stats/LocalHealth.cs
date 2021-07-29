@@ -43,8 +43,6 @@ namespace PocketWarriors
 
         private void Start()
         {
-            if (!GameController.Instance.IsGameLocal)
-                return;
             InitializeActions();
             InitializeState();
             Indicator.InitializeIndicator();
@@ -80,8 +78,6 @@ namespace PocketWarriors
 
         private void OnTriggerEnter(Collider other) 
         {
-            if(!GameController.Instance.IsGameLocal)
-                return;
             TakeDamage(other);
         }
 

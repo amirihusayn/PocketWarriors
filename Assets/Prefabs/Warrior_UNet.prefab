@@ -132,8 +132,6 @@ GameObject:
   - component: {fileID: 3545796024514451997}
   - component: {fileID: 2466784160850234551}
   - component: {fileID: 7945345328095838167}
-  - component: {fileID: 3893672668503082155}
-  - component: {fileID: 7438898956468208775}
   - component: {fileID: 3124215731247847944}
   - component: {fileID: 8183923211947678398}
   - component: {fileID: 9048159320001263126}
@@ -284,37 +282,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.5, y: 3, z: 1.5}
   m_Center: {x: 0, y: 1.45, z: 0}
---- !u!114 &3893672668503082155
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3891381460622665541}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26b39b01214bd534999573c03d48e92b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  stats: {fileID: 11400000, guid: a0bf98f9b17c72c49ab376d273355785, type: 2}
-  warriorAnimator: {fileID: 3891381460613272711}
-  warriorRigidBody: {fileID: 2466784160850234551}
-  cameraPrefab: {fileID: 5614230292434938495, guid: cb9b5b061cdce66469c1d031716404c6,
-    type: 3}
---- !u!114 &7438898956468208775
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3891381460622665541}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb939c91dc8166a4ca97aa271db338c4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  stats: {fileID: 11400000, guid: a0bf98f9b17c72c49ab376d273355785, type: 2}
-  warriorRigidBody: {fileID: 2466784160850234551}
 --- !u!114 &3124215731247847944
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -327,6 +294,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60a06852a9fe6114e9a8b9f70df7bd82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  requirement:
+    stats: {fileID: 11400000, guid: a0bf98f9b17c72c49ab376d273355785, type: 2}
+    animator: {fileID: 3891381460613272711}
+    rigidbody: {fileID: 2466784160850234551}
+  cameraPrefab: {fileID: 5614230292434938495, guid: cb9b5b061cdce66469c1d031716404c6,
+    type: 3}
 --- !u!114 &8183923211947678398
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -339,6 +312,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcd9f9c27958a449796fe3f39f19e9bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stats: {fileID: 11400000, guid: a0bf98f9b17c72c49ab376d273355785, type: 2}
+  warriorRigidBody: {fileID: 2466784160850234551}
 --- !u!114 &9048159320001263126
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -4,46 +4,42 @@ namespace PocketWarriors
     {
         // Fields________________________________________________________
         protected bool isNormalOperation, isSpectralOperation;
-        protected LocalStamina localStamina;
-        protected LocalSpectralPower localPower;
 
         // Properties___________________________________________________
         public abstract bool IsSubscribable { get;}
         
         // Methods_____________________________________________________
-        public void Subscribe(ActionContainer actionContainer, WarriorAction warriorAction)
+        public void Subscribe(ActionContainer actionContainer, ActionRequirement requirement)
         {
             actionContainer.Checker += Check;
             actionContainer.Performer += Perform;
-            localStamina = warriorAction.GetComponent<LocalStamina>();
-            localPower = warriorAction.GetComponent<LocalSpectralPower>();
         }
 
-        public virtual void Check(WarriorAction warriorAction)
+        public virtual void Check(ActionRequirement requirement)
         {
-            isNormalOperation = CheckNormalOperation(warriorAction);
-            isSpectralOperation = CheckSpectralOperation(warriorAction);
+            isNormalOperation = CheckNormalOperation(requirement);
+            isSpectralOperation = CheckSpectralOperation(requirement);
         }
 
-        public virtual void Perform(WarriorAction warriorAction)
+        public virtual void Perform(ActionRequirement requirement)
         {
             if(isSpectralOperation)
             {
-                warriorAction.WarriorAnimator.SetBool("isSpectral", true);
-                PerformSpectralOperation(warriorAction);
+                requirement.Animator.SetBool("isSpectral", true);
+                PerformSpectralOperation(requirement);
             }
             else if(isNormalOperation)
             {
-                warriorAction.WarriorAnimator.SetBool("isSpectral", false);
-                PerformNormalOperation(warriorAction);
+                requirement.Animator.SetBool("isSpectral", false);
+                PerformNormalOperation(requirement);
             }
             isNormalOperation = false;
             isSpectralOperation = false;
         }
 
-        protected abstract bool CheckNormalOperation(WarriorAction warriorAction);
-        protected abstract bool CheckSpectralOperation(WarriorAction warriorAction);
-        protected abstract void PerformNormalOperation(WarriorAction warriorAction);
-        protected abstract void PerformSpectralOperation(WarriorAction warriorAction);
+        protected abstract bool CheckNormalOperation(ActionRequirement requirement);
+        protected abstract bool CheckSpectralOperation(ActionRequirement requirement);
+        protected abstract void PerformNormalOperation(ActionRequirement requirement);
+        protected abstract void PerformSpectralOperation(ActionRequirement requirement);
     }
 }

@@ -23,7 +23,7 @@ namespace PocketWarriors
         private void Initialize()
         {
             damage = weapon.Damage;
-            WarriorAction warrior = GetComponentInParent<WarriorAction>();
+            LocalPerform warrior = GetComponentInParent<LocalPerform>();
             if(warrior != null)
                 warriorID = warrior.gameObject.GetInstanceID();
         }

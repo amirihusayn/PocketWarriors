@@ -11,7 +11,7 @@ namespace PocketWarriors
         private float durationTime;
         private string comboString; 
         private ComboProfile comboProfile;
-        [SerializeField] private WarriorAction warriorAction;
+        private ActionRequirement requirement;
 
         // Methods_____________________________________________________
         private void Awake()
@@ -26,9 +26,10 @@ namespace PocketWarriors
 
         private void Initialize()
         {
+            requirement = GetComponent<IPerform>().Requirement;
             comboString = string.Empty;
             keysCount = typeof(InputPrototype.keyTypes).GetEnumValues().Length;
-            comboProfile = warriorAction.Stats.ComboProfile;
+            comboProfile = requirement.Stats.ComboProfile;
             GenerateComboStrings();
             foreach(Combo combo in comboProfile.ComboList)
                 if(maxComboLength < combo.ComboString.Length)
@@ -44,7 +45,7 @@ namespace PocketWarriors
 
         private void CheckInput()
         {
-            InputPrototype input = warriorAction.WarriorInput;
+            InputPrototype input = requirement.WarriorInput;
             InputPrototype.keyTypes key;
             KeyCode keyCode;
             for(int index = 0; index < keysCount; index++)
@@ -73,7 +74,7 @@ namespace PocketWarriors
                     comboToPerfom = combo;
             if(comboToPerfom != null)
             {
-                warriorAction.WarriorAnimator.Play(comboToPerfom.AnimationIntParameter);
+                requirement.Animator.Play(comboToPerfom.AnimationIntParameter);
                 ResetCheckProcess();
             }
         }

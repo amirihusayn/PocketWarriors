@@ -9,20 +9,20 @@ namespace PocketWarriors
     {
         // Fields________________________________________________________
         private Dictionary<Type, ActionPrototype> actionDictionary;
-        public event Action<WarriorAction> Checker;
-        public event Action<WarriorAction> Performer;
+        public event Action<ActionRequirement> Checker;
+        public event Action<ActionRequirement> Performer;
 
         // Properties___________________________________________________
         public Dictionary<Type, ActionPrototype> ActionDictionary { get => actionDictionary; }
 
-        // Constructor
-        public ActionContainer(WarriorAction warriorAction)
+        // Constructor_________________________________________________
+        public ActionContainer(ActionRequirement requirement)
         {
-            Initialize(warriorAction);
+            Initialize(requirement);
         }
 
         // Methods_____________________________________________________
-        private void Initialize(WarriorAction warriorAction)
+        private void Initialize(ActionRequirement requirement)
         {
             actionDictionary = new Dictionary<Type, ActionPrototype>();
             var allActionAssembly = Assembly.GetAssembly(typeof(ActionPrototype));
@@ -35,21 +35,21 @@ namespace PocketWarriors
                 if(action.IsSubscribable)
                 {
                     actionDictionary.Add(thisActionType, action);
-                    action.Subscribe(this, warriorAction);
+                    action.Subscribe(this, requirement);
                 }
             }
         }
 
-        public void CheckActions(WarriorAction warriorAction)
+        public void CheckActions(ActionRequirement requirement)
         {
             if(Checker != null)
-                Checker(warriorAction);
+                Checker(requirement);
         }
         
-        public void PerformActions(WarriorAction warriorAction)
+        public void PerformActions(ActionRequirement requirement)
         {
             if(Performer != null)
-                Performer(warriorAction);
+                Performer(requirement);
         }
     }
 }

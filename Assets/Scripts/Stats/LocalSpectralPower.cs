@@ -35,8 +35,6 @@ namespace PocketWarriors
         // Methods_____________________________________________________
         private void Start()
         {
-            if (!GameController.Instance.IsGameLocal)
-                return;
             InitializeActions();
             InitializeLocalPower();
         }

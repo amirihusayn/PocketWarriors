@@ -49,8 +49,6 @@ namespace PocketWarriors
 
         private void Start()
         {
-            if (!GameController.Instance.IsGameLocal)
-                return;
             InitializeActions();
             InitializeAllStaminaCosts();
             InitializeState();

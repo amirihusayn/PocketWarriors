@@ -13,32 +13,32 @@ namespace PocketWarriors
         public override bool IsSubscribable { get => !GameController.Instance.IsGameLocal;}
 
         // Methods_____________________________________________________
-        public override void Check(WarriorAction warriorAction)
+        public override void Check(ActionRequirement requirement)
         {
-            InitializeNetworkAnimator(warriorAction);
-            base.Check(warriorAction);
+            InitializeNetworkAnimator(requirement);
+            base.Check(requirement);
         }
 
-        private void InitializeNetworkAnimator(WarriorAction warriorAction)
+        private void InitializeNetworkAnimator(ActionRequirement requirement)
         {
             if(isNetworkAnimatorInitialized)
                 return;
-            networkAnimator = warriorAction.GetComponent<NetworkAnimator>();
+            networkAnimator = requirement.RigidBody.GetComponent<NetworkAnimator>();
         }
 
-        protected override bool CheckNormalOperation(WarriorAction warriorAction)
+        protected override bool CheckNormalOperation(ActionRequirement requirement)
         {
-            InputPrototype warriorInput = warriorAction.WarriorInput;
+            InputPrototype warriorInput = requirement.WarriorInput;
             bool isPerformable = false;
             if(Input.GetKeyDown(warriorInput.GetKey(InputPrototype.keyTypes.Jump)))
-                if(warriorAction.transform.position.y <= warriorAction.Stats.JumpLimit)
+                if(requirement.RigidBody.position.y <= requirement.Stats.JumpLimit)
                     isPerformable = true;
             return isPerformable;
         }
 
-        protected override bool CheckSpectralOperation(WarriorAction warriorAction)
+        protected override bool CheckSpectralOperation(ActionRequirement requirement)
         {
-            InputPrototype warriorInput = warriorAction.WarriorInput;
+            InputPrototype warriorInput = requirement.WarriorInput;
             if(Input.GetKeyDown(warriorInput.GetKey(InputPrototype.keyTypes.Jump))
             && Input.GetKey(warriorInput.GetKey(InputPrototype.keyTypes.Spectral)))
                 return true;
@@ -46,13 +46,13 @@ namespace PocketWarriors
                 return false;
         }
 
-        protected override void PerformNormalOperation(WarriorAction warriorAction)
+        protected override void PerformNormalOperation(ActionRequirement requirement)
         {
             networkAnimator.SetTrigger("OnJump");
-            warriorAction.WarriorRigidBody.velocity = new Vector3(warriorAction.WarriorRigidBody.velocity.x , warriorAction.Stats.JumpSpeed , warriorAction.WarriorRigidBody.velocity.z);
+            requirement.RigidBody.velocity = new Vector3(requirement.RigidBody.velocity.x , requirement.Stats.JumpSpeed , requirement.RigidBody.velocity.z);
         }
 
-        protected override void PerformSpectralOperation(WarriorAction warriorAction)
+        protected override void PerformSpectralOperation(ActionRequirement requirement)
         {
             networkAnimator.SetTrigger("OnJump");
 

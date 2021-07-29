@@ -8,9 +8,9 @@ namespace PocketWarriors
         public override bool IsSubscribable { get => true;}
 
         // Methods_____________________________________________________
-        protected override bool CheckNormalOperation(WarriorAction warriorAction)
+        protected override bool CheckNormalOperation(ActionRequirement requirement)
         {
-            InputPrototype warriorInput = warriorAction.WarriorInput;
+            InputPrototype warriorInput = requirement.WarriorInput;
             bool isStoppedMovingDown = Input.GetKeyUp(warriorInput.GetKey(InputPrototype.keyTypes.Down));
             bool isStoppedMovingUp = Input.GetKeyUp(warriorInput.GetKey(InputPrototype.keyTypes.Up));
             bool isStoppedMovingLeft = Input.GetKeyUp(warriorInput.GetKey(InputPrototype.keyTypes.Left));
@@ -18,34 +18,34 @@ namespace PocketWarriors
 
             if(isStoppedMovingDown)
             {
-            warriorAction.Movement = new Vector3(warriorAction.Movement.x , warriorAction.Movement.y , 0 );
+            requirement.Movement = new Vector3(requirement.Movement.x , requirement.Movement.y , 0 );
             }
             if(isStoppedMovingUp)
             {
-            warriorAction.Movement = new Vector3(warriorAction.Movement.x , warriorAction.Movement.y , 0 );
+            requirement.Movement = new Vector3(requirement.Movement.x , requirement.Movement.y , 0 );
             }
             if(isStoppedMovingLeft)
             {
-            warriorAction.Movement = new Vector3(0 , warriorAction.Movement.y , warriorAction.Movement.z );
+            requirement.Movement = new Vector3(0 , requirement.Movement.y , requirement.Movement.z );
             }
             if(isStoppedMovingRight)
             {
-            warriorAction.Movement = new Vector3(0 , warriorAction.Movement.y , warriorAction.Movement.z );
+            requirement.Movement = new Vector3(0 , requirement.Movement.y , requirement.Movement.z );
             }
             return false;
         }
 
-        protected override bool CheckSpectralOperation(WarriorAction warriorAction)
+        protected override bool CheckSpectralOperation(ActionRequirement requirement)
         {
             return false;
         }
 
-        protected override void PerformNormalOperation(WarriorAction warriorAction)
+        protected override void PerformNormalOperation(ActionRequirement requirement)
         {
-            warriorAction.WarriorAnimator.SetBool("isWalking" , false);
+            requirement.Animator.SetBool("isWalking" , false);
         }
 
-        protected override void PerformSpectralOperation(WarriorAction warriorAction)
+        protected override void PerformSpectralOperation(ActionRequirement requirement)
         {
 
         }

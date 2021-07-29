@@ -13,31 +13,31 @@ namespace PocketWarriors
         public override bool IsSubscribable { get => !GameController.Instance.IsGameLocal;}
 
         // Methods_____________________________________________________
-        public override void Check(WarriorAction warriorAction)
+        public override void Check(ActionRequirement requirement)
         {
-            InitializeNetworkAnimator(warriorAction);
-            base.Check(warriorAction);
+            InitializeNetworkAnimator(requirement);
+            base.Check(requirement);
         }
 
-        private void InitializeNetworkAnimator(WarriorAction warriorAction)
+        private void InitializeNetworkAnimator(ActionRequirement requirement)
         {
             if(isNetworkAnimatorInitialized)
                 return;
-            networkAnimator = warriorAction.GetComponent<NetworkAnimator>();
+            networkAnimator = requirement.RigidBody.GetComponent<NetworkAnimator>();
         }
 
-        protected override bool CheckNormalOperation(WarriorAction warriorAction)
+        protected override bool CheckNormalOperation(ActionRequirement requirement)
         {
-            InputPrototype warriorInput = warriorAction.WarriorInput;
+            InputPrototype warriorInput = requirement.WarriorInput;
             if(Input.GetKeyDown(warriorInput.GetKey(InputPrototype.keyTypes.SwitchHand)))
                 return true;
             else
                 return false;
         }
 
-        protected override bool CheckSpectralOperation(WarriorAction warriorAction)
+        protected override bool CheckSpectralOperation(ActionRequirement requirement)
         {
-            InputPrototype warriorInput = warriorAction.WarriorInput;
+            InputPrototype warriorInput = requirement.WarriorInput;
             if(Input.GetKeyDown(warriorInput.GetKey(InputPrototype.keyTypes.SwitchHand))
             && Input.GetKey(warriorInput.GetKey(InputPrototype.keyTypes.Spectral)))
                 return true;
@@ -45,12 +45,12 @@ namespace PocketWarriors
                 return false;
         }
 
-        protected override void PerformNormalOperation(WarriorAction warriorAction)
+        protected override void PerformNormalOperation(ActionRequirement requirement)
         {
             networkAnimator.SetTrigger("OnSwitchHand");
         }
 
-        protected override void PerformSpectralOperation(WarriorAction warriorAction)
+        protected override void PerformSpectralOperation(ActionRequirement requirement)
         {
             // 
         }

@@ -1,12 +1,13 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
 namespace PocketWarriors
 {
-    public class WarriorRotation : MonoBehaviour
+    public class UNetRotation : NetworkBehaviour, IRotation
     {
-        // Fields________________________________________________________
+          // Fields________________________________________________________
         [SerializeField] private WarriorStats stats;
         [SerializeField] private Rigidbody warriorRigidBody;
         private float rotationDegree, rotationSpeed;
@@ -14,39 +15,39 @@ namespace PocketWarriors
         // Methods_____________________________________________________
         private void Start()
         {
-            if(!GameController.Instance.IsGameLocal)
-                return;
             Initialize();
-        }
-
-        private void Update()
-        {
-            if(!GameController.Instance.IsGameLocal)
-                return;        
-            GetInputRotation();
-        }
-
-        private void FixedUpdate()
-        {
-            if(!GameController.Instance.IsGameLocal)
-                return;
-            Rotate();
         }
 
         public void Initialize()
         {
+            if (!isLocalPlayer)
+                return;
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
             rotationSpeed = stats.RotationSpeed;
         }
 
+        private void Update()
+        {
+            GetInputRotation();
+        }
+
         public void GetInputRotation()
         {
+            if (!isLocalPlayer)
+                return;
             rotationDegree = Input.GetAxis("Mouse X") * rotationSpeed * Time.deltaTime;
         }
-        
+
+        private void FixedUpdate()
+        {
+            Rotate();
+        }
+
         public void Rotate()
         {
+            if (!isLocalPlayer)
+                return;
             Vector3 eular = warriorRigidBody.rotation.eulerAngles + transform.up * rotationDegree;
             warriorRigidBody.MoveRotation(Quaternion.Euler(eular));
         }

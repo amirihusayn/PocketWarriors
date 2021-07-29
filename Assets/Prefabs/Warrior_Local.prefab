@@ -99,9 +99,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26b39b01214bd534999573c03d48e92b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stats: {fileID: 11400000, guid: a0bf98f9b17c72c49ab376d273355785, type: 2}
-  warriorAnimator: {fileID: 4607435883571870259}
-  warriorRigidBody: {fileID: 4607435883562438491}
+  requirement:
+    stats: {fileID: 11400000, guid: a0bf98f9b17c72c49ab376d273355785, type: 2}
+    animator: {fileID: 4607435883571870259}
+    rigidbody: {fileID: 4607435883562438491}
   cameraPrefab: {fileID: 5614230292434938495, guid: cb9b5b061cdce66469c1d031716404c6,
     type: 3}
 --- !u!114 &4607435883562438494
