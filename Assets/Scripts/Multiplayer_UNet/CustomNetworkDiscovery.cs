@@ -13,7 +13,7 @@ namespace PocketWarriors
         public string ipAddress;
         public int portNumber;
 
-        // Constructor
+        // Constructor_________________________________________________
         public Host(string fromAddress , int portNumber , string hostName)
         {
             this.hostName = hostName;

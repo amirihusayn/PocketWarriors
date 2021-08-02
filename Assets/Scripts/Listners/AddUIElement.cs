@@ -2,17 +2,17 @@ using UnityEngine;
 
 namespace PocketWarriors
 {
-    public class AddItemListner : ListnerPrototype
+    public class AddUIElement : ListnerPrototype
     {
         // Fields________________________________________________________
-        [SerializeField] private GameObject item, layout;
+        [SerializeField] private GameObject element, layout;
 
         // Methods_____________________________________________________
         protected override void OnClickListner()
         {
-            if(item == null)
+            if(element == null)
                 return;
-            GameObject.Instantiate(item, layout.GetComponent<RectTransform>());
+            GameObject.Instantiate(element, layout.GetComponent<RectTransform>());
         }
     }
 }

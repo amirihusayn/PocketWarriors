@@ -40,7 +40,7 @@ namespace PocketWarriors
         {
             foreach(Combo combo in comboProfile.ComboList)
                 foreach(InputPrototype.keyTypes key in combo.ComboChainList)
-                    combo.ComboString = ((int) key).ToString();
+                    combo.ComboString += ((int) key).ToString();
         }
 
         private void CheckInput()

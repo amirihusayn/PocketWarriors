@@ -86,8 +86,9 @@ namespace PocketWarriors
         {
             Animator animator = GetComponent<Animator>();
             StaminaCost []staminaCostArray = animator.GetBehaviours<StaminaCost>();
+            IItemAssign itemAssign = GetComponent<IItemAssign>();
             foreach(StaminaCost thisStaminaCost in staminaCostArray)
-                thisStaminaCost.InitializeStaminaCostBehaviour(this);
+                thisStaminaCost.InitializeStaminaCostBehaviour(this, itemAssign);
         } 
 
         public void ConsumeStamina(short staminaAmount)

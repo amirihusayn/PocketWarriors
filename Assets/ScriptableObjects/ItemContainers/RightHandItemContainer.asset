@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 031d14113782d0343b6ad470b5e97e69, type: 3}
+  m_Name: RightHandItemContainer
+  m_EditorClassIdentifier: 
+  itemType: 4
+  itemsList:
+  - {fileID: 0}
+  - {fileID: 1086627709987736, guid: 860e3a39eed6c4eba9c1405d3e9eff88, type: 3}
+  - {fileID: 6978427866989608410, guid: 81fc741b02cfba642a44093661ee8955, type: 3}
+  - {fileID: 7936746982332705261, guid: addefe048b46a6d40a5dedfdf24d87be, type: 3}

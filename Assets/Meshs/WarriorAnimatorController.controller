@@ -130,7 +130,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5adc78c91606c7b44a5e7d696d94954d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  staminaCost: 20
+  animationStaminaCost: 20
+  itemType: 4
+  costWhenHasItem: 1
   isCostInOnStateEnter: 1
   isCostInOnStateUpdate: 0
   isCostInOnStateExit: 0
@@ -146,7 +148,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5adc78c91606c7b44a5e7d696d94954d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  staminaCost: 30
+  animationStaminaCost: 30
+  itemType: 5
+  costWhenHasItem: 1
   isCostInOnStateEnter: 1
   isCostInOnStateUpdate: 0
   isCostInOnStateExit: 0
@@ -198,7 +202,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5adc78c91606c7b44a5e7d696d94954d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  staminaCost: 12
+  animationStaminaCost: 10
+  itemType: 0
+  costWhenHasItem: 0
   isCostInOnStateEnter: 1
   isCostInOnStateUpdate: 0
   isCostInOnStateExit: 0
@@ -214,7 +220,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5adc78c91606c7b44a5e7d696d94954d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  staminaCost: 20
+  animationStaminaCost: 20
+  itemType: 5
+  costWhenHasItem: 1
   isCostInOnStateEnter: 1
   isCostInOnStateUpdate: 0
   isCostInOnStateExit: 0
@@ -230,7 +238,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5adc78c91606c7b44a5e7d696d94954d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  staminaCost: 30
+  animationStaminaCost: 30
+  itemType: 4
+  costWhenHasItem: 1
   isCostInOnStateEnter: 1
   isCostInOnStateUpdate: 0
   isCostInOnStateExit: 0
@@ -246,9 +256,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5adc78c91606c7b44a5e7d696d94954d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  staminaCost: 0
+  animationStaminaCost: 0
+  itemType: 0
+  costWhenHasItem: 0
   isCostInOnStateEnter: 0
   isCostInOnStateUpdate: 1
+  isCostInOnStateExit: 0
+--- !u!114 &114993126588422936
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5adc78c91606c7b44a5e7d696d94954d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animationStaminaCost: 5
+  itemType: 0
+  costWhenHasItem: 0
+  isCostInOnStateEnter: 1
+  isCostInOnStateUpdate: 0
   isCostInOnStateExit: 0
 --- !u!1101 &1101002407955158304
 AnimatorStateTransition:
@@ -811,7 +841,8 @@ AnimatorState:
   m_Transitions:
   - {fileID: 1101766564305399602}
   - {fileID: 1101455130037359044}
-  m_StateMachineBehaviours: []
+  m_StateMachineBehaviours:
+  - {fileID: 114993126588422936}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1

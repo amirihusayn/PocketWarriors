@@ -8,14 +8,24 @@ namespace PocketWarriors
    public class StaminaCost : StateMachineBehaviour
    {
       // Fields________________________________________________________
-      [SerializeField] private short staminaCost;
-      [SerializeField] private bool isCostInOnStateEnter, isCostInOnStateUpdate, isCostInOnStateExit;
+      [SerializeField] private short animationStaminaCost;
+      private short staminaCost;
+      [SerializeField] private ItemContainer.ItemTypes itemType;
+      [SerializeField] private bool costWhenHasItem, isCostInOnStateEnter, isCostInOnStateUpdate, isCostInOnStateExit;
       private IStamina<short> staminaComponent;
 
       // Methods_____________________________________________________
-      public void InitializeStaminaCostBehaviour(IStamina<short> staminaComponent) 
+      public void InitializeStaminaCostBehaviour(IStamina<short> staminaComponent, IItemAssign itemAssign) 
       {
+         float cost = (float) animationStaminaCost;
          this.staminaComponent = staminaComponent;
+         ItemAnchor anchor = itemAssign.AnchorsDic[itemType];
+         ItemBehaviour itemBehaviour = anchor.GetComponentInChildren<ItemBehaviour>();
+         if(itemBehaviour != null)
+            cost *= itemBehaviour.AnimationStaminaCostRate;
+         else if(costWhenHasItem)
+            cost = 0;
+         staminaCost = (short) cost;
       } 
 
       override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

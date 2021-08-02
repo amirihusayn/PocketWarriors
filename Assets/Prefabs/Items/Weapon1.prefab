@@ -13,8 +13,9 @@ GameObject:
   - component: {fileID: 23684176857098756}
   - component: {fileID: 136522185036834328}
   - component: {fileID: 6450497412657247113}
+  - component: {fileID: 114394275603358526}
   m_Layer: 8
-  m_Name: Weapon
+  m_Name: Weapon1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -106,3 +107,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weapon: {fileID: 11400000, guid: f766200d5bf90cd4ea1c381ccff75618, type: 2}
+--- !u!114 &114394275603358526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1086627709987736}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd791a42be0111a498fb61b09ec305cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animationStaminaCostRate: 1
+  maxStaminaChange: 0
+  maxHealthChange: 0
+  footSpeedChange: 0
+  rotationSpeedChange: 0
+  position: {x: 0, y: 3, z: 0}

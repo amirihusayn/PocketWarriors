@@ -1,42 +1,30 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace PocketWarriors
 {
-    public class ChangeItemListner : ListnerPrototype
+    public class ChangeItemListner : ListnerPrototype 
     {
         // Fields________________________________________________________
-        private static List<ChangeItemListner> availableInstances = new List<ChangeItemListner>();
-        [SerializeField] private int filterID;
-        [SerializeField] private GameObject layout;
-        [SerializeField] private List<GameObject> currentItem, nextItem;
+        [SerializeField] private LocalItemAssign itemAssign;
+        [SerializeField] private ItemContainer.ItemTypes itemType;
+        [SerializeField] private int indexChangeStep;
+        private int itemIndex;
 
         // Methods_____________________________________________________
         protected override void Awake()
         {
             base.Awake();
-            availableInstances.Add(this);
+            itemIndex = 0;
+            // assign itemAssign
         }
 
         protected override void OnClickListner()
         {
-            if(nextItem.Count == 0 || currentItem == nextItem)
-                return;
-            if(currentItem != null)
-                foreach(GameObject item in currentItem)
-                    item.SetActive(false);
-            if(nextItem != null)
-                foreach(GameObject item in nextItem)
-                    item.SetActive(true);  
-            ChangeItemListner.UpdateCurrentItem(this);
-        }
-
-        public static void UpdateCurrentItem(ChangeItemListner executer)
-        {
-            foreach(ChangeItemListner listner in availableInstances)
-                if(executer.filterID == listner.filterID)
-                    listner.currentItem = executer.nextItem;
+            itemIndex += indexChangeStep;
+            ItemContainer container = itemAssign.ContainersDic[itemType];
+            GameObject item = container.GetItem(ref itemIndex);
+            itemAssign.AnchorsDic[itemType].CreateItem(item);
+            PlayerPrefs.SetInt(itemType.ToString(), itemIndex);
         }
     }
-}                                                                                           
+}
