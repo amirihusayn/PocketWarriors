@@ -134,8 +134,8 @@ MonoBehaviour:
   stats: {fileID: 11400000, guid: a0bf98f9b17c72c49ab376d273355785, type: 2}
   healthIndicator:
     indicatorTransform: {fileID: 593913348445366408}
-    minScale: 1.5
-    maxScale: 5
+    minScale: 5
+    maxScale: 12
 --- !u!114 &4607435883562438480
 MonoBehaviour:
   m_ObjectHideFlags: 0
