@@ -329,9 +329,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0cf277a271ba51349a27a5cbd0340dca, type: 2}
   - {fileID: 11400000, guid: ac4c7111fbd52f741869818a42846e86, type: 2}
   - {fileID: 11400000, guid: 120196b9f3965404589138b3664123fc, type: 2}
-  anchor: {fileID: 2924646200269070330}
-  targetItemPrefab: {fileID: 7936746982332705261, guid: addefe048b46a6d40a5dedfdf24d87be,
-    type: 3}
+  anchor: {fileID: 0}
+  targetItemPrefab: {fileID: 0}
 --- !u!114 &3124215731247847944
 MonoBehaviour:
   m_ObjectHideFlags: 0

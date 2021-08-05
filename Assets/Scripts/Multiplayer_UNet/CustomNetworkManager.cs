@@ -9,81 +9,40 @@ namespace PocketWarriors
 {
     public class CustomNetworkManager : NetworkManager
     {
-        public override void OnClientConnect(NetworkConnection conn)
-        {
-            base.OnClientConnect(conn);
-        }
+        // Fields________________________________________________________
+        private List<UNetItemAssign> itemAssignList = new List<UNetItemAssign>();
 
+        // Methods_____________________________________________________
         public override void OnClientDisconnect(NetworkConnection conn)
         {
             base.OnClientDisconnect(conn);
             ResetCursorState();
         }
 
-        public override void OnClientError(NetworkConnection conn, int errorCode)
-        {
-            base.OnClientError(conn, errorCode);
-        }
-
-        public override void OnClientNotReady(NetworkConnection conn)
-        {
-            base.OnClientNotReady(conn);
-        }
-
-        public override void OnClientSceneChanged(NetworkConnection conn)
-        {
-            base.OnClientSceneChanged(conn);
-        }
-
-        public override void OnDropConnection(bool success, string extendedInfo)
-        {
-            base.OnDropConnection(success, extendedInfo);
-        }
-
-        public override void OnServerAddPlayer(NetworkConnection conn, short playerControllerId, NetworkReader extraMessageReader)
-        {
-            base.OnServerAddPlayer(conn, playerControllerId, extraMessageReader);
-        }
-
         public override void OnServerAddPlayer(NetworkConnection conn, short playerControllerId)
         {
             base.OnServerAddPlayer(conn, playerControllerId);
-        }
 
-        public override void OnServerConnect(NetworkConnection conn)
-        {
-            base.OnServerConnect(conn);
+            GameObject warrior = conn.playerControllers[playerControllerId].gameObject;
+            UNetItemAssign itemAssign = warrior.GetComponent<UNetItemAssign>();
+            itemAssignList.Add(itemAssign);
+
+            itemAssign.Initialize();
+            itemAssign.AssignItems();
+
+            // foreach(NetworkConnection connection in NetworkServer.connections)
+            // {
+            //     foreach(PlayerController controller in connection.playerControllers)
+            //     {
+            //         controller.gameObject.GetComponent<UNetItemAssign>().LocalAssign(controller.gameObject.GetComponent<UNetItemAssign>().LeftHandItemIndex);
+            //     }
+            // }
         }
 
         public override void OnServerDisconnect(NetworkConnection conn)
         {
             base.OnServerDisconnect(conn);
             ResetCursorState();
-        }
-
-        public override void OnServerError(NetworkConnection conn, int errorCode)
-        {
-            base.OnServerError(conn, errorCode);
-        }
-
-        public override void OnServerReady(NetworkConnection conn)
-        {
-            base.OnServerReady(conn);
-        }
-
-        public override void OnServerRemovePlayer(NetworkConnection conn, PlayerController player)
-        {
-            base.OnServerRemovePlayer(conn, player);
-        }
-
-        public override void OnServerSceneChanged(string sceneName)
-        {
-            base.OnServerSceneChanged(sceneName);
-        }
-
-        public override void OnSetMatchAttributes(bool success, string extendedInfo)
-        {
-            base.OnSetMatchAttributes(success, extendedInfo);
         }
 
         public void StartClient()
@@ -128,11 +87,6 @@ namespace PocketWarriors
         {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
-        }
-
-        public override void ServerChangeScene(string newSceneName)
-        {
-            base.ServerChangeScene(newSceneName);
         }
 
         public override NetworkClient StartHost()

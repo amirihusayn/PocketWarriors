@@ -89,7 +89,7 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ShowResolutionOverlay: 1
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -905,17 +905,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3294622296203209330, guid: 94a8d77fbe94d8e478adee371661fbdf,
-        type: 3}
-      propertyPath: m_SpawnPrefabs.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3294622296203209330, guid: 94a8d77fbe94d8e478adee371661fbdf,
-        type: 3}
-      propertyPath: m_SpawnPrefabs.Array.data[0]
-      value: 
-      objectReference: {fileID: 7936746982332705261, guid: addefe048b46a6d40a5dedfdf24d87be,
-        type: 3}
     - target: {fileID: 4681612988251022506, guid: 94a8d77fbe94d8e478adee371661fbdf,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -975,11 +964,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: NetworkManager_UNet
-      objectReference: {fileID: 0}
-    - target: {fileID: 4681612988251022508, guid: 94a8d77fbe94d8e478adee371661fbdf,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 94a8d77fbe94d8e478adee371661fbdf, type: 3}
@@ -2341,6 +2325,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4722512769312321886, guid: e756c8000f8ff924a9adeaae766c4fcc,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4882869714037916447, guid: e756c8000f8ff924a9adeaae766c4fcc,
         type: 3}
       propertyPath: m_Name

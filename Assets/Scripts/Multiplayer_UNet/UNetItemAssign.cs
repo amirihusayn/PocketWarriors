@@ -2,9 +2,19 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.Networking.NetworkSystem;
 
 namespace PocketWarriors
 {
+    public class ItemMessage : MessageBase
+    {
+
+        // Fields________________________________________________________
+        public short itemTypeNumber;
+        public short itemIndex;
+        public short playerControllerId;
+    }
+
     public class UNetItemAssign : NetworkBehaviour, IItemAssign
     {
         // Fields________________________________________________________
@@ -12,9 +22,12 @@ namespace PocketWarriors
         private List<ItemAnchor> anchorsList;
         private Dictionary<ItemContainer.ItemTypes, ItemContainer> containersDic;
         private Dictionary<ItemContainer.ItemTypes, ItemAnchor> anchorsDic;
+        
 
-        private ItemAnchor anchor;
-        private GameObject targetItemPrefab;
+        [SyncVar(hook = "OnLeftHandItemIndexChange")] private int leftHandItemIndex;
+        public int LeftHandItemIndex { get => leftHandItemIndex;}
+
+
 
         // Properties___________________________________________________
         public Dictionary<ItemContainer.ItemTypes, ItemContainer> ContainersDic { get => containersDic; }
@@ -24,12 +37,9 @@ namespace PocketWarriors
         private void Awake()
         {
             Initialize();
-            if(!isLocalPlayer)
-                return;
-            AssignItems();
         }
 
-        private void Initialize()
+        public void Initialize()
         {
             anchorsList = new List<ItemAnchor>(GetComponentsInChildren<ItemAnchor>());
             containersDic = new Dictionary<ItemContainer.ItemTypes, ItemContainer>();
@@ -42,33 +52,38 @@ namespace PocketWarriors
 
         public void AssignItems()
         {
+            if(!isLocalPlayer)
+                return;
+
             int itemIndex;
-            ItemContainer container;
-            GameObject targetItemPrefab;
-            foreach (ItemContainer.ItemTypes itemType in anchorsDic.Keys)
+            if (PlayerPrefs.HasKey(ItemContainer.ItemTypes.LeftHand.ToString()))
+                itemIndex = PlayerPrefs.GetInt(ItemContainer.ItemTypes.LeftHand.ToString());
+            else
             {
-                if (PlayerPrefs.HasKey(itemType.ToString()))
-                    itemIndex = PlayerPrefs.GetInt(itemType.ToString());
-                else
-                {
-                    itemIndex = 0;
-                    PlayerPrefs.SetInt(itemType.ToString(), itemIndex);
-                } 
-                anchorsDic.TryGetValue(itemType, out anchor);
-                containersDic.TryGetValue(itemType, out container);
-                if (anchor != null && container != null)
-                {
-                    targetItemPrefab = container.GetItem(ref itemIndex);
-                    CmdAssign();
-                }
-            }
+                itemIndex = 0;
+                PlayerPrefs.SetInt(ItemContainer.ItemTypes.LeftHand.ToString(), itemIndex);
+            } 
+            CmdAssign(itemIndex);
         }
 
         [Command]
-        private void CmdAssign()
+        private void CmdAssign(int newIndex)
         {
-            anchor.CreateItem(targetItemPrefab); // when running this targetItemPrefab in server is null
-            NetworkServer.Spawn(anchor.Item);
+            leftHandItemIndex = newIndex;
+            RpcAssign(newIndex);
+        }
+
+        [ClientRpc]
+        public void RpcAssign(int newIndex)
+        {
+            GameObject targetPrefab = containersDic[ItemContainer.ItemTypes.LeftHand].GetItem(ref newIndex);
+            anchorsDic[ItemContainer.ItemTypes.LeftHand].CreateItem(targetPrefab);
+        }
+
+        private void OnLeftHandItemIndexChange(int newIndex)
+        {
+            GameObject targetPrefab = containersDic[ItemContainer.ItemTypes.LeftHand].GetItem(ref newIndex);
+            anchorsDic[ItemContainer.ItemTypes.LeftHand].CreateItem(targetPrefab);
         }
     }
 }
