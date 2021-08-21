@@ -40,6 +40,7 @@ namespace PocketWarriors
                 thisKeyCode = settings.CustomeInput.GetKey(thisKeyType);
                 thisControl.SetControl(thisKeyType, thisKeyCode);
             }
+            isInfoInitialized = true;
         }
 
         private void UpdateControlsInfo()

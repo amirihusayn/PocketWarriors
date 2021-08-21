@@ -22,25 +22,31 @@ namespace PocketWarriors
 
         private IEnumerator ReadInput()
         {
+            RemoveListners();
             while(!isFound && !Input.GetKey(KeyCode.Escape))
             {
                 foreach(KeyCode thisKeyCode in typeof(KeyCode).GetEnumValues())
-                {
-                    if(Input.GetKey(thisKeyCode) && thisKeyCode != KeyCode.Escape)
+                    if(Input.GetKey(thisKeyCode))
                     {
                         keyCode = thisKeyCode;
                         isFound = true;
                         break;
                     }
-                }
                 yield return null;
             }
             if(isFound)
             {
-                control.SetControl(control.KeyType, keyCode);
-                ControlsInfoUpdate.Instance.SetNotAssignedKeys(control);
-                isFound = false;
+                if(keyCode == KeyCode.Escape)
+                    control.SetControl(control.KeyType, control.KeyCode);
+                else
+                {
+                    control.SetControl(control.KeyType, keyCode);
+                    ControlsInfoUpdate.Instance.SetNotAssignedKeys(control);
+                    isFound = false;
+                }
             }
+            yield return new WaitForSeconds(0.5f);
+            AddOnClickListner();
         }
     }
 }                                                                                           

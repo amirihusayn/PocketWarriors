@@ -27,5 +27,10 @@ namespace PocketWarriors
         {
             button.onClick.RemoveAllListeners();
         }
+
+        protected void RemoveListners()
+        {
+            button.onClick.RemoveAllListeners();
+        }
     }
 }
