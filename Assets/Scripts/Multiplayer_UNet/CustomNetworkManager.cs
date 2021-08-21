@@ -10,33 +10,27 @@ namespace PocketWarriors
     public class CustomNetworkManager : NetworkManager
     {
         // Fields________________________________________________________
-        private List<UNetItemAssign> itemAssignList = new List<UNetItemAssign>();
+        public string MyServerAddress;
+        public int MyServerPort;
 
         // Methods_____________________________________________________
-        public override void OnClientDisconnect(NetworkConnection conn)
-        {
-            base.OnClientDisconnect(conn);
-            ResetCursorState();
-        }
-
         public override void OnServerAddPlayer(NetworkConnection conn, short playerControllerId)
         {
             base.OnServerAddPlayer(conn, playerControllerId);
-
+            
             GameObject warrior = conn.playerControllers[playerControllerId].gameObject;
             UNetItemAssign itemAssign = warrior.GetComponent<UNetItemAssign>();
-            itemAssignList.Add(itemAssign);
 
+            itemAssign.Connection = conn;
+            itemAssign.RegisterConnection();
             itemAssign.Initialize();
             itemAssign.AssignItems();
+            itemAssign.SendItemsToAll(playerControllerId);
 
-            // foreach(NetworkConnection connection in NetworkServer.connections)
-            // {
-            //     foreach(PlayerController controller in connection.playerControllers)
-            //     {
-            //         controller.gameObject.GetComponent<UNetItemAssign>().LocalAssign(controller.gameObject.GetComponent<UNetItemAssign>().LeftHandItemIndex);
-            //     }
-            // }
+            foreach(NetworkConnection connection in NetworkServer.connections)
+                if(connection != conn)
+                    foreach(PlayerController controller in connection.playerControllers)
+                        controller.gameObject.GetComponent<UNetItemAssign>().SendItemsToPlayer(playerControllerId, (short)conn.connectionId);
         }
 
         public override void OnServerDisconnect(NetworkConnection conn)
@@ -53,16 +47,6 @@ namespace PocketWarriors
         public override void OnStartClient(NetworkClient client)
         {
             base.OnStartClient(client);
-        }
-
-        public override void OnStartHost()
-        {
-            base.OnStartHost();
-        }
-
-        public override void OnStartServer()
-        {
-            base.OnStartServer();
         }
 
         public override void OnStopClient()
@@ -92,6 +76,16 @@ namespace PocketWarriors
         public override NetworkClient StartHost()
         {
             return base.StartHost();
+        }
+
+        public void SetItemMessageServer(string address)
+        {
+            string [] segments = address.Split(':');
+            address = segments[3];
+            Debug.Log("ServerSet:     "  + address);
+            NetworkServer.Listen(address, 4445);
+            MyServerAddress = address;
+            MyServerPort = 4445;
         }
     }
 }

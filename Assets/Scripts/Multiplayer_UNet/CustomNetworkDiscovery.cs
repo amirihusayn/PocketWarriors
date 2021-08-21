@@ -55,7 +55,6 @@ namespace PocketWarriors
 
         public void ListenBradcasts()
         {
-            // StopBroadcast();
             base.Initialize();
             base.StartAsClient();
             StopAllCoroutines();
@@ -64,7 +63,6 @@ namespace PocketWarriors
 
         public void StartBroadCast()
         {
-            // StopBroadcast();
             base.Initialize();
             base.StartAsServer();
         }
@@ -82,6 +80,7 @@ namespace PocketWarriors
                 availableHosts[newHost] = Time.time + timeOut;
             else
             {
+                FindObjectOfType<CustomNetworkManager>().SetItemMessageServer(fromAddress);
                 availableHosts.Add(newHost, Time.time + timeOut);
                 MatchInfoUpdate.Instance.AddNewMatch(newHost, this, fromAddress, data);
             }

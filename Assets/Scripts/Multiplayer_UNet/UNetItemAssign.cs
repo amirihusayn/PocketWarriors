@@ -8,26 +8,20 @@ namespace PocketWarriors
 {
     public class ItemMessage : MessageBase
     {
-
-        // Fields________________________________________________________
-        public short itemTypeNumber;
-        public short itemIndex;
-        public short playerControllerId;
+        public short PlayerID;
+        public short ConnectionID;
+        public int index;
+        public ItemContainer.ItemTypes ItemType;
     }
 
     public class UNetItemAssign : NetworkBehaviour, IItemAssign
     {
         // Fields________________________________________________________
+        public NetworkConnection Connection;
         [SerializeField] private List<ItemContainer> ContainersList;
         private List<ItemAnchor> anchorsList;
         private Dictionary<ItemContainer.ItemTypes, ItemContainer> containersDic;
         private Dictionary<ItemContainer.ItemTypes, ItemAnchor> anchorsDic;
-        
-
-        [SyncVar(hook = "OnLeftHandItemIndexChange")] private int leftHandItemIndex;
-        public int LeftHandItemIndex { get => leftHandItemIndex;}
-
-
 
         // Properties___________________________________________________
         public Dictionary<ItemContainer.ItemTypes, ItemContainer> ContainersDic { get => containersDic; }
@@ -37,6 +31,7 @@ namespace PocketWarriors
         private void Awake()
         {
             Initialize();
+            AssignItems();
         }
 
         public void Initialize()
@@ -50,40 +45,77 @@ namespace PocketWarriors
                 anchorsDic.Add(anchor.ItemType, anchor);
         }
 
+        public void RegisterConnection()
+        {
+            NetworkServer.RegisterHandler((short)1002, OnIndexMessageRecievedInServer);
+            Connection.RegisterHandler((short)1003, OnIndexMessageRecievedInClient);
+        }
+
         public void AssignItems()
+        {
+            int itemIndex;
+            foreach(ItemContainer.ItemTypes itemType in ContainersDic.Keys)
+            {
+                if (PlayerPrefs.HasKey(itemType.ToString()))
+                    itemIndex = PlayerPrefs.GetInt(itemType.ToString());
+                else
+                {
+                    itemIndex = 0;
+                    PlayerPrefs.SetInt(itemType.ToString(), itemIndex);
+                }
+                GameObject targetPrefab = containersDic[itemType].GetItem(ref itemIndex);
+                anchorsDic[itemType].CreateItem(targetPrefab);
+            }
+        }
+
+        public void SendItemsToPlayer(short playerID, short connectionID)
         {
             if(!isLocalPlayer)
                 return;
-
             int itemIndex;
-            if (PlayerPrefs.HasKey(ItemContainer.ItemTypes.LeftHand.ToString()))
-                itemIndex = PlayerPrefs.GetInt(ItemContainer.ItemTypes.LeftHand.ToString());
-            else
+            foreach(ItemContainer.ItemTypes itemType in ContainersDic.Keys)
             {
-                itemIndex = 0;
-                PlayerPrefs.SetInt(ItemContainer.ItemTypes.LeftHand.ToString(), itemIndex);
-            } 
-            CmdAssign(itemIndex);
+                if (PlayerPrefs.HasKey(itemType.ToString()))
+                    itemIndex = PlayerPrefs.GetInt(itemType.ToString());
+                else
+                {
+                    itemIndex = 0;
+                    PlayerPrefs.SetInt(itemType.ToString(), itemIndex);
+                } 
+                ItemMessage message = new ItemMessage();
+                message.index = (short)itemIndex;
+                message.ItemType = itemType;
+                message.PlayerID = playerID;
+                message.ConnectionID = connectionID;
+                Connection.Send(1002, message);
+            }
         }
 
-        [Command]
-        private void CmdAssign(int newIndex)
+        public void SendItemsToAll(short playerID)
         {
-            leftHandItemIndex = newIndex;
-            RpcAssign(newIndex);
+            SendItemsToPlayer(playerID, -1);
         }
 
-        [ClientRpc]
-        public void RpcAssign(int newIndex)
+        private void OnIndexMessageRecievedInServer(NetworkMessage message)
         {
-            GameObject targetPrefab = containersDic[ItemContainer.ItemTypes.LeftHand].GetItem(ref newIndex);
-            anchorsDic[ItemContainer.ItemTypes.LeftHand].CreateItem(targetPrefab);
+            ItemMessage itemMessage = message.ReadMessage<ItemMessage>();
+            if(itemMessage.ConnectionID == -1)
+                NetworkServer.SendToAll(1003, itemMessage);
+            else
+                NetworkServer.SendToClient(itemMessage.ConnectionID, 1003, itemMessage);
+            GameObject warrior = Connection.playerControllers[itemMessage.PlayerID].gameObject;
+            UNetItemAssign itemAssign = warrior.GetComponent<UNetItemAssign>();
+            GameObject targetPrefab = itemAssign.containersDic[itemMessage.ItemType].GetItem(ref itemMessage.index);
+            itemAssign.anchorsDic[itemMessage.ItemType].CreateItem(targetPrefab);
         }
 
-        private void OnLeftHandItemIndexChange(int newIndex)
+        private void OnIndexMessageRecievedInClient(NetworkMessage message)
         {
-            GameObject targetPrefab = containersDic[ItemContainer.ItemTypes.LeftHand].GetItem(ref newIndex);
-            anchorsDic[ItemContainer.ItemTypes.LeftHand].CreateItem(targetPrefab);
+            ItemMessage itemMessage = message.ReadMessage<ItemMessage>();
+            GameObject warrior = Connection.playerControllers[itemMessage.PlayerID].gameObject;
+            UNetItemAssign itemAssign = warrior.GetComponent<UNetItemAssign>();
+            GameObject targetPrefab = itemAssign.containersDic[itemMessage.ItemType].GetItem(ref itemMessage.index);
+            itemAssign.anchorsDic[itemMessage.ItemType].CreateItem(targetPrefab);
         }
     }
 }
