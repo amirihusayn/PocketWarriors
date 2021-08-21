@@ -9,7 +9,8 @@ namespace PocketWarriors
         // Fields________________________________________________________
         [SerializeField] private WarriorStats stats;
         [SerializeField] private Rigidbody warriorRigidBody;
-        private float rotationDegree, rotationSpeed;
+        private short rotationDegree;
+        private float rotationSpeed;
 
         // Methods_____________________________________________________
         private void Start()
@@ -31,7 +32,7 @@ namespace PocketWarriors
 
         public void GetInputRotation()
         {
-            rotationDegree = Input.GetAxis("Mouse X") * rotationSpeed * Time.deltaTime;
+            rotationDegree = (short)(Input.GetAxis("Mouse X") * rotationSpeed * Time.deltaTime);
         }
 
         private void FixedUpdate()
