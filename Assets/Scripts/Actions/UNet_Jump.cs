@@ -55,7 +55,6 @@ namespace PocketWarriors
         protected override void PerformSpectralOperation(ActionRequirement requirement)
         {
             networkAnimator.SetTrigger("OnJump");
-
             // create a projectile on ground that will explode
         }
     }

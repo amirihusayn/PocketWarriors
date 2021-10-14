@@ -14,9 +14,9 @@ namespace PocketWarriors
         private bool isEdited;
 
         // Properties___________________________________________________
+        public Text ControlText { get => controlText; }
         public InputPrototype.keyTypes KeyType { get => keyType; }
         public KeyCode KeyCode { get => keyCode; }
-        public Text ControlText { get => controlText; }
         public bool IsEdited { get => isEdited; set => isEdited = value; }
 
         // Methods_____________________________________________________

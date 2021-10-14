@@ -9,7 +9,7 @@ namespace PocketWarriors
         public abstract bool IsSubscribable { get;}
         
         // Methods_____________________________________________________
-        public void Subscribe(ActionContainer actionContainer, ActionRequirement requirement)
+        public void Subscribe(ActionContainer actionContainer)
         {
             actionContainer.Checker += Check;
             actionContainer.Performer += Perform;

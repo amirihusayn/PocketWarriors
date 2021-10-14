@@ -47,7 +47,7 @@ namespace PocketWarriors
             StartCoroutine("IncreaseStamina");
         }
         
-        void Start()
+        private void Start()
         {
             Indicator.InitializeIndicator();
             if (!isServer || GameController.Instance.IsGameLocal)

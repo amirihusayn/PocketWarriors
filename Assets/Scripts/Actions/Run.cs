@@ -30,12 +30,11 @@ namespace PocketWarriors
         protected override void PerformNormalOperation(ActionRequirement requirement)
         {
             requirement.Animator.SetBool("isWalking" , true);
-            ////// increase animation speed and movement speed
+            // Increase animation speed and movement speed
         }
 
         protected override void PerformSpectralOperation(ActionRequirement requirement)
         {
-            // double movement speed but more power cost
         }
     }
 }

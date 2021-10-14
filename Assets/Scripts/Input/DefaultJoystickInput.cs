@@ -10,7 +10,7 @@ namespace PocketWarriors
         private static DefaultJoystickInput instance;
 
         // Constructor_________________________________________________
-        public DefaultJoystickInput()
+        private DefaultJoystickInput()
         {
             Initialize();
         }

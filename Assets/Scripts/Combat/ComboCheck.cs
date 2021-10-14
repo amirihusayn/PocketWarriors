@@ -40,7 +40,10 @@ namespace PocketWarriors
         {
             foreach(Combo combo in comboProfile.ComboList)
                 foreach(InputPrototype.keyTypes key in combo.ComboChainList)
+                {
                     combo.ComboString = ((int) key).ToString();
+                    combo.ComboString += "@";
+                }
         }
 
         private void CheckInput()
@@ -55,6 +58,7 @@ namespace PocketWarriors
                 if(Input.GetKeyDown(keyCode))
                 {
                     comboString += ((int) key).ToString();
+                    comboString += "@";
                     UpdateTime();
                     CheckCombo();
                 }
@@ -87,6 +91,7 @@ namespace PocketWarriors
 
         private void UpdateTime()
         {
+            durationTime += Time.deltaTime;
         }
     }
 }

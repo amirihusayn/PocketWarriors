@@ -52,7 +52,7 @@ namespace PocketWarriors
 
         protected override void PerformSpectralOperation(ActionRequirement requirement)
         {
-            // create a direct spectral power mesh front of warrior
+            // create a spectral power shape front of warrior
         }
     }
 }

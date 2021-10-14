@@ -37,5 +37,9 @@ namespace PocketWarriors
             else
                 PlayerPrefs.SetInt("Score", Score);
         }
+
+        public void RestoreToDefault()
+        {
+        }
     }
 }

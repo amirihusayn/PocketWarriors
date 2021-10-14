@@ -14,9 +14,6 @@ namespace PocketWarriors
         private Dictionary<Host,GameObject> matchDic;
         private Stack<GameObject> disabledMatcheList;
 
-        // Properties___________________________________________________
-        public Dictionary<Host, GameObject> MatchDic { get => matchDic; set => matchDic = value; }
-
         // Methods_____________________________________________________
         protected override void Awake()
         {

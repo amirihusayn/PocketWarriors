@@ -26,5 +26,10 @@ namespace PocketWarriors
         {
             // if(PlayerPrefs.HasKey)
         }
+
+        public void RestoreToDefault()
+        {
+            
+        }
     }
 }

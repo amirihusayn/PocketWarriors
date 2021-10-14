@@ -6,5 +6,6 @@ namespace PocketWarriors
     {
         void SavePrefrences();
         void LoadPrefrences();
+        void RestoreToDefault();
     }
 }

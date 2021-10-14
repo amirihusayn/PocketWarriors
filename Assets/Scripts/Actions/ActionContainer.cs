@@ -12,17 +12,14 @@ namespace PocketWarriors
         public event Action<ActionRequirement> Checker;
         public event Action<ActionRequirement> Performer;
 
-        // Properties___________________________________________________
-        public Dictionary<Type, ActionPrototype> ActionDictionary { get => actionDictionary; }
-
         // Constructor_________________________________________________
-        public ActionContainer(ActionRequirement requirement)
+        public ActionContainer()
         {
-            Initialize(requirement);
+            Initialize();
         }
 
         // Methods_____________________________________________________
-        private void Initialize(ActionRequirement requirement)
+        private void Initialize()
         {
             actionDictionary = new Dictionary<Type, ActionPrototype>();
             var allActionAssembly = Assembly.GetAssembly(typeof(ActionPrototype));
@@ -35,7 +32,7 @@ namespace PocketWarriors
                 if(action.IsSubscribable)
                 {
                     actionDictionary.Add(thisActionType, action);
-                    action.Subscribe(this, requirement);
+                    action.Subscribe(this);
                 }
             }
         }

@@ -9,8 +9,6 @@ namespace PocketWarriors
         // Fields________________________________________________________
         [SerializeField] private ActionRequirement requirement;
         [SerializeField] private GameObject cameraPrefab;
-        private ActionContainer actionContainer;
-        private InputPrototype warriorInput;
 
         // Properties___________________________________________________
         public ActionRequirement Requirement { get => requirement; }
@@ -23,10 +21,8 @@ namespace PocketWarriors
 
         public void Initialize()
         {
-            actionContainer = new ActionContainer(requirement);
-            warriorInput = new CustomeKeyboardInput();
-            requirement.ActionContainer = actionContainer;
-            requirement.WarriorInput = warriorInput;
+            requirement.InitializeActionContainer();
+            requirement.InitializeWarriorInput();
             GameObject camera = Instantiate(cameraPrefab, new Vector3(0, 15, -18), Quaternion.Euler(30, 0, 0));
             camera.transform.SetParent(gameObject.transform);
         }

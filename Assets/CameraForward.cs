@@ -6,6 +6,7 @@ namespace PocketWarriors
 {
     public class CameraForward : MonoBehaviour
     {
+        [SerializeField] private bool isForward, isBackward, isRight, isLeft;
         private Transform cameraTransform;
         private bool isCameraTransformInitialized;
 
@@ -17,8 +18,14 @@ namespace PocketWarriors
 
         private void LateUpdate() 
         {
-            if(isCameraTransformInitialized)
+            if(isCameraTransformInitialized && isForward)
                 gameObject.transform.forward = cameraTransform.forward;
+            else if(isCameraTransformInitialized && isBackward)
+                gameObject.transform.forward = - cameraTransform.forward;
+            else if(isCameraTransformInitialized && isRight)
+                gameObject.transform.right = cameraTransform.right;
+            else if(isCameraTransformInitialized && isLeft)
+                gameObject.transform.right = - cameraTransform.right;
         }
 
         private IEnumerator GetCameraTransform()

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace PocketWarriors
 {
-    public class CustomeJoystickInput : InputPrototype
+    public class CustomeJoystickInput : InputPrototype, ISavable
     {
         // Constructor_________________________________________________
         public CustomeJoystickInput()

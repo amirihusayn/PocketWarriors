@@ -37,8 +37,6 @@ namespace PocketWarriors
 
         protected override void PerformSpectralOperation(ActionRequirement requirement)
         {
-
-            // 
         }
     }
 }

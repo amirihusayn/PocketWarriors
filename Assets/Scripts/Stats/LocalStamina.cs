@@ -94,10 +94,5 @@ namespace PocketWarriors
         {
             CurrentState -= staminaAmount;
         }
-
-        public bool HasEnoughStamina(short staminaCost)
-        {
-            return staminaCost <= CurrentState;
-        }
     }
 }
