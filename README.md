@@ -10,7 +10,7 @@ Watch Gameplay video !
 [![GitHub license](https://img.shields.io/github/license/amirihusayn/PocketWarriors)](https://github.com/amirihusayn/PocketWarriors)
 
 ## Project Idea
-A LAN multiplayer fighting prototype made with UNet.
+A LAN multiplayer fighting prototype made with UNet. It's open source project and build can be found [here](https://amirihusayn.itch.io/pocketwarriors).
 
 ## Contributing
 Any contributions are welcome. Take a look at ![Contributing guideline](https://github.com/amirihusayn/PocketWarriors/blob/main/CONTRIBUTING.md).
@@ -23,7 +23,7 @@ There are several milestones that you can check out them and contibute for solvi
 - [ ] Art
 - [ ] Profile System
 - [ ] Initial Combat Gameplay System
-- [ ] UNet Networking
+- [ ] Networking
 - [ ] UI
 - [ ] Bonus Combat gameplay system
 
